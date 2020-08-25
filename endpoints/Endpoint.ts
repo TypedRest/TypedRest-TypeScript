@@ -2,6 +2,8 @@ import { HttpMethod, HttpHeader, HttpClient } from "../http";
 import { Serializer } from "../serializers";
 import { ErrorHandler, NotFoundError } from "../errors";
 import { LinkExtractor, Link } from "../links";
+import URI from "urijs";
+import "urijs/src/URITemplate";
 
 export class Endpoint {
     /**
@@ -203,11 +205,6 @@ export class Endpoint {
 
         if (!href)
             throw new NotFoundError(`No link template with rel=${rel} provided by endpoint ${this.uri}.`, 0);
-
-        /* tslint:disable */
-        const URI = require('urijs');
-        require('urijs/src/URITemplate');
-        /* tslint:enable */
 
         return this.join(URI.expand!(href, variables).toString());
     }
