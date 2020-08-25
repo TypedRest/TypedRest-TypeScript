@@ -14,10 +14,13 @@
     "url": "https://github.com/TypedRest/TypedRest-TypeScript.git"
   },
   "homepage": "https://typescript.typedrest.net/",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "index.js",
+  "types": "index.ts",
   "files": [
-    "dist"
+    "**/*.js",
+    "**/*.ts",
+    "!_doc.*",
+    "!docs/"
   ],
   "scripts": {
     "build": "tsc",

@@ -1,5 +1,5 @@
-package-lock.json
 node_modules/
-dist/
 docs/
+package-lock.json
+*.js
 *.tgz
