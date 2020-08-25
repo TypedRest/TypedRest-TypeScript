@@ -1,0 +1,30 @@
+﻿{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+    "outDir": "dist",
+    "declaration": true,
+    "sourceMap": true,
+    "inlineSources": true,
+    "noUnusedLocals": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "**/*.test.ts"
+  ],
+  "typedocOptions": {
+    "name": "TypedRest for TypeScript",
+    "mode": "module",
+    "out": "docs",
+    "includeVersion": true,
+    "excludePrivate": true,
+    "excludeNotExported": true,
+    "excludeExternals": true,
+    "exclude": "**/index.ts"
+  }
+}

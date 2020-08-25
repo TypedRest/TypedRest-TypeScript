@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "packageRules": [
+    {
+      "packagePatterns": ["typescript", "tslint", "typedoc", "jest"],
+      "automerge": true,
+      "automergeType": "branch"
+    }
+  ]
+}
