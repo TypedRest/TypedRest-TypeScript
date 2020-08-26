@@ -35,23 +35,20 @@ export class Endpoint {
      * Creates a new endpoint.
      * @param referrer The endpoint used to navigate to this one. Must be defined except for top-level endpoint.
      * @param uri The HTTP URI of the remote element. May be relative if `referrer` is defined.
-     * @param httpClient The HTTP client used to communicate with the remote resource. Taken from `referrer` instead if it is defined.
      * @param serializer Controls the serialization of entities sent to and received from the server. Taken from `referrer` instead if it is defined.
      * @param errorHandler Handles errors in responses. Taken from `referrer` instead if it is defined.
      * @param linkExtractor Extracts links from responses. Taken from `referrer` instead if it is defined.
+     * @param httpClient The HTTP client used to communicate with the remote resource. Taken from `referrer` instead if it is defined.
      */
     constructor(
         referrer: Endpoint | undefined,
         uri: URL | string,
-        httpClient?: HttpClient,
         serializer?: Serializer,
         errorHandler?: ErrorHandler,
-        linkExtractor?: LinkExtractor) {
+        linkExtractor?: LinkExtractor,
+        httpClient?: HttpClient) {
         if (referrer) {
             this.uri = (typeof uri === "string") ? referrer.join(uri) : uri;
-            if (httpClient)
-                throw new Error("httpClient must not be specified if referrer is not specified.");
-            this.httpClient = referrer.httpClient;
             if (serializer)
                 throw new Error("serializer must not be specified if referrer is not specified.");
             this.serializer = referrer.serializer;
@@ -61,11 +58,11 @@ export class Endpoint {
             if (linkExtractor)
                 throw new Error("linkExtractor must not be specified if referrer is not specified.");
             this.linkExtractor = referrer.linkExtractor;
+            if (httpClient)
+                throw new Error("httpClient must not be specified if referrer is not specified.");
+            this.httpClient = referrer.httpClient;
         } else {
             this.uri = (typeof uri === "string") ? new URL(uri) : uri;
-            if (!httpClient)
-                throw new Error("httpClient must be specified if referrer is not specified.");
-            this.httpClient = httpClient;
             if (!serializer)
                 throw new Error("serializer must be specified if referrer is not specified.");
             this.serializer = serializer;
@@ -75,6 +72,9 @@ export class Endpoint {
             if (!linkExtractor)
                 throw new Error("linkExtractor must be specified if referrer is not specified.");
             this.linkExtractor = linkExtractor;
+            if (!httpClient)
+                throw new Error("httpClient must be specified if referrer is not specified.");
+            this.httpClient = httpClient;
         }
     }
 

@@ -10,24 +10,24 @@ import { LinkExtractor, AggregateLinkExtractor, HeaderLinkExtractor, HalLinkExtr
 export class EntryEndpoint extends Endpoint {
     /**
      * Creates a new entry endpoint.
-     * @param uri The base URI of the REST API. Missing trailing slash will be appended automatically
-     * @param httpClient The HTTP client used to communicate with the REST API.
-     * @param serializer Controls the serialization of entities sent to and received from the server. Defaults to {@link JsonSerializer} if unset.</param>
-     * @param errorHandler Handles errors in HTTP responses. Defaults to {@link DefaultErrorHandler} if unset.</param>
-     * @param linkExtractor Detects links in HTTP responses. Combines {@link HeaderLinkExtractor} and {@link HalLinkExtractor} if unset.</param>
+     * @param uri The base URI of the REST API.<br>Missing trailing slash will be appended automatically.
+     * @param serializer Controls the serialization of entities sent to and received from the server.<br>Defaults to {@link JsonSerializer} if undefined.
+     * @param errorHandler Handles errors in HTTP responses.<br>Defaults to {@link DefaultErrorHandler} if undefined.
+     * @param linkExtractor Detects links in HTTP responses.<br>Defaults to {@link HeaderLinkExtractor} and {@link HalLinkExtractor} combined via {@link AggregateLinkExtractor} if undefined.
+     * @param httpClient The HTTP client used to communicate with the REST API.<br>Defaults to {@link FetchHttpClient} if undefined.
      */
     constructor(
         uri: URL | string,
-        httpClient?: HttpClient,
         serializer?: Serializer,
         errorHandler?: ErrorHandler,
-        linkExtractor?: LinkExtractor) {
+        linkExtractor?: LinkExtractor,
+        httpClient?: HttpClient) {
         super(undefined,
             Endpoint.ensureTrailingSlash(uri),
-            httpClient ?? new FetchHttpClient(),
             serializer ?? new JsonSerializer(),
             errorHandler ?? new DefaultErrorHandler(),
-            linkExtractor ?? new AggregateLinkExtractor(new HeaderLinkExtractor(), new HalLinkExtractor()));
+            linkExtractor ?? new AggregateLinkExtractor(new HeaderLinkExtractor(), new HalLinkExtractor()),
+            httpClient ?? new FetchHttpClient());
 
         for (const mediaType of this.serializer.supportedMediaTypes) {
             this.httpClient.defaultHeaders.append(HttpHeader.Accept, mediaType);
