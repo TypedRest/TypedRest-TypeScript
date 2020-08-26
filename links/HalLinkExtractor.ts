@@ -9,11 +9,11 @@ export class HalLinkExtractor implements LinkExtractor {
      * @inheritdoc
      */
     async getLinks(response: Response): Promise<Link[]> {
-        switch (response.headers.get(HttpHeader.ContentType)) {
-            case "application/hal+json":
-                return this.parseJsonBody(await response.clone().json());
-            default:
-                return [];
+        const contentType = response.headers.get(HttpHeader.ContentType);
+        if (contentType?.startsWith("application/hal+json")) {
+            return this.parseJsonBody(await response.clone().json());
+        } else {
+            return [];
         }
     }
 

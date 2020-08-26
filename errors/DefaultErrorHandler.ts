@@ -1,5 +1,5 @@
 import { ErrorHandler, HttpError, BadRequestError, AuthenticationError, AuthorizationError, NotFoundError, TimeoutError, ConflictError, ConcurrencyError, RangeError } from ".";
-import { HttpStatusCode } from "../http";
+import { HttpStatusCode, HttpHeader } from "../http";
 
 /**
  * Handles errors in HTTP responses by mapping status codes to common exception types.
@@ -28,11 +28,9 @@ export class DefaultErrorHandler implements ErrorHandler {
     }
 
     private async extractJsonMessage(response: Response) {
-        try {
-            return (await response.json()).body;
-        } catch {
-            return undefined;
-        }
+        const contentType = response.headers.get(HttpHeader.ContentType);
+        if (contentType?.startsWith("application/json") || contentType?.includes("+json"))
+            return (await response.json())?.body;
     }
 
     private static mapToError(status: HttpStatusCode, message: string) {
