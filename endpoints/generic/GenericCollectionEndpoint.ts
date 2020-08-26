@@ -1,14 +1,15 @@
-import { ETagEndpointBase } from ".";
+import { ETagEndpointBase, ElementEndpoint } from ".";
 import { Endpoint } from "../Endpoint";
 import { CachingEndpoint } from "../CachingEndpoint";
 import { HttpMethod, HttpHeader, ResponseCache } from "../../http";
 
 /**
- * Endpoint for a collection of `TEntity`s addressable as `TElementEndpoint`s.
+ * Endpoint for a collection of `TEntity`s addressable as `TElementEndpoint`s.<br>
+ * Use {@link CollectionEndpoint} instead if you wish to use the default {@link ElementEndpoint} type.
  * @typeParam TEntity The type of individual elements in the collection.
- * @typeParam TElementEndpoint The type of {@link Endpoint}s to provide for individual `TEntity`s.
+ * @typeParam TElementEndpoint The type of {@link ElementEndpoint} to provide for individual `TEntity`s.
  */
-export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Endpoint> extends ETagEndpointBase {
+export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends ElementEndpoint<TEntity>> extends ETagEndpointBase {
     /**
      * Creates a new collection endpoint.
      * @param referrer The endpoint used to navigate to this one.
@@ -114,4 +115,47 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Endpoin
      * @throws {@link HttpError}: Other non-success status code
      */
     async setAll(entities: TEntity[]) { await this.putContent(entities); }
+
+    /**
+     * Determines whether the collection contains a specific element.
+     * @param element The ID identifying the entity or an entity to extract the ID from.
+     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
+     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
+     * @throws {@link HttpError}: Other non-success status code
+     */
+    contains(element: (TEntity | string)) { return this.get(element).exists(); }
+
+    /**
+     * Sets/replaces an existing element in the collection.
+     * @param element The new state of the element.
+     * @returns The `TEntity` as returned by the server, possibly with additional fields set. undefined if the server does not respond with a result entity.
+     * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
+     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
+     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
+     * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
+     * @throws {@link HttpError}: Other non-success status code
+     */
+    set(element: TEntity) { return this.get(element).set(element); }
+
+    /**
+     * Modifies an existing element in the collection by merging changes on the server-side.
+     * @param element The `TEntity` data to merge with the existing element.
+     * @returns The `TEntity` as returned by the server, possibly with additional fields set. undefined if the server does not respond with a result entity.
+     * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
+     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
+     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
+     * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
+     * @throws {@link HttpError}: Other non-success status code
+     */
+    merge(element: TEntity) { return this.get(element).merge(element); }
+
+    /**
+     * Deletes an existing element from the collection.
+     * @param element The ID identifying the entity or an entity to extract the ID from.
+     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
+     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
+     * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
+     * @throws {@link HttpError}: Other non-success status code
+     */
+    delete(element: (TEntity | string)) { return this.get(element).delete(); }
 }
