@@ -1,6 +1,6 @@
 {
   "name": "typedrest",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "author": "Bastian Eicher",
   "license": "MIT",
   "description": "TypedRest helps you build type-safe fluent-style REST API clients.",
