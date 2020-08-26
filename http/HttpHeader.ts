@@ -1,4 +1,5 @@
 export enum HttpHeader {
+    Authorization = "Authorization",
     ContentType = "Content-Type",
     Accept = "Accept",
     Allow = "Allow",
