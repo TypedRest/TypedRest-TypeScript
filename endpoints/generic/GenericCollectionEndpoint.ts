@@ -39,28 +39,23 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Endpoin
     /**
      * Shows whether the server has indicated that {@link readAll} is currently allowed.
      * Uses cached data from last response.
-     * @returns An indicator whether the method is allowed. If no request has been sent yet or the server did not specify allowed methods `undefined` is returned.
+     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` If no request has been sent yet or the server did not specify allowed methods.
      */
-    get readAllAllowed(): boolean | undefined {
-        return this.isMethodAllowed(HttpMethod.Get);
-    }
+    get readAllAllowed() { return this.isMethodAllowed(HttpMethod.Get); }
 
-    async readAll(): Promise<TEntity[]> {
-        return this.serializer.deserialize<TEntity[]>(await this.getContent());
-    }
+    async readAll() { return this.serializer.deserialize<TEntity[]>(await this.getContent()); }
 
     /**
      * Shows whether the server has indicated that {@link create} is currently allowed.
      * Uses cached data from last response.
-     * @returns An indicator whether the method is allowed. If no request has been sent yet or the server did not specify allowed methods `undefined` is returned.
+     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` If no request has been sent yet or the server did not specify allowed methods.
      */
-    get createAllowed(): boolean | undefined {
-        return this.isMethodAllowed(HttpMethod.Post);
-    }
+    get createAllowed() { return this.isMethodAllowed(HttpMethod.Post); }
 
     /**
      * Adds a `TEntity` as a new element to the collection.
      * @param entity The new `TEntity`.
+     * @returns The `TEntity` as returned by the server, possibly with additional fields set. undefined if the server does not respond with a result entity.
      * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
      * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
@@ -83,11 +78,9 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Endpoin
     /**
      * Shows whether the server has indicated that {@link createAll} is currently allowed.
      * Uses cached data from last response.
-     * @returns An indicator whether the method is allowed. If no request has been sent yet or the server did not specify allowed methods `undefined` is returned.
+     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` If no request has been sent yet or the server did not specify allowed methods.
      */
-    get createAllAllowed(): boolean | undefined {
-        return this.isMethodAllowed(HttpMethod.Patch);
-    }
+    get createAllAllowed() { return this.isMethodAllowed(HttpMethod.Patch); }
 
     /**
      * Adds (or updates) multiple `TEntity`s as elements in the collection.
@@ -98,7 +91,7 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Endpoin
      * @throws {@link ConflictError}: {@link HttpStatusCode.Conflict}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async createAll(entities: TEntity[]): Promise<void> {
+    async createAll(entities: TEntity[]) {
         await this.send(HttpMethod.Patch, {
             [HttpHeader.ContentType]: this.serializer.supportedMediaTypes[0]
         }, this.serializer.serialize(entities));
@@ -107,11 +100,9 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Endpoin
     /**
      * Shows whether the server has indicated that {@link setAll} is currently allowed.
      * Uses cached data from last response.
-     * @returns An indicator whether the method is allowed. If no request has been sent yet or the server did not specify allowed methods `undefined` is returned.
+     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` If no request has been sent yet or the server did not specify allowed methods.
      */
-    get setAllAllowed(): boolean | undefined {
-        return this.isMethodAllowed(HttpMethod.Put);
-    }
+    get setAllAllowed() { return this.isMethodAllowed(HttpMethod.Put); }
 
     /**
      *  Replaces the entire content of the collection with new `TEntity`s.
@@ -122,7 +113,5 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Endpoin
      * @throws {@link ConflictError}: {@link HttpStatusCode.Conflict}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async setAll(entities: TEntity[]): Promise<void> {
-        await this.putContent(entities);
-    }
+    async setAll(entities: TEntity[]) { await this.putContent(entities); }
 }

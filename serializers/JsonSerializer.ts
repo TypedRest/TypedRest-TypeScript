@@ -12,14 +12,14 @@ export class JsonSerializer implements Serializer {
     /**
      * @inheritdoc
      */
-    serialize<T>(entity: T): string {
+    serialize<T>(entity: T) {
         return JSON.stringify(entity);
     }
 
     /**
      * @inheritdoc
      */
-    deserialize<T>(text: string): T {
+    deserialize<T>(text: string) {
         return JSON.parse(text);
     }
 }

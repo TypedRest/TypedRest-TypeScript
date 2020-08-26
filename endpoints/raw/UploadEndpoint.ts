@@ -23,7 +23,7 @@ export class UploadEndpoint extends Endpoint {
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async upload(blob: Blob, fileName?: string): Promise<void> {
+    async upload(blob: Blob, fileName?: string) {
         if (this.formField) {
             const formData = new FormData();
             formData.set(this.formField, blob, fileName);

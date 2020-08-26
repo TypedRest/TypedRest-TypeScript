@@ -41,7 +41,5 @@ export class EntryEndpoint extends Endpoint {
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async readMeta(): Promise<void> {
-        await this.send(HttpMethod.Get);
-    }
+    async readMeta() { await this.send(HttpMethod.Get); }
 }

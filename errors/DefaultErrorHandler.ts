@@ -18,16 +18,16 @@ export class DefaultErrorHandler implements ErrorHandler {
      * @throws {@link RangeError}: {@link HttpStatusCode.RequestedRangeNotSatisfiable}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async handle(response: Response): Promise<void> {
+    async handle(response: Response) {
         if (response.ok) return;
 
         const message = await this.extractJsonMessage(response);
-        throw DefaultErrorHandler.mapError(
+        throw DefaultErrorHandler.mapToError(
             response.status,
             message ?? `HTTP ${response.status} ${response.statusText}`);
     }
 
-    private async extractJsonMessage(response: Response): Promise<string | undefined> {
+    private async extractJsonMessage(response: Response) {
         try {
             return (await response.json()).body;
         } catch {
@@ -35,7 +35,7 @@ export class DefaultErrorHandler implements ErrorHandler {
         }
     }
 
-    private static mapError(status: HttpStatusCode, message: string): Error {
+    private static mapToError(status: HttpStatusCode, message: string) {
         switch (status) {
             case HttpStatusCode.BadRequest:
                 return new BadRequestError(message, status)

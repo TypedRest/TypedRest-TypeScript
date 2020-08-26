@@ -18,18 +18,14 @@ export class BlobEndpoint extends Endpoint {
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async probe(): Promise<void> {
-        await this.send(HttpMethod.Options);
-    }
+    async probe() { await this.send(HttpMethod.Options); }
 
     /**
      * Shows whether the server has indicated that {@link download} is currently allowed.
      * Uses cached data from last response.
-     * @returns An indicator whether the method is allowed. If no request has been sent yet or the server did not specify allowed methods `undefined` is returned.
+     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` If no request has been sent yet or the server did not specify allowed methods.
      */
-    get downloadAllowed(): boolean | undefined {
-        return this.isMethodAllowed(HttpMethod.Get);
-    }
+    get downloadAllowed() { return this.isMethodAllowed(HttpMethod.Get); }
 
     /**
      * Downloads the blob's content.
@@ -47,11 +43,9 @@ export class BlobEndpoint extends Endpoint {
     /**
      * Shows whether the server has indicated that {@link upload} is currently allowed.
      * Uses cached data from last response.
-     * @returns An indicator whether the method is allowed. If no request has been sent yet or the server did not specify allowed methods `undefined` is returned.
+     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` If no request has been sent yet or the server did not specify allowed methods.
      */
-    get uploadAllowed(): boolean | undefined {
-        return this.isMethodAllowed(HttpMethod.Put);
-    }
+    get uploadAllowed() { return this.isMethodAllowed(HttpMethod.Put); }
 
     /**
      * Uploads data as the blob's content.
@@ -61,18 +55,14 @@ export class BlobEndpoint extends Endpoint {
      * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async upload(blob: Blob): Promise<void> {
-        await this.send(HttpMethod.Put, { [HttpHeader.ContentType]: blob.type }, blob);
-    }
+    async upload(blob: Blob) { await this.send(HttpMethod.Put, { [HttpHeader.ContentType]: blob.type }, blob); }
 
     /**
      * Shows whether the server has indicated that {@link delete} is currently allowed.
      * Uses cached data from last response.
-     * @returns An indicator whether the method is allowed. If no request has been sent yet or the server did not specify allowed methods `undefined` is returned.
+     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` If no request has been sent yet or the server did not specify allowed methods.
      */
-    get deleteAllowed(): boolean | undefined {
-        return this.isMethodAllowed(HttpMethod.Delete);
-    }
+    get deleteAllowed() { return this.isMethodAllowed(HttpMethod.Delete); }
 
     /**
      * Deletes the blob from the server.
@@ -82,7 +72,5 @@ export class BlobEndpoint extends Endpoint {
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async delete(): Promise<void> {
-        await this.send(HttpMethod.Delete);
-    }
+    async delete() { await this.send(HttpMethod.Delete); }
 }

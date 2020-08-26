@@ -8,7 +8,7 @@ export class HeaderLinkExtractor implements LinkExtractor {
     /**
      * @inheritdoc
      */
-    async getLinks(response: Response): Promise<Link[]> {
+    async getLinks(response: Response) {
         return response.headers.get(HttpHeader.Link)
             ?.match(/<[^>]*>\s*(\s*;\s*[^\(\)<>@,;:"\/\[\]\?={} \t]+=(([^\(\)<>@,;:"\/\[\]\?={} \t]+)|("[^"]*")))*(,|$)/g)
             ?.map(value => this.parseLink(value))
@@ -16,7 +16,7 @@ export class HeaderLinkExtractor implements LinkExtractor {
     }
 
 
-    private parseLink(value: string): Link {
+    private parseLink(value: string) {
         const split = value.split(">");
         const href = split[0].substring(1);
         let rel: string | undefined;

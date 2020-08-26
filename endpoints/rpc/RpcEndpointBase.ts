@@ -21,16 +21,12 @@ export class RpcEndpointBase extends Endpoint {
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async probe(): Promise<void> {
-        await this.send(HttpMethod.Options);
-    }
+    async probe() { await this.send(HttpMethod.Options); }
 
     /**
      * Shows whether the server has indicated that the invoke method is currently allowed.
      * Uses cached data from last response.
-     * @returns An indicator whether the method is allowed. If no request has been sent yet or the server did not specify allowed methods `undefined` is returned.
+     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` If no request has been sent yet or the server did not specify allowed methods.
      */
-    get invokeAllowed(): boolean | undefined {
-        return this.isMethodAllowed(HttpMethod.Post);
-    }
+    get invokeAllowed() { return this.isMethodAllowed(HttpMethod.Post); }
 }

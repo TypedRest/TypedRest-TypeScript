@@ -33,9 +33,7 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async read(): Promise<TEntity> {
-        return this.serializer.deserialize<TEntity>(await this.getContent());
-    }
+    async read() { return this.serializer.deserialize<TEntity>(await this.getContent()); }
 
     /**
      * Determines whether the element currently exists.
@@ -43,7 +41,7 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
      * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async exists(): Promise<boolean> {
+    async exists() {
         const response = await this.httpClient.send(this.uri, HttpMethod.Head);
         if (response.ok) return true;
         if (response.status === HttpStatusCode.NotFound || response.status === HttpStatusCode.Gone) return false;
@@ -55,15 +53,14 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
     /**
      * Shows whether the server has indicated that {@link set} is currently allowed.
      * Uses cached data from last response.
-     * @returns An indicator whether the method is allowed. If no request has been sent yet or the server did not specify allowed methods `undefined` is returned.
+     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` If no request has been sent yet or the server did not specify allowed methods.
      */
-    get setAllowed(): boolean | undefined {
-        return this.isMethodAllowed(HttpMethod.Put);
-    }
+    get setAllowed() { return this.isMethodAllowed(HttpMethod.Put); }
 
     /**
      * Sets/replaces the `TEntity`.
      * @param entity The new `TEntity`.
+     * @returns The `TEntity` as returned by the server, possibly with additional fields set. undefined if the server does not respond with a result entity.
      * @throws {@link ConcurrencyError}: The entity has changed since it was last retrieved with {@link read}. Your changes were rejected to prevent a lost update.
      * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
@@ -82,15 +79,14 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
     /**
      * Shows whether the server has indicated that {@link merge} is currently allowed.
      * Uses cached data from last response.
-     * @returns An indicator whether the method is allowed. If no request has been sent yet or the server did not specify allowed methods `undefined` is returned.
+     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` If no request has been sent yet or the server did not specify allowed methods.
      */
-    get mergeAllowed(): boolean | undefined {
-        return this.isMethodAllowed(HttpMethod.Patch);
-    }
+    get mergeAllowed() { return this.isMethodAllowed(HttpMethod.Patch); }
 
     /**
      * Modifies an existing `TEntity` by merging changes on the server-side.
      * @param entity The `TEntity` data to merge with the existing element.
+     * @returns The `TEntity` as returned by the server, possibly with additional fields set. undefined if the server does not respond with a result entity.
      * @throws {@link ConcurrencyError}: The entity has changed since it was last retrieved with {@link read}. Your changes were rejected to prevent a lost update.
      * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
@@ -114,6 +110,7 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
      * Reads the current state of the entity, applies a change to it and stores the result. Applies optimistic concurrency using automatic retries.
      * @param updateAction A callback that takes the current state of the entity and applies the desired modifications.
      * @param maxRetries The maximum number of retries to perform for optimistic concurrency before giving up.
+     * @returns The `TEntity` as returned by the server, possibly with additional fields set. undefined if the server does not respond with a result entity.
      * @throws {@link ConcurrencyError}: The maximum number of retries to perform for optimistic concurrency before giving up.
      * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
@@ -138,11 +135,9 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
     /**
      * Shows whether the server has indicated that {@link delete} is currently allowed.
      * Uses cached data from last response.
-     * @returns An indicator whether the method is allowed. If no request has been sent yet or the server did not specify allowed methods `undefined` is returned.
+     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` If no request has been sent yet or the server did not specify allowed methods.
      */
-    get deleteAllowed(): boolean | undefined {
-        return this.isMethodAllowed(HttpMethod.Delete);
-    }
+    get deleteAllowed() { return this.isMethodAllowed(HttpMethod.Delete); }
 
     /**
      * Deletes the element.
@@ -152,7 +147,5 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async delete(): Promise<void> {
-        await this.deleteContent();
-    }
+    async delete() { await this.deleteContent(); }
 }

@@ -16,7 +16,7 @@ export class ResponseCache {
     /**
      * Creates a new cache from a `Response`.
      */
-    static async from(response: Response): Promise<ResponseCache> {
+    static async from(response: Response) {
         return new ResponseCache(
             await response.text(),
             response.headers.get(HttpHeader.ContentType) ?? undefined,

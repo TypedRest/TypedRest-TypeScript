@@ -22,35 +22,31 @@ export class CollectionEndpoint<TEntity> extends GenericCollectionEndpoint<TEnti
      * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
      * @throws {@link HttpError}: Other non-success status code
      */
-    contains(element: (TEntity | string)): Promise<boolean> {
-        return this.get(element).exists();
-    }
+    contains(element: (TEntity | string)) { return this.get(element).exists(); }
 
     /**
      * Sets/replaces an existing element in the collection.
      * @param element The new state of the element.
+     * @returns The `TEntity` as returned by the server, possibly with additional fields set. undefined if the server does not respond with a result entity.
      * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
      * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    set(element: TEntity): Promise<void | TEntity> {
-        return this.get(element).set(element);
-    }
+    set(element: TEntity) { return this.get(element).set(element); }
 
     /**
      * Modifies an existing element in the collection by merging changes on the server-side.
      * @param element The `TEntity` data to merge with the existing element.
+     * @returns The `TEntity` as returned by the server, possibly with additional fields set. undefined if the server does not respond with a result entity.
      * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
      * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    merge(element: TEntity): Promise<void | TEntity> {
-        return this.get(element).merge(element);
-    }
+    merge(element: TEntity) { return this.get(element).merge(element); }
 
     /**
      * Deletes an existing element from the collection.
@@ -60,7 +56,5 @@ export class CollectionEndpoint<TEntity> extends GenericCollectionEndpoint<TEnti
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    delete(element: (TEntity | string)): Promise<void> {
-        return this.get(element).delete();
-    }
+    delete(element: (TEntity | string)) { return this.get(element).delete(); }
 }

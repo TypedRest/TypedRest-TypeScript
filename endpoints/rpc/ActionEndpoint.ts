@@ -22,7 +22,5 @@ export class ActionEndpoint extends RpcEndpointBase {
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async invoke(): Promise<void> {
-        await this.send(HttpMethod.Post);
-    }
+    async invoke() { await this.send(HttpMethod.Post); }
 }

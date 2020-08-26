@@ -24,7 +24,7 @@ export class ConsumerEndpoint<TEntity> extends RpcEndpointBase {
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async invoke(entity: TEntity): Promise<void> {
+    async invoke(entity: TEntity) {
         await this.send(HttpMethod.Post, {
             [HttpHeader.ContentType]: this.serializer.supportedMediaTypes[0]
         }, this.serializer.serialize(entity));

@@ -17,7 +17,7 @@ export class AggregateLinkExtractor implements LinkExtractor {
     /**
      * @inheritdoc
      */
-    async getLinks(response: Response): Promise<Link[]> {
+    async getLinks(response: Response) {
         let result: Link[] = [];
         for (const extractor of this.extractors) {
             result = result.concat(await extractor.getLinks(response));

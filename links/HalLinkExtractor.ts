@@ -17,7 +17,7 @@ export class HalLinkExtractor implements LinkExtractor {
         }
     }
 
-    private parseJsonBody(body: any): Link[] {
+    private parseJsonBody(body: any) {
         const links: Link[] = [];
 
         const linkContainer: { [key: string]: any; } = body._linkContainer;
@@ -36,7 +36,7 @@ export class HalLinkExtractor implements LinkExtractor {
         return links;
     }
 
-    private parseLink(rel: string, obj: any): Link {
+    private parseLink(rel: string, obj: any) {
         if (!obj.href)
             throw new Error("The link header is lacking the mandatory 'href' field.");
         return new Link(rel, obj.href, obj.title, obj.templated ? true : false);
