@@ -15,7 +15,7 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Endpoin
      * @param relativeUri The URI of this endpoint relative to the `referrer`'s. Add a `./` prefix here to imply a trailing slash in the `referrer`'s URI.
      * @param elementEndpoint A factory method for creating instances of `TElementEndpoint`.
      */
-    protected constructor(referrer: Endpoint, relativeUri: URL | string, private readonly elementEndpoint: new (referrer: Endpoint, uri: URL) => TElementEndpoint) {
+    constructor(referrer: Endpoint, relativeUri: URL | string, private readonly elementEndpoint: new (referrer: Endpoint, uri: URL) => TElementEndpoint) {
         super(referrer, relativeUri);
         this.setDefaultLinkTemplate("child", "./{id}");
     }
