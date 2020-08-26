@@ -44,6 +44,11 @@ jobs:
           force_orphan: true
           publish_dir: docs
           cname: typescript.typedrest.net
+      - name: Connect to registry (npmjs.com)
+        if: github.event_name == 'push' && steps.gitversion.outputs.preReleaseLabel == ''
+        uses: actions/setup-node@v1
+        with:
+          registry-url: https://registry.npmjs.org
       - name: Publish packages (npmjs.com)
         if: github.event_name == 'push' && steps.gitversion.outputs.preReleaseLabel == ''
         run: npm publish --access public
@@ -51,7 +56,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
       # Publish
-      - name: Connect to GitHub Packages
+      - name: Connect to registry (GitHub)
         if: github.event_name == 'push'
         uses: actions/setup-node@v1
         with:
