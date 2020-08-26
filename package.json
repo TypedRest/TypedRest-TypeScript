@@ -13,7 +13,7 @@
     "type": "git",
     "url": "https://github.com/TypedRest/TypedRest-TypeScript.git"
   },
-  "homepage": "https://typescript.typedrest.net/",
+  "homepage": "https://typedrest.net",
   "main": "index.js",
   "types": "index.ts",
   "files": [
