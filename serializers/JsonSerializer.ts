@@ -20,6 +20,6 @@ export class JsonSerializer implements Serializer {
      * @inheritdoc
      */
     deserialize<T>(text: string) {
-        return JSON.parse(text);
+        return JSON.parse(text) as T;
     }
 }
