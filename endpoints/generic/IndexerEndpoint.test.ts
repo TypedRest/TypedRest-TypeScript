@@ -8,5 +8,5 @@ beforeEach(() => {
 });
 
 test('getById', () => {
-    expect(endpoint.get('x/y').uri.href).toBe('http://localhost/endpoint/x%2Fy');
+    expect(endpoint.get('x/y').uri).toEqual(new URL('http://localhost/endpoint/x%2Fy'));
 });

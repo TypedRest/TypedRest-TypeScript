@@ -16,7 +16,7 @@ beforeEach(() => {
 });
 
 test('getById', () => {
-    expect(endpoint.get('x/y').uri.href).toBe('http://localhost/endpoint/x%2Fy');
+    expect(endpoint.get('x/y').uri).toEqual(new URL('http://localhost/endpoint/x%2Fy'));
 });
 
 test('getByIdWithLinkHeaderRelative', async () => {
@@ -31,7 +31,7 @@ test('getByIdWithLinkHeaderRelative', async () => {
     );
     await endpoint.readAll();
 
-    expect(endpoint.get('1').uri.href).toBe('http://localhost/children?id=1');
+    expect(endpoint.get('1').uri).toEqual(new URL('http://localhost/children?id=1'));
 });
 
 test('getByIdWithLinkHeaderAbsolute', async () => {
@@ -46,11 +46,11 @@ test('getByIdWithLinkHeaderAbsolute', async () => {
     );
     await endpoint.readAll();
 
-    expect(endpoint.get('1').uri.href).toBe('http://localhost/children?id=1');
+    expect(endpoint.get('1').uri).toEqual(new URL('http://localhost/children?id=1'));
 });
 
 test('getByEntity', () => {
-    expect(endpoint.get(new MockEntity(1, 'test')).uri.href).toBe('http://localhost/endpoint/1');
+    expect(endpoint.get(new MockEntity(1, 'test')).uri).toEqual(new URL('http://localhost/endpoint/1'));
 });
 
 test('getByEntityWithLinkHeaderRelative', async () => {
@@ -65,7 +65,7 @@ test('getByEntityWithLinkHeaderRelative', async () => {
     );
     await endpoint.readAll();
 
-    expect(endpoint.get('1').uri.href).toBe('http://localhost/children/1');
+    expect(endpoint.get('1').uri).toEqual(new URL('http://localhost/children/1'));
 });
 
 test('getByEntityWithLinkHeaderAbsolute', async () => {
@@ -80,7 +80,7 @@ test('getByEntityWithLinkHeaderAbsolute', async () => {
     );
     await endpoint.readAll();
 
-    expect(endpoint.get('1').uri.href).toBe('http://localhost/children/1');
+    expect(endpoint.get('1').uri).toEqual(new URL('http://localhost/children/1'));
 });
 
 test('readAll', async () => {
@@ -131,7 +131,7 @@ test('create', async () => {
 
     const element = await endpoint.create(new MockEntity(0, 'test'));
     expect(element.response).toEqual(new MockEntity(5, 'test'));
-    expect(element.uri.href).toBe('http://localhost/endpoint/5');
+    expect(element.uri).toEqual(new URL('http://localhost/endpoint/5'));
 });
 
 test('createLocation', async () => {
@@ -151,7 +151,7 @@ test('createLocation', async () => {
 
     const element = await endpoint.create(new MockEntity(0, 'test'));
     expect(element.response).toEqual(new MockEntity(5, 'test'));
-    expect(element.uri.href).toBe('http://localhost/endpoint/new');
+    expect(element.uri).toEqual(new URL('http://localhost/endpoint/new'));
 });
 
 test('createAll', async () => {
