@@ -2,7 +2,7 @@ import { ErrorHandler, HttpError, BadRequestError, AuthenticationError, Authoriz
 import { HttpStatusCode, HttpHeader } from "../http";
 
 /**
- * Handles errors in HTTP responses by mapping status codes to common exception types.
+ * Handles errors in HTTP responses by mapping status codes to common error types.
  */
 export class DefaultErrorHandler implements ErrorHandler {
     /**
@@ -29,8 +29,9 @@ export class DefaultErrorHandler implements ErrorHandler {
 
     private async extractJsonMessage(response: Response) {
         const contentType = response.headers.get(HttpHeader.ContentType);
-        if (contentType?.startsWith("application/json") || contentType?.includes("+json"))
-            return (await response.json())?.body;
+        return (contentType?.startsWith("application/json") || contentType?.includes("+json"))
+            ? (await response.json())?.message
+            : undefined;
     }
 
     private static mapToError(status: HttpStatusCode, message: string) {
