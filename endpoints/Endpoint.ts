@@ -161,7 +161,7 @@ export class Endpoint {
     }
 
     /**
-     * Resolves all links with a specific relation type cached from the last request.
+     * Resolves all links with a specific relation type. Uses cached data from last response.
      * @param rel The relation type of the links to look for.
      */
     getLinks(rel: string): { uri: URL; title?: string; }[] {
@@ -180,7 +180,7 @@ export class Endpoint {
     }
 
     /**
-     * Resolves a single link with a specific relation type.
+     * Resolves a single link with a specific relation type. Uses cached data from last response.
      * @param rel The relation type of the link to look for.
      * @throws {@link NotFoundError}: No link with the specified `rel` could be found.
      */
@@ -194,19 +194,28 @@ export class Endpoint {
     }
 
     /**
-     * Resolves a link template with a specific relation type.
+     * Resolves a link template with a specific relation type. Uses cached data from last response.
      * @param rel The relation type of the link template to look for.
      * @param variables Variables for resolving the template.
      * @throws {@link NotFoundError}: No link template with the specified `rel` could be found.
      */
     linkTemplate(rel: string, variables: { [key: string]: any; }): URL {
-        const href = this.links.find(x => x.templated && x.rel === rel)?.href
+        return this.join(URI.expand!(this.getLinkTemplate(rel), variables).toString());
+    }
+
+    /**
+     * Retrieves a link template with a specific relation type. Uses cached data from last response. Prefer {@link linkTemplate} when possible.
+     * @param rel The relation type of the link template to look for.
+     * @throws {@link NotFoundError}: No link template with the specified `rel` could be found.
+     */
+    getLinkTemplate(rel: string) {
+        const template = this.links.find(x => x.templated && x.rel === rel)?.href
             ?? this.defaultLinkTemplates.get(rel);
 
-        if (!href)
+        if (!template)
             throw new NotFoundError(`No link template with rel=${rel} provided by endpoint ${this.uri}.`, 0);
 
-        return this.join(URI.expand!(href, variables).toString());
+        return template;
     }
 
     // NOTE: Always replace entire array rather than modifying it to avoid async issues.
