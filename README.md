@@ -22,7 +22,7 @@ contact: Contact = await smith.read();
 await smith.note.set(new Note("some note"));
 
 // GET /contacts/1337/note
-const note: Note = await smith.Note.read();
+const note: Note = await smith.note.read();
 
 // DELETE /contacts/1337
 await smith.delete();
