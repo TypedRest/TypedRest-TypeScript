@@ -20,7 +20,7 @@ export class HalLinkExtractor implements LinkExtractor {
     private parseJsonBody(body: any) {
         const links: Link[] = [];
 
-        const linkContainer: { [key: string]: any; } = body._linkContainer;
+        const linkContainer: { [key: string]: any; } = body._links;
         if (linkContainer) {
             for (const rel in linkContainer) {
                 if (Array.isArray(linkContainer[rel])) {
