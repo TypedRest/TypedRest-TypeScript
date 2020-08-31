@@ -34,7 +34,7 @@
     }
   },
   "devDependencies": {
-    "@types/jest": "26.0.10",
+    "@types/jest": "26.0.12",
     "jest": "26.4.2",
     "jest-fetch-mock": "3.0.3",
     "ts-jest": "26.3.0",
