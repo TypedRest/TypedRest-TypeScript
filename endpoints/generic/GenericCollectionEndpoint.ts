@@ -26,13 +26,16 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Element
      * @param element The ID identifying the entity or an entity to extract the ID from.
      */
     get(element: (TEntity | string)): TElementEndpoint {
+        if (element == null) throw new Error("element must not be null or unspecified.");
+
         let id: string;
         if (typeof element === "string") {
             id = element;
         } else {
             id = (element as any).id;
-            if (id == null) throw new Error(`Element ${element} does not have an id property.`);
+            if (id === undefined) throw new Error(`Element ${element} does not have an id property.`);
         }
+        if (id == null || id === "") throw new Error("id must not be null or empty.");
 
         return new this.elementEndpoint(this, this.linkTemplate("child", { id }));
     }

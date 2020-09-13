@@ -21,6 +21,7 @@ export class IndexerEndpoint<TElementEndpoint extends Endpoint> extends Endpoint
      * @param id The ID identifying the entity.
      */
     get(id: string): TElementEndpoint {
+        if (id == null || id === "") throw new Error("id must not be null, unspecified or empty.");
         return new this.elementEndpoint(this, this.linkTemplate("child", { id }));
     }
 }
