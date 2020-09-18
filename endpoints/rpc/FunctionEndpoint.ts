@@ -1,6 +1,6 @@
 import { RpcEndpointBase } from ".";
 import { Endpoint } from "../Endpoint";
-import { HttpMethod, HttpHeader, HttpStatusCode } from "../../http";
+import { HttpMethod, HttpHeader } from "../../http";
 
 /**
  * RPC endpoint that takes `TEntity` as input and returns `TResult` as output when invoked.
@@ -26,13 +26,11 @@ export class FunctionEndpoint<TEntity, TResult> extends RpcEndpointBase {
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async invoke(entity: TEntity): Promise<(TResult | void)> {
+    async invoke(entity: TEntity): Promise<TResult> {
         const response = await this.send(HttpMethod.Post, {
             [HttpHeader.ContentType]: this.serializer.supportedMediaTypes[0]
         }, this.serializer.serialize(entity));
 
-        return (response.status === HttpStatusCode.OK || response.status === HttpStatusCode.Accepted)
-            ? this.serializer.deserialize<TResult>(await response.text())
-            : Promise.resolve();
+        return this.serializer.deserialize<TResult>(await response.text());
     }
 }

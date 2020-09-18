@@ -1,6 +1,6 @@
 import { RpcEndpointBase } from ".";
 import { Endpoint } from "../Endpoint";
-import { HttpMethod, HttpStatusCode } from "../../http";
+import { HttpMethod } from "../../http";
 
 /**
  * RPC endpoint that returns `TResult` as output when invoked.
@@ -24,10 +24,8 @@ export class ProducerEndpoint<TResult> extends RpcEndpointBase {
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async invoke(): Promise<(TResult | void)> {
+    async invoke(): Promise<TResult> {
         const response = await this.send(HttpMethod.Post);
-        return (response.status === HttpStatusCode.OK || response.status === HttpStatusCode.Accepted)
-            ? this.serializer.deserialize<TResult>(await response.text())
-            : Promise.resolve();
+        return this.serializer.deserialize<TResult>(await response.text());
     }
 }
