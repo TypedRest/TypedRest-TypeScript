@@ -68,7 +68,7 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async set(entity: TEntity): Promise<(TEntity | void)> {
+    async set(entity: TEntity): Promise<(TEntity | undefined)> {
         const response = await this.putContent(entity);
         const text = await response.text();
         if (text) {
@@ -94,7 +94,7 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async merge(entity: TEntity): Promise<(TEntity | void)> {
+    async merge(entity: TEntity): Promise<(TEntity | undefined)> {
         this.responseCache = undefined;
         const response = await this.send(HttpMethod.Patch, {
             [HttpHeader.ContentType]: this.serializer.supportedMediaTypes[0]
@@ -118,7 +118,7 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async update(updateAction: (entity: TEntity) => void, maxRetries: number = 3): Promise<(TEntity | void)> {
+    async update(updateAction: (entity: TEntity) => void, maxRetries: number = 3): Promise<(TEntity | undefined)> {
         let retryCounter = 0;
         while (true) {
             const entity = await this.read();
