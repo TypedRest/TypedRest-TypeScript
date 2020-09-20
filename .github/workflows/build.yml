@@ -28,16 +28,17 @@ jobs:
 
       # Release
       - name: Create GitHub Release
-        if: github.event_name == 'push' && steps.gitversion.outputs.preReleaseLabel == ''
+        if: steps.gitversion.outputs.preReleaseLabel == ''
         uses: actions/create-release@v1
         with:
           tag_name: ${{github.ref}}
+          release_name: ${{github.ref}}
         env:
           GITHUB_TOKEN: ${{github.token}}
 
       # Publish (release only)
       - name: Publish documentation
-        if: github.event_name == 'push' && steps.gitversion.outputs.preReleaseLabel == ''
+        if: steps.gitversion.outputs.preReleaseLabel == ''
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{github.token}}
@@ -45,12 +46,12 @@ jobs:
           publish_dir: docs
           cname: typescript.typedrest.net
       - name: Connect to registry (npmjs.com)
-        if: github.event_name == 'push' && steps.gitversion.outputs.preReleaseLabel == ''
+        if: steps.gitversion.outputs.preReleaseLabel == ''
         uses: actions/setup-node@v1
         with:
           registry-url: https://registry.npmjs.org
       - name: Publish packages (npmjs.com)
-        if: github.event_name == 'push' && steps.gitversion.outputs.preReleaseLabel == ''
+        if: steps.gitversion.outputs.preReleaseLabel == ''
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
