@@ -20,14 +20,15 @@ export class FunctionEndpoint<TEntity, TResult> extends RpcEndpointBase {
     /**
      * Invokes the function.
      * @param entity The `TEntity` to post as input.
+     * @param signal Used to cancel the request.
      * @returns The `TResult` returned by the server.
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
      * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async invoke(entity: TEntity): Promise<TResult> {
-        const response = await this.send(HttpMethod.Post, {
+    async invoke(entity: TEntity, signal?: AbortSignal): Promise<TResult> {
+        const response = await this.send(HttpMethod.Post, signal, {
             [HttpHeader.ContentType]: this.serializer.supportedMediaTypes[0]
         }, this.serializer.serialize(entity));
 

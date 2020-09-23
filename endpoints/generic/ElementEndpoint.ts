@@ -28,12 +28,15 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
 
     /**
      * Returns the `TEntity`.
+     * @param signal Used to cancel the request.
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
      * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async read() { return this.serializer.deserialize<TEntity>(await this.getContent()); }
+    async read(signal?: AbortSignal) {
+        return this.serializer.deserialize<TEntity>(await this.getContent(signal));
+    }
 
     /**
      * Determines whether the element currently exists.
@@ -86,6 +89,7 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
     /**
      * Modifies an existing `TEntity` by merging changes on the server-side.
      * @param entity The `TEntity` data to merge with the existing element.
+     * @param signal Used to cancel the request.
      * @returns The `TEntity` as returned by the server, possibly with additional fields set. undefined if the server does not respond with a result entity.
      * @throws {@link ConcurrencyError}: The entity has changed since it was last retrieved with {@link read}. Your changes were rejected to prevent a lost update.
      * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
@@ -94,9 +98,9 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async merge(entity: TEntity): Promise<(TEntity | undefined)> {
+    async merge(entity: TEntity, signal?: AbortSignal): Promise<(TEntity | undefined)> {
         this.responseCache = undefined;
-        const response = await this.send(HttpMethod.Patch, {
+        const response = await this.send(HttpMethod.Patch, signal, {
             [HttpHeader.ContentType]: this.serializer.supportedMediaTypes[0]
         }, this.serializer.serialize(entity));
 

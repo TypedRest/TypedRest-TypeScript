@@ -17,10 +17,13 @@ export class ActionEndpoint extends RpcEndpointBase {
 
     /**
      * Invokes the action.
+     * @param signal Used to cancel the request.
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
      * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async invoke() { await this.send(HttpMethod.Post); }
+    async invoke(signal?: AbortSignal) {
+        await this.send(HttpMethod.Post, signal);
+    }
 }

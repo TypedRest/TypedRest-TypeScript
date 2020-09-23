@@ -102,12 +102,13 @@ export class Endpoint {
      * Sends an HTTP request to this endpoint's URI.
      * Handles various cross-cutting concerns regarding a response message such as discovering links and handling errors.
      * @param method The HTTP method to use.
+     * @param signal Used to cancel the request.
      * @param headers The HTTP headers to set.
      * @param body The body to send.
      * @throws {@link HttpError}
      */
-    protected async send(method: HttpMethod, headers?: HeadersInit, body?: BodyInit): Promise<Response> {
-        const response = await this.httpClient.send(this.uri, method, headers, body);
+    protected async send(method: HttpMethod, signal?: AbortSignal, headers?: HeadersInit, body?: BodyInit): Promise<Response> {
+        const response = await this.httpClient.send(this.uri, method, signal, headers, body);
         await this.handle(response);
         return response;
     }

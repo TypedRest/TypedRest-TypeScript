@@ -22,17 +22,18 @@ export class ETagEndpointBase extends Endpoint implements CachingEndpoint {
 
     /**
      * Performs an {@link HttpMethod.Put} request on the {@link uri} and caches the response if the server sends an {@link HttpHeader.ETag}.
+     * @param signal Used to cancel the request.
      * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
      * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    protected async getContent(): Promise<string> {
+    protected async getContent(signal?: AbortSignal): Promise<string> {
         const headers = new Headers();
         if (this.responseCache?.eTag) headers.append(HttpHeader.IfNoneMatch, this.responseCache.eTag);
 
-        const response = await this.httpClient.send(this.uri, HttpMethod.Get, new Headers(headers));
+        const response = await this.httpClient.send(this.uri, HttpMethod.Get, signal, new Headers(headers));
         if (response.status !== HttpStatusCode.NotModified || !this.responseCache?.content) {
             await this.handle(response);
             this.responseCache = await ResponseCache.from(response);
@@ -43,6 +44,7 @@ export class ETagEndpointBase extends Endpoint implements CachingEndpoint {
 
     /**
      * Performs an {@link HttpMethod.Put} request on the {@link uri}. Sets {@link HttpHeader.IfMatch} if there is a cached {@link HttpHeader.ETag} to detect lost updates.
+     * @param signal Used to cancel the request.
      * @throws {@link ConcurrencyError}: The entity has changed since it was last retrieved with {@link getContent}. Your changes were rejected to prevent a lost update.
      * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
@@ -50,17 +52,18 @@ export class ETagEndpointBase extends Endpoint implements CachingEndpoint {
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    protected async putContent(content: any): Promise<Response> {
+    protected async putContent(content: any, signal?: AbortSignal): Promise<Response> {
         const headers = new Headers();
         headers.append(HttpHeader.ContentType, this.serializer.supportedMediaTypes[0])
         if (this.responseCache?.eTag) headers.append(HttpHeader.IfMatch, this.responseCache.eTag);
 
         this.responseCache = undefined;
-        return this.send(HttpMethod.Put, headers, this.serializer.serialize(content));
+        return this.send(HttpMethod.Put, signal, headers, this.serializer.serialize(content));
     }
 
     /**
      * Performs an {@link HttpMethod.Delete} request on the {@link uri}. Sets {@link HttpHeader.IfMatch} if there is a cached {@link HttpHeader.ETag} to detect lost updates.
+     * @param signal Used to cancel the request.
      * @throws {@link ConcurrencyError}: The entity has changed since it was last retrieved with {@link getContent}. Your changes were rejected to prevent a lost update.
      * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
@@ -68,11 +71,11 @@ export class ETagEndpointBase extends Endpoint implements CachingEndpoint {
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    protected async deleteContent(): Promise<Response> {
+    protected async deleteContent(signal?: AbortSignal): Promise<Response> {
         const headers = new Headers();
         if (this.responseCache?.eTag) headers.append(HttpHeader.IfMatch, this.responseCache.eTag);
 
         this.responseCache = undefined;
-        return this.send(HttpMethod.Delete, headers);
+        return this.send(HttpMethod.Delete, signal, headers);
     }
 }

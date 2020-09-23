@@ -16,12 +16,15 @@ export class RpcEndpointBase extends Endpoint {
 
     /**
      * Queries the server about capabilities of the endpoint without performing any action.
+     * @param signal Used to cancel the request.
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
      * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async probe() { await this.send(HttpMethod.Options); }
+    async probe(signal?: AbortSignal) {
+        await this.send(HttpMethod.Options, signal);
+    }
 
     /**
      * Shows whether the server has indicated that the invoke method is currently allowed.

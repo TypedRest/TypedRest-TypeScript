@@ -36,10 +36,13 @@ export class EntryEndpoint extends Endpoint {
 
     /**
      * Fetches meta data such as links from the server.
+     * @param signal Used to cancel the request.
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
      * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async readMeta() { await this.send(HttpMethod.Get); }
+    async readMeta(signal?: AbortSignal) {
+        await this.send(HttpMethod.Get, signal);
+    }
 }

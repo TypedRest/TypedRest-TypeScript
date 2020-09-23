@@ -13,12 +13,15 @@ export class BlobEndpoint extends Endpoint {
 
     /**
      * Queries the server about capabilities of the endpoint without performing any action.
+     * @param signal Used to cancel the request.
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
      * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async probe() { await this.send(HttpMethod.Options); }
+    async probe(signal?: AbortSignal) {
+        await this.send(HttpMethod.Options, signal);
+    }
 
     /**
      * Shows whether the server has indicated that {@link download} is currently allowed.
@@ -29,14 +32,15 @@ export class BlobEndpoint extends Endpoint {
 
     /**
      * Downloads the blob's content.
+     * @param signal Used to cancel the request.
      * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
      * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async download(): Promise<Blob> {
-        const response = await this.send(HttpMethod.Get);
+    async download(signal?: AbortSignal): Promise<Blob> {
+        const response = await this.send(HttpMethod.Get, signal);
         return response.blob();
     }
 
@@ -50,12 +54,15 @@ export class BlobEndpoint extends Endpoint {
     /**
      * Uploads data as the blob's content.
      * @param blob The blob to read the upload data from.
+     * @param signal Used to cancel the request.
      * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
      * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async upload(blob: Blob) { await this.send(HttpMethod.Put, { [HttpHeader.ContentType]: blob.type }, blob); }
+    async upload(blob: Blob, signal?: AbortSignal) {
+        await this.send(HttpMethod.Put, signal, { [HttpHeader.ContentType]: blob.type }, blob);
+    }
 
     /**
      * Shows whether the server has indicated that {@link delete} is currently allowed.
@@ -66,11 +73,14 @@ export class BlobEndpoint extends Endpoint {
 
     /**
      * Deletes the blob from the server.
+     * @param signal Used to cancel the request.
      * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
      * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async delete() { await this.send(HttpMethod.Delete); }
+    async delete(signal?: AbortSignal) {
+        await this.send(HttpMethod.Delete, signal);
+    }
 }

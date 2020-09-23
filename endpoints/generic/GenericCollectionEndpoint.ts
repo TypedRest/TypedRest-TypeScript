@@ -49,12 +49,13 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Element
 
     /**
      * Returns all `TEntity`s in the collection.
+     * @param signal Used to cancel the request.
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
      * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
      * @throws {@link ConflictError}: {@link HttpStatusCode.Conflict}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async readAll() {
+    async readAll(signal?: AbortSignal) {
         return this.serializer.deserialize<TEntity[]>(await this.getContent(signal));
     }
 
@@ -68,6 +69,7 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Element
     /**
      * Adds a `TEntity` as a new element to the collection.
      * @param entity The new `TEntity`.
+     * @param signal Used to cancel the request.
      * @returns The `TEntity` as returned by the server, possibly with additional fields set. undefined if the server does not respond with a result entity.
      * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
@@ -75,8 +77,8 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Element
      * @throws {@link ConflictError}: {@link HttpStatusCode.Conflict}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async create(entity: TEntity): Promise<TElementEndpoint> {
-        const response = await this.send(HttpMethod.Post, {
+    async create(entity: TEntity, signal?: AbortSignal): Promise<TElementEndpoint> {
+        const response = await this.send(HttpMethod.Post, signal, {
             [HttpHeader.ContentType]: this.serializer.supportedMediaTypes[0]
         }, this.serializer.serialize(entity));
 
@@ -98,14 +100,15 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Element
     /**
      * Adds (or updates) multiple `TEntity`s as elements in the collection.
      * @param entities The `TEntity`s to create or modify.
+     * @param signal Used to cancel the request.
      * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
      * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
      * @throws {@link ConflictError}: {@link HttpStatusCode.Conflict}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async createAll(entities: TEntity[]) {
-        await this.send(HttpMethod.Patch, {
+    async createAll(entities: TEntity[], signal?: AbortSignal) {
+        await this.send(HttpMethod.Patch, signal, {
             [HttpHeader.ContentType]: this.serializer.supportedMediaTypes[0]
         }, this.serializer.serialize(entities));
     }

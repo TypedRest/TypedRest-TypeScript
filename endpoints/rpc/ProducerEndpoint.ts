@@ -18,14 +18,15 @@ export class ProducerEndpoint<TResult> extends RpcEndpointBase {
 
     /**
      * Gets a result from the producer.
+     * @param signal Used to cancel the request.
      * @returns The `TResult` returned by the server.
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
      * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async invoke(): Promise<TResult> {
-        const response = await this.send(HttpMethod.Post);
+    async invoke(signal?: AbortSignal): Promise<TResult> {
+        const response = await this.send(HttpMethod.Post, signal);
         return this.serializer.deserialize<TResult>(await response.text());
     }
 }
