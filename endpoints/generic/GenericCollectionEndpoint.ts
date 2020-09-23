@@ -43,16 +43,25 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Element
     /**
      * Shows whether the server has indicated that {@link readAll} is currently allowed.
      * Uses cached data from last response.
-     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` If no request has been sent yet or the server did not specify allowed methods.
+     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` if no request has been sent yet or the server did not specify allowed methods.
      */
     get readAllAllowed() { return this.isMethodAllowed(HttpMethod.Get); }
 
-    async readAll() { return this.serializer.deserialize<TEntity[]>(await this.getContent()); }
+    /**
+     * Returns all `TEntity`s in the collection.
+     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
+     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
+     * @throws {@link ConflictError}: {@link HttpStatusCode.Conflict}
+     * @throws {@link HttpError}: Other non-success status code
+     */
+    async readAll() {
+        return this.serializer.deserialize<TEntity[]>(await this.getContent(signal));
+    }
 
     /**
      * Shows whether the server has indicated that {@link create} is currently allowed.
      * Uses cached data from last response.
-     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` If no request has been sent yet or the server did not specify allowed methods.
+     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` if no request has been sent yet or the server did not specify allowed methods.
      */
     get createAllowed() { return this.isMethodAllowed(HttpMethod.Post); }
 
@@ -82,7 +91,7 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Element
     /**
      * Shows whether the server has indicated that {@link createAll} is currently allowed.
      * Uses cached data from last response.
-     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` If no request has been sent yet or the server did not specify allowed methods.
+     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` if no request has been sent yet or the server did not specify allowed methods.
      */
     get createAllAllowed() { return this.isMethodAllowed(HttpMethod.Patch); }
 
@@ -104,7 +113,7 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Element
     /**
      * Shows whether the server has indicated that {@link setAll} is currently allowed.
      * Uses cached data from last response.
-     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` If no request has been sent yet or the server did not specify allowed methods.
+     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` if no request has been sent yet or the server did not specify allowed methods.
      */
     get setAllAllowed() { return this.isMethodAllowed(HttpMethod.Put); }
 

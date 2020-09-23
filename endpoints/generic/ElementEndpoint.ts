@@ -53,7 +53,7 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
     /**
      * Shows whether the server has indicated that {@link set} is currently allowed.
      * Uses cached data from last response.
-     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` If no request has been sent yet or the server did not specify allowed methods.
+     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` if no request has been sent yet or the server did not specify allowed methods.
      */
     get setAllowed() { return this.isMethodAllowed(HttpMethod.Put); }
 
@@ -79,7 +79,7 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
     /**
      * Shows whether the server has indicated that {@link merge} is currently allowed.
      * Uses cached data from last response.
-     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` If no request has been sent yet or the server did not specify allowed methods.
+     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` if no request has been sent yet or the server did not specify allowed methods.
      */
     get mergeAllowed() { return this.isMethodAllowed(HttpMethod.Patch); }
 
@@ -135,7 +135,7 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
     /**
      * Shows whether the server has indicated that {@link delete} is currently allowed.
      * Uses cached data from last response.
-     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` If no request has been sent yet or the server did not specify allowed methods.
+     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` if no request has been sent yet or the server did not specify allowed methods.
      */
     get deleteAllowed() { return this.isMethodAllowed(HttpMethod.Delete); }
 

@@ -235,7 +235,7 @@ export class Endpoint {
      * Shows whether the server has indicated that a specific HTTP method is currently allowed.
      * Uses cached data from last response.
      * @param method The HTTP methods (e.g. GET, POST, ...) to check.
-     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` If no request has been sent yet or the server did not specify allowed methods.
+     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` if no request has been sent yet or the server did not specify allowed methods.
      */
     protected isMethodAllowed(method: HttpMethod): boolean | undefined {
         if (this.allowedMethods.length === 0)

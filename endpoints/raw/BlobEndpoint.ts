@@ -23,7 +23,7 @@ export class BlobEndpoint extends Endpoint {
     /**
      * Shows whether the server has indicated that {@link download} is currently allowed.
      * Uses cached data from last response.
-     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` If no request has been sent yet or the server did not specify allowed methods.
+     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` if no request has been sent yet or the server did not specify allowed methods.
      */
     get downloadAllowed() { return this.isMethodAllowed(HttpMethod.Get); }
 
@@ -43,7 +43,7 @@ export class BlobEndpoint extends Endpoint {
     /**
      * Shows whether the server has indicated that {@link upload} is currently allowed.
      * Uses cached data from last response.
-     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` If no request has been sent yet or the server did not specify allowed methods.
+     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` if no request has been sent yet or the server did not specify allowed methods.
      */
     get uploadAllowed() { return this.isMethodAllowed(HttpMethod.Put); }
 
@@ -60,7 +60,7 @@ export class BlobEndpoint extends Endpoint {
     /**
      * Shows whether the server has indicated that {@link delete} is currently allowed.
      * Uses cached data from last response.
-     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` If no request has been sent yet or the server did not specify allowed methods.
+     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` if no request has been sent yet or the server did not specify allowed methods.
      */
     get deleteAllowed() { return this.isMethodAllowed(HttpMethod.Delete); }
 
