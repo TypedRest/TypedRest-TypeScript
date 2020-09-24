@@ -1,4 +1,4 @@
-import { ErrorHandler, HttpError, BadRequestError, AuthenticationError, AuthorizationError, NotFoundError, TimeoutError, ConflictError, ConcurrencyError, RangeError } from ".";
+import { ErrorHandler, HttpError, BadRequestError, AuthenticationError, AuthorizationError, NotFoundError, TimeoutError, ConflictError, ConcurrencyError } from ".";
 import { HttpStatusCode, HttpHeader } from "../http";
 
 /**
@@ -15,46 +15,42 @@ export class DefaultErrorHandler implements ErrorHandler {
      * @throws {@link TimeoutError}: {@link HttpStatusCode.RequestTimeout}
      * @throws {@link ConflictError}: {@link HttpStatusCode.Conflict}
      * @throws {@link ConcurrencyError}: {@link HttpStatusCode.PreconditionFailed}
-     * @throws {@link RangeError}: {@link HttpStatusCode.RequestedRangeNotSatisfiable}
      * @throws {@link HttpError}: Other non-success status code
      */
     async handle(response: Response) {
         if (response.ok) return;
 
-        const message = await this.extractJsonMessage(response);
-        throw DefaultErrorHandler.mapToError(
-            response.status,
-            message ?? `HTTP ${response.status} ${response.statusText}`);
-    }
-
-    private async extractJsonMessage(response: Response) {
         const contentType = response.headers.get(HttpHeader.ContentType);
-        return (contentType?.startsWith("application/json") || contentType?.includes("+json"))
-            ? (await response.json())?.message
+        const jsonBody = (contentType?.startsWith("application/json") || contentType?.includes("+json"))
+            ? await response.json()
             : undefined;
+
+        const errorType = DefaultErrorHandler.errorType(response.status);
+        throw new errorType(
+            jsonBody?.message ?? jsonBody?.details ?? `HTTP ${response.status} ${response.statusText}`,
+            response.status,
+            jsonBody);
     }
 
-    private static mapToError(status: HttpStatusCode, message: string) {
+    private static errorType(status: HttpStatusCode): new (message: string, status: HttpStatusCode, data?: any) => Error {
         switch (status) {
             case HttpStatusCode.BadRequest:
-                return new BadRequestError(message, status)
+                return BadRequestError;
             case HttpStatusCode.Unauthorized:
-                return new AuthenticationError(message, status)
+                return AuthenticationError;
             case HttpStatusCode.Forbidden:
-                return new AuthorizationError(message, status)
+                return AuthorizationError;
             case HttpStatusCode.NotFound:
             case HttpStatusCode.Gone:
-                return new NotFoundError(message, status)
+                return NotFoundError;
             case HttpStatusCode.RequestTimeout:
-                return new TimeoutError(message, status)
+                return TimeoutError;
             case HttpStatusCode.Conflict:
-                return new ConflictError(message, status)
+                return ConflictError;
             case HttpStatusCode.PreconditionFailed:
-                return new ConcurrencyError(message, status)
-            case HttpStatusCode.RequestedRangeNotSatisfiable:
-                return new RangeError(message, status)
+                return ConcurrencyError;
             default:
-                return new HttpError(message, status);
+                return HttpError;
         }
     }
 }

@@ -242,7 +242,7 @@ test('errorHandlingWithNoContent', async () => {
 
 test('errorHandlingWithMessage', async () => {
     fetchMock.mockOnceIf('http://localhost/endpoint',
-        '{"message":"my message"}',
+        '{"message":"my message","extra":"info"}',
         {
             status: HttpStatusCode.Conflict,
             headers: {
@@ -254,7 +254,9 @@ test('errorHandlingWithMessage', async () => {
     try {
         await endpoint.get();
     } catch (err) {
-        errorThrown = err instanceof ConflictError && err.message === 'my message';
+        errorThrown = err instanceof ConflictError
+            && err.message === 'my message'
+            && err.data.extra === 'info';
     }
     expect(errorThrown).toBe(true);
 });

@@ -2,56 +2,52 @@ import { HttpStatusCode } from "../http";
 
 /* tslint:disable:max-classes-per-file */
 
+/**
+ * Thrown on HTTP response with a non-successful status code (4xx or 5xx).
+ */
 export class HttpError extends Error {
-    constructor(message: string, public status: HttpStatusCode) {
+    /**
+     * Creates a new HTTP error.
+     * @param message The error message.
+     * @param status The HTTP status code.
+     * @param data Additional error data.
+     */
+    constructor(message: string, public status: HttpStatusCode, public data?: any) {
         super(message);
     }
 }
 
-export class BadRequestError extends HttpError {
-    constructor(message: string, status = HttpStatusCode.BadRequest) {
-        super(message, status);
-    }
-}
+/**
+ * Thrown on HTTP response for a bad request (usually {@link HttpStatusCode.BadRequest}).
+ */
+export class BadRequestError extends HttpError {}
 
-export class AuthenticationError extends HttpError {
-    constructor(message: string, status = HttpStatusCode.Unauthorized) {
-        super(message, status);
-    }
-}
+/**
+ * Thrown on HTTP response for an unauthenticated request, i.e. missing credentials (usually {@link HttpStatusCode.Unauthorized}).
+ */
+export class AuthenticationError extends HttpError {}
 
-export class AuthorizationError extends HttpError {
-    constructor(message: string, status = HttpStatusCode.Forbidden) {
-        super(message, status);
-    }
-}
+/**
+ * Thrown on HTTP response for an unauthorized request, i.e. missing permissions (usually {@link HttpStatusCode.Forbidden}).
+ */
+export class AuthorizationError extends HttpError {}
 
-export class NotFoundError extends HttpError {
-    constructor(message: string, status = HttpStatusCode.NotFound) {
-        super(message, status);
-    }
-}
+/**
+ * Thrown on HTTP response for a missing resource (usually {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}).
+ */
+export class NotFoundError extends HttpError {}
 
-export class TimeoutError extends HttpError {
-    constructor(message: string, status = HttpStatusCode.RequestTimeout) {
-        super(message, status);
-    }
-}
+/**
+ * Thrown on HTTP response for a timed-out operation (usually {@link HttpStatusCode.Timeout}).
+ */
+export class TimeoutError extends HttpError {}
 
-export class ConflictError extends HttpError {
-    constructor(message: string, status = HttpStatusCode.Conflict) {
-        super(message, status);
-    }
-}
+/**
+ * Thrown on HTTP response for a resource conflict (usually {@link HttpStatusCode.Conflict}).
+ */
+export class ConflictError extends HttpError {}
 
-export class ConcurrencyError extends HttpError {
-    constructor(message: string, status = HttpStatusCode.PreconditionFailed) {
-        super(message, status);
-    }
-}
-
-export class RangeError extends HttpError {
-    constructor(message: string, status = HttpStatusCode.RequestedRangeNotSatisfiable) {
-        super(message, status);
-    }
-}
+/**
+ * Thrown on HTTP response for a failed precondition or mid-air collision (usually {@link HttpStatusCode.PreconditionFailed}).
+ */
+export class ConcurrencyError extends HttpError {}

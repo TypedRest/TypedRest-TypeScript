@@ -10,6 +10,5 @@ export enum HttpStatusCode {
     RequestTimeout = 408,
     Conflict = 409,
     Gone = 410,
-    PreconditionFailed = 412,
-    RequestedRangeNotSatisfiable = 416
+    PreconditionFailed = 412
 }
