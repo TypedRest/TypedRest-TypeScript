@@ -40,12 +40,13 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
 
     /**
      * Determines whether the element currently exists.
+     * @param signal Used to cancel the request.
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
      * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async exists() {
-        const response = await this.httpClient.send(this.uri, HttpMethod.Head);
+    async exists(signal?: AbortSignal) {
+        const response = await this.httpClient.send(this.uri, HttpMethod.Head, signal);
         if (response.ok) return true;
         if (response.status === HttpStatusCode.NotFound || response.status === HttpStatusCode.Gone) return false;
 
@@ -63,6 +64,7 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
     /**
      * Sets/replaces the `TEntity`.
      * @param entity The new `TEntity`.
+     * @param signal Used to cancel the request.
      * @returns The `TEntity` as returned by the server, possibly with additional fields set. undefined if the server does not respond with a result entity.
      * @throws {@link ConcurrencyError}: The entity has changed since it was last retrieved with {@link read}. Your changes were rejected to prevent a lost update.
      * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
@@ -71,8 +73,8 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async set(entity: TEntity): Promise<(TEntity | undefined)> {
-        const response = await this.putContent(entity);
+    async set(entity: TEntity, signal?: AbortSignal): Promise<(TEntity | undefined)> {
+        const response = await this.putContent(entity, signal);
         const text = await response.text();
         if (text) {
             return this.serializer.deserialize<TEntity>(text);
@@ -114,6 +116,7 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
      * Reads the current state of the entity, applies a change to it and stores the result. Applies optimistic concurrency using automatic retries.
      * @param updateAction A callback that takes the current state of the entity and applies the desired modifications.
      * @param maxRetries The maximum number of retries to perform for optimistic concurrency before giving up.
+     * @param signal Used to cancel the request.
      * @returns The `TEntity` as returned by the server, possibly with additional fields set. undefined if the server does not respond with a result entity.
      * @throws {@link ConcurrencyError}: The maximum number of retries to perform for optimistic concurrency before giving up.
      * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
@@ -122,13 +125,13 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async update(updateAction: (entity: TEntity) => void, maxRetries: number = 3): Promise<(TEntity | undefined)> {
+    async update(updateAction: (entity: TEntity) => void, maxRetries: number = 3, signal?: AbortSignal): Promise<(TEntity | undefined)> {
         let retryCounter = 0;
         while (true) {
-            const entity = await this.read();
+            const entity = await this.read(signal);
             updateAction(entity);
             try {
-                return await this.set(entity);
+                return await this.set(entity, signal);
             } catch (err) {
                 if (retryCounter++ >= maxRetries || !(err instanceof ConcurrencyError))
                     throw err;
@@ -145,11 +148,14 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
 
     /**
      * Deletes the element.
+     * @param signal Used to cancel the request.
      * @throws {@link ConcurrencyError}: The entity has changed since it was last retrieved with {@link read}. Your changes were rejected to prevent a lost update.
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
      * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
      * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async delete() { await this.deleteContent(); }
+    async delete(signal?: AbortSignal) {
+        await this.deleteContent(signal);
+    }
 }
