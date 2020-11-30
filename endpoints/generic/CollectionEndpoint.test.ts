@@ -129,8 +129,8 @@ test('create', async () => {
         }
     );
 
-    const element = await endpoint.create(new MockEntity(0, 'test'));
-    expect(element.response).toEqual(new MockEntity(5, 'test'));
+    const element = (await endpoint.create(new MockEntity(0, 'test')))!;
+    expect(element!.response).toEqual(new MockEntity(5, 'test'));
     expect(element.uri).toEqual(new URL('http://localhost/endpoint/5'));
 });
 
@@ -149,9 +149,23 @@ test('createLocation', async () => {
         }
     );
 
-    const element = await endpoint.create(new MockEntity(0, 'test'));
+    const element = (await endpoint.create(new MockEntity(0, 'test')))!;
     expect(element.response).toEqual(new MockEntity(5, 'test'));
     expect(element.uri).toEqual(new URL('http://localhost/endpoint/new'));
+});
+
+test('createUndefined', async () => {
+    fetchMock.mockOnceIf(
+        req => req.method === HttpMethod.Post && req.url === 'http://localhost/endpoint',
+        async req => {
+            expect(req.headers.get(HttpHeader.ContentType)).toBe('application/json');
+            expect(await req.text()).toBe('{"id":0,"name":"test"}');
+            return { status: HttpStatusCode.Accepted };
+        }
+    );
+
+    const element = (await endpoint.create(new MockEntity(0, 'test')));
+    expect(element).toBeUndefined();
 });
 
 test('createAll', async () => {

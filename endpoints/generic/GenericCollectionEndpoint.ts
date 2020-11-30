@@ -70,22 +70,33 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Element
      * Adds a `TEntity` as a new element to the collection.
      * @param entity The new `TEntity`.
      * @param signal Used to cancel the request.
-     * @returns The `TEntity` as returned by the server, possibly with additional fields set. undefined if the server does not respond with a result entity.
+     * @returns An endpoint for the newly created entity; `undefined` if the server returned neither a "Location" header nor an entity with an ID in the response body.
      * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
      * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
      * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
      * @throws {@link ConflictError}: {@link HttpStatusCode.Conflict}
      * @throws {@link HttpError}: Other non-success status code
      */
-    async create(entity: TEntity, signal?: AbortSignal): Promise<TElementEndpoint> {
+    async create(entity: TEntity, signal?: AbortSignal): Promise<TElementEndpoint | undefined> {
         const response = await this.send(HttpMethod.Post, signal, {
             [HttpHeader.ContentType]: this.serializer.supportedMediaTypes[0]
         }, this.serializer.serialize(entity));
-
         const location = response.headers.get(HttpHeader.Location);
-        const elementEndpoint = location
-            ? new this.elementEndpoint(this, this.join(location))
-            : this.get(this.serializer.deserialize(await response.clone().text()));
+
+        let elementEndpoint: TElementEndpoint;
+        if (location) {
+            // Explicit element endpoint URL from "Location" header
+            elementEndpoint = new this.elementEndpoint(this, this.join(location));
+        } else {
+            try {
+                // Infer URL from entity ID in response body
+                elementEndpoint = this.get(this.serializer.deserialize(await response.clone().text()));
+            } catch {
+                // No element endpoint
+                return undefined;
+            }
+        }
+
         (elementEndpoint as CachingEndpoint).responseCache = await ResponseCache.from(response);
         return elementEndpoint;
     }
