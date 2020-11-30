@@ -1,0 +1,1014 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>FunctionEndpoint | TypedRest for TypeScript - v0.3.3</title>
+	<meta name="description" content="Documentation for TypedRest for TypeScript - v0.3.3">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">TypedRest for TypeScript - v0.3.3</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="../modules/endpoints_rpc.html">endpoints/rpc</a>
+				</li>
+				<li>
+					<a href="endpoints_rpc.functionendpoint.html">FunctionEndpoint</a>
+				</li>
+			</ul>
+			<h1>Class FunctionEndpoint&lt;TEntity, TResult&gt;</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>RPC endpoint that takes <code>TEntity</code> as input and returns <code>TResult</code> as output when invoked.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>TEntity</h4>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>The type of entity the endpoint takes as input.</p>
+							</div>
+						</div>
+					</li>
+					<li>
+						<h4>TResult</h4>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>The type of entity the endpoint returns as output.</p>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<a href="endpoints_rpc.rpcendpointbase.html" class="tsd-signature-type">RpcEndpointBase</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">FunctionEndpoint</span>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="endpoints_rpc.functionendpoint.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-inherited">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="endpoints_rpc.functionendpoint.html#errorhandler" class="tsd-kind-icon">error<wbr>Handler</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="endpoints_rpc.functionendpoint.html#httpclient" class="tsd-kind-icon">http<wbr>Client</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="endpoints_rpc.functionendpoint.html#linkextractor" class="tsd-kind-icon">link<wbr>Extractor</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="endpoints_rpc.functionendpoint.html#serializer" class="tsd-kind-icon">serializer</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="endpoints_rpc.functionendpoint.html#uri" class="tsd-kind-icon">uri</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-inherited">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="endpoints_rpc.functionendpoint.html#invokeallowed" class="tsd-kind-icon">invoke<wbr>Allowed</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="endpoints_rpc.functionendpoint.html#getlinktemplate" class="tsd-kind-icon">get<wbr>Link<wbr>Template</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="endpoints_rpc.functionendpoint.html#getlinks" class="tsd-kind-icon">get<wbr>Links</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="endpoints_rpc.functionendpoint.html#handle" class="tsd-kind-icon">handle</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="endpoints_rpc.functionendpoint.html#handlecapabilities" class="tsd-kind-icon">handle<wbr>Capabilities</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="endpoints_rpc.functionendpoint.html#invoke" class="tsd-kind-icon">invoke</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="endpoints_rpc.functionendpoint.html#ismethodallowed" class="tsd-kind-icon">is<wbr>Method<wbr>Allowed</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="endpoints_rpc.functionendpoint.html#join" class="tsd-kind-icon">join</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="endpoints_rpc.functionendpoint.html#link" class="tsd-kind-icon">link</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="endpoints_rpc.functionendpoint.html#linktemplate" class="tsd-kind-icon">link<wbr>Template</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="endpoints_rpc.functionendpoint.html#probe" class="tsd-kind-icon">probe</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="endpoints_rpc.functionendpoint.html#send" class="tsd-kind-icon">send</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="endpoints_rpc.functionendpoint.html#setdefaultlink" class="tsd-kind-icon">set<wbr>Default<wbr>Link</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="endpoints_rpc.functionendpoint.html#setdefaultlinktemplate" class="tsd-kind-icon">set<wbr>Default<wbr>Link<wbr>Template</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-static"><a href="endpoints_rpc.functionendpoint.html#ensuretrailingslash" class="tsd-kind-icon">ensure<wbr>Trailing<wbr>Slash</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Function<wbr>Endpoint<span class="tsd-signature-symbol">(</span>referrer<span class="tsd-signature-symbol">: </span><a href="endpoints.endpoint.html" class="tsd-signature-type">Endpoint</a>, relativeUri<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">URL</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="endpoints_rpc.functionendpoint.html" class="tsd-signature-type">FunctionEndpoint</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides <a href="endpoints_rpc.rpcendpointbase.html">RpcEndpointBase</a>.<a href="endpoints_rpc.rpcendpointbase.html#constructor">constructor</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/TypedRest/TypedRest-TypeScript/blob/46c6d2a/endpoints/rpc/FunctionEndpoint.ts#L10">endpoints/rpc/FunctionEndpoint.ts:10</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates a new function endpoint.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>referrer: <a href="endpoints.endpoint.html" class="tsd-signature-type">Endpoint</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>The endpoint used to navigate to this one.</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<h5>relativeUri: <span class="tsd-signature-type">URL</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>The URI of this endpoint relative to the <code>referrer</code>&#39;s. Add a <code>./</code> prefix here to imply a trailing slash in the <code>referrer</code>&#39;s URI.</p>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="endpoints_rpc.functionendpoint.html" class="tsd-signature-type">FunctionEndpoint</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="errorhandler" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> error<wbr>Handler</h3>
+					<div class="tsd-signature tsd-kind-icon">error<wbr>Handler<span class="tsd-signature-symbol">:</span> <a href="../interfaces/errors.errorhandler.html" class="tsd-signature-type">ErrorHandler</a></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="endpoints.endpoint.html">Endpoint</a>.<a href="endpoints.endpoint.html#errorhandler">errorHandler</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/TypedRest/TypedRest-TypeScript/blob/46c6d2a/endpoints/Endpoint.ts#L27">endpoints/Endpoint.ts:27</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Handles errors in responses.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="httpclient" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> http<wbr>Client</h3>
+					<div class="tsd-signature tsd-kind-icon">http<wbr>Client<span class="tsd-signature-symbol">:</span> <a href="../interfaces/http.httpclient.html" class="tsd-signature-type">HttpClient</a></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="endpoints.endpoint.html">Endpoint</a>.<a href="endpoints.endpoint.html#httpclient">httpClient</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/TypedRest/TypedRest-TypeScript/blob/46c6d2a/endpoints/Endpoint.ts#L17">endpoints/Endpoint.ts:17</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The HTTP client used to communicate with the remote resource.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="linkextractor" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> link<wbr>Extractor</h3>
+					<div class="tsd-signature tsd-kind-icon">link<wbr>Extractor<span class="tsd-signature-symbol">:</span> <a href="../interfaces/links.linkextractor.html" class="tsd-signature-type">LinkExtractor</a></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="endpoints.endpoint.html">Endpoint</a>.<a href="endpoints.endpoint.html#linkextractor">linkExtractor</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/TypedRest/TypedRest-TypeScript/blob/46c6d2a/endpoints/Endpoint.ts#L32">endpoints/Endpoint.ts:32</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Extracts links from responses.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="serializer" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> serializer</h3>
+					<div class="tsd-signature tsd-kind-icon">serializer<span class="tsd-signature-symbol">:</span> <a href="../interfaces/serializers.serializer.html" class="tsd-signature-type">Serializer</a></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="endpoints.endpoint.html">Endpoint</a>.<a href="endpoints.endpoint.html#serializer">serializer</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/TypedRest/TypedRest-TypeScript/blob/46c6d2a/endpoints/Endpoint.ts#L22">endpoints/Endpoint.ts:22</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Controls the serialization of entities sent to and received from the server.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="uri" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> uri</h3>
+					<div class="tsd-signature tsd-kind-icon">uri<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">URL</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="endpoints.endpoint.html">Endpoint</a>.<a href="endpoints.endpoint.html#uri">uri</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/TypedRest/TypedRest-TypeScript/blob/46c6d2a/endpoints/Endpoint.ts#L12">endpoints/Endpoint.ts:12</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The HTTP URI of the remote resource.</p>
+						</div>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+					<a name="invokeallowed" class="tsd-anchor"></a>
+					<h3>invoke<wbr>Allowed</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> invokeAllowed<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="endpoints_rpc.rpcendpointbase.html">RpcEndpointBase</a>.<a href="endpoints_rpc.rpcendpointbase.html#invokeallowed">invokeAllowed</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/TypedRest/TypedRest-TypeScript/blob/46c6d2a/endpoints/rpc/RpcEndpointBase.ts#L34">endpoints/rpc/RpcEndpointBase.ts:34</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Shows whether the server has indicated that the invoke method is currently allowed.
+									Uses cached data from last response.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></h4>
+							<p><code>true</code> if the method is allowed, <code>false</code> if the method is not allowed, <code>undefined</code> if no request has been sent yet or the server did not specify allowed methods.</p>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="getlinktemplate" class="tsd-anchor"></a>
+					<h3>get<wbr>Link<wbr>Template</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Link<wbr>Template<span class="tsd-signature-symbol">(</span>rel<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="endpoints.endpoint.html">Endpoint</a>.<a href="endpoints.endpoint.html#getlinktemplate">getLinkTemplate</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/TypedRest/TypedRest-TypeScript/blob/46c6d2a/endpoints/Endpoint.ts#L212">endpoints/Endpoint.ts:212</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Retrieves a link template with a specific relation type. Uses cached data from last response. Prefer <a href="endpoints_rpc.functionendpoint.html#linktemplate">linkTemplate</a> when possible.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="errors.notfounderror.html">NotFoundError</a>: No link template with the specified <code>rel</code> could be found.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>rel: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The relation type of the link template to look for.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="getlinks" class="tsd-anchor"></a>
+					<h3>get<wbr>Links</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Links<span class="tsd-signature-symbol">(</span>rel<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>title<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>uri<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">URL</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="endpoints.endpoint.html">Endpoint</a>.<a href="endpoints.endpoint.html#getlinks">getLinks</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/TypedRest/TypedRest-TypeScript/blob/46c6d2a/endpoints/Endpoint.ts#L168">endpoints/Endpoint.ts:168</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Resolves all links with a specific relation type. Uses cached data from last response.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>rel: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The relation type of the links to look for.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>title<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>uri<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">URL</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="handle" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> handle</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">handle<span class="tsd-signature-symbol">(</span>response<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Response</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="endpoints.endpoint.html">Endpoint</a>.<a href="endpoints.endpoint.html#handle">handle</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/TypedRest/TypedRest-TypeScript/blob/46c6d2a/endpoints/Endpoint.ts#L121">endpoints/Endpoint.ts:121</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Handles various cross-cutting concerns regarding a response message such as discovering links and handling errors.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="errors.httperror.html">HttpError</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>response: <span class="tsd-signature-type">Response</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The response to process.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="handlecapabilities" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> handle<wbr>Capabilities</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">handle<wbr>Capabilities<span class="tsd-signature-symbol">(</span>response<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Response</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="endpoints.endpoint.html">Endpoint</a>.<a href="endpoints.endpoint.html#handlecapabilities">handleCapabilities</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/TypedRest/TypedRest-TypeScript/blob/46c6d2a/endpoints/Endpoint.ts#L228">endpoints/Endpoint.ts:228</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Handles allowed HTTP methods and other capabilities reported by the server.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>response: <span class="tsd-signature-type">Response</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="invoke" class="tsd-anchor"></a>
+					<h3>invoke</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">invoke<span class="tsd-signature-symbol">(</span>entity<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TEntity</span>, signal<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">AbortSignal</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TResult</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/TypedRest/TypedRest-TypeScript/blob/46c6d2a/endpoints/rpc/FunctionEndpoint.ts#L30">endpoints/rpc/FunctionEndpoint.ts:30</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Invokes the function.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="errors.authenticationerror.html">AuthenticationError</a>: <a href="../enums/http.httpstatuscode.html#unauthorized">HttpStatusCode.Unauthorized</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="errors.authorizationerror.html">AuthorizationError</a>: <a href="../enums/http.httpstatuscode.html#forbidden">HttpStatusCode.Forbidden</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="errors.notfounderror.html">NotFoundError</a>: <a href="../enums/http.httpstatuscode.html#notfound">HttpStatusCode.NotFound</a> or <a href="../enums/http.httpstatuscode.html#gone">HttpStatusCode.Gone</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="errors.httperror.html">HttpError</a>: Other non-success status code</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>entity: <span class="tsd-signature-type">TEntity</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The <code>TEntity</code> to post as input.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> signal: <span class="tsd-signature-type">AbortSignal</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Used to cancel the request.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TResult</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The <code>TResult</code> returned by the server.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="ismethodallowed" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> is<wbr>Method<wbr>Allowed</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Method<wbr>Allowed<span class="tsd-signature-symbol">(</span>method<span class="tsd-signature-symbol">: </span><a href="../enums/http.httpmethod.html" class="tsd-signature-type">HttpMethod</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="endpoints.endpoint.html">Endpoint</a>.<a href="endpoints.endpoint.html#ismethodallowed">isMethodAllowed</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/TypedRest/TypedRest-TypeScript/blob/46c6d2a/endpoints/Endpoint.ts#L241">endpoints/Endpoint.ts:241</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Shows whether the server has indicated that a specific HTTP method is currently allowed.
+									Uses cached data from last response.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>method: <a href="../enums/http.httpmethod.html" class="tsd-signature-type">HttpMethod</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The HTTP methods (e.g. GET, POST, ...) to check.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
+							<p><code>true</code> if the method is allowed, <code>false</code> if the method is not allowed, <code>undefined</code> if no request has been sent yet or the server did not specify allowed methods.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="join" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> join</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">join<span class="tsd-signature-symbol">(</span>relativeUri<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">URL</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="endpoints.endpoint.html">Endpoint</a>.<a href="endpoints.endpoint.html#join">join</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/TypedRest/TypedRest-TypeScript/blob/46c6d2a/endpoints/Endpoint.ts#L85">endpoints/Endpoint.ts:85</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Resolves a relative URI using this endpoint&#39;s URI as the base.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>relativeUri: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The relative URI to resolve. Prepend <code>./</code> to imply a trailing slash in the base URI even if it is missing there.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">URL</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="link" class="tsd-anchor"></a>
+					<h3>link</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">link<span class="tsd-signature-symbol">(</span>rel<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">URL</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="endpoints.endpoint.html">Endpoint</a>.<a href="endpoints.endpoint.html#link">link</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/TypedRest/TypedRest-TypeScript/blob/46c6d2a/endpoints/Endpoint.ts#L188">endpoints/Endpoint.ts:188</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Resolves a single link with a specific relation type. Uses cached data from last response.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="errors.notfounderror.html">NotFoundError</a>: No link with the specified <code>rel</code> could be found.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>rel: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The relation type of the link to look for.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">URL</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="linktemplate" class="tsd-anchor"></a>
+					<h3>link<wbr>Template</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">link<wbr>Template<span class="tsd-signature-symbol">(</span>rel<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, variables<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">URL</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="endpoints.endpoint.html">Endpoint</a>.<a href="endpoints.endpoint.html#linktemplate">linkTemplate</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/TypedRest/TypedRest-TypeScript/blob/46c6d2a/endpoints/Endpoint.ts#L203">endpoints/Endpoint.ts:203</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Resolves a link template with a specific relation type. Uses cached data from last response.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="errors.notfounderror.html">NotFoundError</a>: No link template with the specified <code>rel</code> could be found.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>rel: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The relation type of the link template to look for.</p>
+									</div>
+								</li>
+								<li>
+									<h5>variables: <span class="tsd-signature-symbol">{}</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Variables for resolving the template.</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-index-signature">
+											<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">any</span></h5>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">URL</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="probe" class="tsd-anchor"></a>
+					<h3>probe</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">probe<span class="tsd-signature-symbol">(</span>signal<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">AbortSignal</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="endpoints_rpc.rpcendpointbase.html">RpcEndpointBase</a>.<a href="endpoints_rpc.rpcendpointbase.html#probe">probe</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/TypedRest/TypedRest-TypeScript/blob/46c6d2a/endpoints/rpc/RpcEndpointBase.ts#L25">endpoints/rpc/RpcEndpointBase.ts:25</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Queries the server about capabilities of the endpoint without performing any action.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="errors.authenticationerror.html">AuthenticationError</a>: <a href="../enums/http.httpstatuscode.html#unauthorized">HttpStatusCode.Unauthorized</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="errors.authorizationerror.html">AuthorizationError</a>: <a href="../enums/http.httpstatuscode.html#forbidden">HttpStatusCode.Forbidden</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="errors.notfounderror.html">NotFoundError</a>: <a href="../enums/http.httpstatuscode.html#notfound">HttpStatusCode.NotFound</a> or <a href="../enums/http.httpstatuscode.html#gone">HttpStatusCode.Gone</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="errors.httperror.html">HttpError</a>: Other non-success status code</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> signal: <span class="tsd-signature-type">AbortSignal</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Used to cancel the request.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="send" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> send</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">send<span class="tsd-signature-symbol">(</span>method<span class="tsd-signature-symbol">: </span><a href="../enums/http.httpmethod.html" class="tsd-signature-type">HttpMethod</a>, signal<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">AbortSignal</span>, headers<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">HeadersInit</span>, body<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">BodyInit</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Response</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="endpoints.endpoint.html">Endpoint</a>.<a href="endpoints.endpoint.html#send">send</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/TypedRest/TypedRest-TypeScript/blob/46c6d2a/endpoints/Endpoint.ts#L110">endpoints/Endpoint.ts:110</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sends an HTTP request to this endpoint&#39;s URI.
+									Handles various cross-cutting concerns regarding a response message such as discovering links and handling errors.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="errors.httperror.html">HttpError</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>method: <a href="../enums/http.httpmethod.html" class="tsd-signature-type">HttpMethod</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The HTTP method to use.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> signal: <span class="tsd-signature-type">AbortSignal</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Used to cancel the request.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> headers: <span class="tsd-signature-type">HeadersInit</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The HTTP headers to set.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> body: <span class="tsd-signature-type">BodyInit</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The body to send.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Response</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="setdefaultlink" class="tsd-anchor"></a>
+					<h3>set<wbr>Default<wbr>Link</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Default<wbr>Link<span class="tsd-signature-symbol">(</span>rel<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, href<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="endpoints.endpoint.html">Endpoint</a>.<a href="endpoints.endpoint.html#setdefaultlink">setDefaultLink</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/TypedRest/TypedRest-TypeScript/blob/46c6d2a/endpoints/Endpoint.ts#L141">endpoints/Endpoint.ts:141</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Registers one or more default links for a specific relation type.
+										These links are used when no links with this relation type are provided by the server.
+									This should only be called during initial setup of the endpoint.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>rel: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The relation type of the link to add.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> href: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The href of the link relative to this endpoint&#39;s URI. Leave unspecified to remove any previous entries for the relation type.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="setdefaultlinktemplate" class="tsd-anchor"></a>
+					<h3>set<wbr>Default<wbr>Link<wbr>Template</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Default<wbr>Link<wbr>Template<span class="tsd-signature-symbol">(</span>rel<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, href<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="endpoints.endpoint.html">Endpoint</a>.<a href="endpoints.endpoint.html#setdefaultlinktemplate">setDefaultLinkTemplate</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/TypedRest/TypedRest-TypeScript/blob/46c6d2a/endpoints/Endpoint.ts#L156">endpoints/Endpoint.ts:156</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Registers a default link template for a specific relation type.
+										This template is used when no template with this relation type is provided by the server.
+									This should only be called during initial setup of the endpoint.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>rel: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> href: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-static">
+					<a name="ensuretrailingslash" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagProtected">Protected</span> ensure<wbr>Trailing<wbr>Slash</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">ensure<wbr>Trailing<wbr>Slash<span class="tsd-signature-symbol">(</span>uri<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">URL</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">URL</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="endpoints.endpoint.html">Endpoint</a>.<a href="endpoints.endpoint.html#ensuretrailingslash">ensureTrailingSlash</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/TypedRest/TypedRest-TypeScript/blob/46c6d2a/endpoints/Endpoint.ts#L94">endpoints/Endpoint.ts:94</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Adds a trailing slash to the URI if it does not already have one.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>uri: <span class="tsd-signature-type">URL</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">URL</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/endpoints.html">endpoints</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/endpoints_generic.html">endpoints/generic</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/endpoints_raw.html">endpoints/raw</a>
+					</li>
+					<li class="current tsd-kind-module">
+						<a href="../modules/endpoints_rpc.html">endpoints/rpc</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/errors.html">errors</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/http.html">http</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/links.html">links</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/serializers.html">serializers</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="endpoints_rpc.actionendpoint.html" class="tsd-kind-icon">Action<wbr>Endpoint</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="endpoints_rpc.consumerendpoint.html" class="tsd-kind-icon">Consumer<wbr>Endpoint</a>
+					</li>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="endpoints_rpc.functionendpoint.html" class="tsd-kind-icon">Function<wbr>Endpoint</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+								<a href="endpoints_rpc.functionendpoint.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="endpoints_rpc.functionendpoint.html#errorhandler" class="tsd-kind-icon">error<wbr>Handler</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="endpoints_rpc.functionendpoint.html#httpclient" class="tsd-kind-icon">http<wbr>Client</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="endpoints_rpc.functionendpoint.html#linkextractor" class="tsd-kind-icon">link<wbr>Extractor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="endpoints_rpc.functionendpoint.html#serializer" class="tsd-kind-icon">serializer</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="endpoints_rpc.functionendpoint.html#uri" class="tsd-kind-icon">uri</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+								<a href="endpoints_rpc.functionendpoint.html#invokeallowed" class="tsd-kind-icon">invoke<wbr>Allowed</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="endpoints_rpc.functionendpoint.html#getlinktemplate" class="tsd-kind-icon">get<wbr>Link<wbr>Template</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="endpoints_rpc.functionendpoint.html#getlinks" class="tsd-kind-icon">get<wbr>Links</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="endpoints_rpc.functionendpoint.html#handle" class="tsd-kind-icon">handle</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="endpoints_rpc.functionendpoint.html#handlecapabilities" class="tsd-kind-icon">handle<wbr>Capabilities</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="endpoints_rpc.functionendpoint.html#invoke" class="tsd-kind-icon">invoke</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="endpoints_rpc.functionendpoint.html#ismethodallowed" class="tsd-kind-icon">is<wbr>Method<wbr>Allowed</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="endpoints_rpc.functionendpoint.html#join" class="tsd-kind-icon">join</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="endpoints_rpc.functionendpoint.html#link" class="tsd-kind-icon">link</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="endpoints_rpc.functionendpoint.html#linktemplate" class="tsd-kind-icon">link<wbr>Template</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="endpoints_rpc.functionendpoint.html#probe" class="tsd-kind-icon">probe</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="endpoints_rpc.functionendpoint.html#send" class="tsd-kind-icon">send</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="endpoints_rpc.functionendpoint.html#setdefaultlink" class="tsd-kind-icon">set<wbr>Default<wbr>Link</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="endpoints_rpc.functionendpoint.html#setdefaultlinktemplate" class="tsd-kind-icon">set<wbr>Default<wbr>Link<wbr>Template</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-static">
+								<a href="endpoints_rpc.functionendpoint.html#ensuretrailingslash" class="tsd-kind-icon">ensure<wbr>Trailing<wbr>Slash</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="endpoints_rpc.producerendpoint.html" class="tsd-kind-icon">Producer<wbr>Endpoint</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="endpoints_rpc.rpcendpointbase.html" class="tsd-kind-icon">Rpc<wbr>Endpoint<wbr>Base</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
