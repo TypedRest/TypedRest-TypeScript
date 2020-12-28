@@ -17,6 +17,7 @@
   "typedocOptions": {
     "name": "TypedRest for TypeScript",
     "mode": "module",
+    "entryPoints": ["./index.ts"],
     "out": "docs",
     "includeVersion": true,
     "excludePrivate": true,
