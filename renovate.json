@@ -4,9 +4,13 @@
   ],
   "packageRules": [
     {
-      "packagePatterns": ["typescript", "tslint", "typedoc", "jest"],
+      "packagePatterns": ["typescript", "tslint", "jest"],
       "automerge": true,
       "automergeType": "branch"
+    },
+    {
+      "packagePatterns": ["typedoc"],
+      "enabled": false
     }
   ]
 }
