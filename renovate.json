@@ -1,16 +1,23 @@
 {
   "extends": [
-    "config:base"
+    "config:base",
+    ":preserveSemverRanges"
   ],
   "packageRules": [
     {
-      "packagePatterns": ["typescript", "tslint", "jest"],
+      "depTypeList": ["devDependencies"],
+      "groupName": "Dev dependencies",
       "automerge": true,
       "automergeType": "branch"
     },
     {
       "packagePatterns": ["typedoc"],
       "enabled": false
+    },
+    {
+      "packagePatterns": ["urijs"],
+      "automerge": true,
+      "automergeType": "branch"
     }
   ]
 }
