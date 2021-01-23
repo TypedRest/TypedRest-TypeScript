@@ -64,7 +64,7 @@ jobs:
           registry-url: https://npm.pkg.github.com/
           scope: '@typedrest'
       - name: Publish packages (GitHub)
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && !startsWith(github.ref, 'refs/heads/renovate/')
         run: |
           sed -i 's|"typedrest"|"@typedrest/typedrest"|g' package.json
           npm publish
