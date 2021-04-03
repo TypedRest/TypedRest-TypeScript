@@ -12,14 +12,14 @@ const client = new MyClient(new URL("http://example.com/"));
 const contactList: Contact[] = await client.contacts.readAll();
 
 // POST /contacts -> Location: /contacts/1337
-const smith: ContactEndpoint = await client.contacts.create(new Contact("Smith"));
+const smith: ContactEndpoint = await client.contacts.create({name: "Smith"});
 //const smith: ContactEndpoint = client.contacts.get("1337");
 
 // GET /contacts/1337
-contact: Contact = await smith.read();
+const contact: Contact = await smith.read();
 
 // PUT /contacts/1337/note
-await smith.note.set(new Note("some note"));
+await smith.note.set({content: "some note"});
 
 // GET /contacts/1337/note
 const note: Note = await smith.note.read();
