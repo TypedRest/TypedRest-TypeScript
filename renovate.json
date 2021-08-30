@@ -11,11 +11,11 @@
       "automergeType": "branch"
     },
     {
-      "packagePatterns": ["typedoc"],
+      "matchPackagePatterns": ["typedoc"],
       "enabled": false
     },
     {
-      "packagePatterns": ["urijs"],
+      "matchPackagePatterns": ["urijs"],
       "automerge": true,
       "automergeType": "branch"
     }
