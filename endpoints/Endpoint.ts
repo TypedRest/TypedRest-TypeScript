@@ -150,8 +150,8 @@ export class Endpoint {
      * Registers a default link template for a specific relation type.
      * This template is used when no template with this relation type is provided by the server.
      * This should only be called during initial setup of the endpoint.
-     * @param rel
-     * @param href
+     * @param rel The relation type of the link to add.
+     * @param href The templates href relative to this endpoint's URI. Leave unspecified to remove any previous entries for the relation type.
      */
     setDefaultLinkTemplate(rel: string, href?: string) {
         if (href) {
