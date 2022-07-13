@@ -1,4 +1,4 @@
-import { Endpoint } from ".";
+import { Endpoint } from "./Endpoint";
 import { HttpMethod, HttpClient, FetchHttpClient, HttpHeader } from "../http";
 import { Serializer, JsonSerializer } from "../serializers";
 import { ErrorHandler, DefaultErrorHandler } from "../errors";

@@ -1,4 +1,4 @@
-import { RpcEndpointBase } from ".";
+import { RpcEndpointBase } from "./RpcEndpointBase";
 import { Endpoint } from "../Endpoint";
 import { HttpMethod } from "../../http";
 

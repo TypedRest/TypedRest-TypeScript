@@ -1,4 +1,5 @@
-import { GenericCollectionEndpoint, ElementEndpoint } from ".";
+import { GenericCollectionEndpoint } from "./GenericCollectionEndpoint";
+import { ElementEndpoint } from "./ElementEndpoint";
 import { Endpoint } from "../Endpoint";
 
 /**

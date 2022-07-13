@@ -1,4 +1,4 @@
-import { HttpHeader } from ".";
+import { HttpHeader } from "./HttpHeader";
 
 /**
  * Caches the contents of a `Response`.

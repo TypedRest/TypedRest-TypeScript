@@ -1,4 +1,5 @@
-import { HttpMethod, HttpClient } from ".";
+import { HttpMethod } from "./HttpMethod";
+import { HttpClient } from "./HttpClient";
 
 /**
  * Communicates with remote resources using JavaScript's standard Fetch API.

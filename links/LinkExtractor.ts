@@ -1,4 +1,4 @@
-import { Link } from ".";
+import { Link } from "./Link";
 
 /**
  * Extracts links from responses.
