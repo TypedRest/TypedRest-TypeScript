@@ -1,4 +1,5 @@
-import { ErrorHandler, HttpError, BadRequestError, AuthenticationError, AuthorizationError, NotFoundError, TimeoutError, ConflictError, ConcurrencyError } from ".";
+import { ErrorHandler } from "./ErrorHandler";
+import { HttpError, BadRequestError, AuthenticationError, AuthorizationError, NotFoundError, TimeoutError, ConflictError, ConcurrencyError } from "./Errors";
 import { HttpStatusCode, HttpHeader } from "../http";
 
 /**

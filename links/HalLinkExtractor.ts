@@ -1,4 +1,5 @@
-import { Link, LinkExtractor } from ".";
+import { Link } from "./Link";
+import { LinkExtractor } from "./LinkExtractor";
 import { HttpHeader } from "../http";
 
 /**

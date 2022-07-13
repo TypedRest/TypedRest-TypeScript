@@ -1,4 +1,4 @@
-import { Serializer } from ".";
+import { Serializer } from "./Serializer";
 
 /**
  * Serializes and deserializes entities as JSON.

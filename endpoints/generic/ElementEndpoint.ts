@@ -1,4 +1,4 @@
-import { ETagEndpointBase } from ".";
+import { ETagEndpointBase } from "./ETagEndpointBase";
 import { Endpoint } from "../Endpoint";
 import { HttpMethod, HttpHeader, HttpStatusCode } from "../../http";
 import { ConcurrencyError } from "../../errors";

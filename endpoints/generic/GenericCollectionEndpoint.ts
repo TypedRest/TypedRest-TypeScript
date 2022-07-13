@@ -1,4 +1,5 @@
-import { ETagEndpointBase, ElementEndpoint } from ".";
+import { ETagEndpointBase } from "./ETagEndpointBase";
+import { ElementEndpoint } from "./ElementEndpoint";
 import { Endpoint } from "../Endpoint";
 import { CachingEndpoint } from "../CachingEndpoint";
 import { HttpMethod, HttpHeader, ResponseCache } from "../../http";

@@ -1,4 +1,4 @@
-import { HttpMethod } from ".";
+import { HttpMethod } from "./HttpMethod";
 
 /**
  * HTTP client used to communicate with remote resources.
