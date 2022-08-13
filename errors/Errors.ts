@@ -38,7 +38,7 @@ export class AuthorizationError extends HttpError {}
 export class NotFoundError extends HttpError {}
 
 /**
- * Thrown on HTTP response for a timed-out operation (usually {@link HttpStatusCode.Timeout}).
+ * Thrown on HTTP response for a timed-out operation (usually {@link HttpStatusCode.RequestTimeout}).
  */
 export class TimeoutError extends HttpError {}
 
