@@ -1,7 +1,5 @@
 import { HttpStatusCode } from "../http";
 
-/* tslint:disable:max-classes-per-file */
-
 /**
  * Thrown on HTTP response with a non-successful status code (4xx or 5xx).
  */
