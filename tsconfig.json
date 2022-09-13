@@ -7,13 +7,6 @@
     "noUnusedLocals": true,
     "strict": true
   },
-  "include": [
-    "**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/*.test.ts",
-  ],
   "typedocOptions": {
     "name": "TypedRest for TypeScript",
     "entryPoints": "index.ts",
