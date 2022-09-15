@@ -11,10 +11,10 @@ export class EntryEndpoint extends Endpoint {
     /**
      * Creates a new entry endpoint.
      * @param uri The base URI of the REST API.<br>Missing trailing slash will be appended automatically.
-     * @param serializer Controls the serialization of entities sent to and received from the server.<br>Defaults to {@link JsonSerializer} if undefined.
-     * @param errorHandler Handles errors in HTTP responses.<br>Defaults to {@link DefaultErrorHandler} if undefined.
-     * @param linkExtractor Detects links in HTTP responses.<br>Defaults to {@link HeaderLinkExtractor} and {@link HalLinkExtractor} combined via {@link AggregateLinkExtractor} if undefined.
-     * @param httpClient The HTTP client used to communicate with the REST API.<br>Defaults to {@link FetchHttpClient} if undefined.
+     * @param serializer Controls the serialization of entities sent to and received from the server.<br>Defaults to {@link serializers!JsonSerializer} if undefined.
+     * @param errorHandler Handles errors in HTTP responses.<br>Defaults to {@link errors!DefaultErrorHandler} if undefined.
+     * @param linkExtractor Detects links in HTTP responses.<br>Defaults to {@link links!HeaderLinkExtractor} and {@link links!HalLinkExtractor} combined via {@link links!AggregateLinkExtractor} if undefined.
+     * @param httpClient The HTTP client used to communicate with the REST API.<br>Defaults to {@link http!FetchHttpClient} if undefined.
      */
     constructor(
         uri: URL | string,
@@ -37,10 +37,10 @@ export class EntryEndpoint extends Endpoint {
     /**
      * Fetches meta data such as links from the server.
      * @param signal Used to cancel the request.
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     async readMeta(signal?: AbortSignal) {
         await this.send(HttpMethod.Get, signal);

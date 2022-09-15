@@ -7,7 +7,7 @@ import { HttpHeader } from "../http";
  */
 export class HeaderLinkExtractor implements LinkExtractor {
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     async getLinks(response: Response) {
         return response.headers.get(HttpHeader.Link)

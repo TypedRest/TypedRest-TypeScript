@@ -16,7 +16,7 @@ export class AggregateLinkExtractor implements LinkExtractor {
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     async getLinks(response: Response) {
         let result: Link[] = [];

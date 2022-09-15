@@ -29,10 +29,10 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
     /**
      * Returns the `TEntity`.
      * @param signal Used to cancel the request.
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     async read(signal?: AbortSignal) {
         return this.serializer.deserialize<TEntity>(await this.getContent(signal));
@@ -41,9 +41,9 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
     /**
      * Determines whether the element currently exists.
      * @param signal Used to cancel the request.
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     async exists(signal?: AbortSignal) {
         const response = await this.httpClient.send(this.uri, HttpMethod.Head, signal);
@@ -66,12 +66,12 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
      * @param entity The new `TEntity`.
      * @param signal Used to cancel the request.
      * @returns The `TEntity` as returned by the server, possibly with additional fields set. undefined if the server does not respond with a result entity.
-     * @throws {@link ConcurrencyError}: The entity has changed since it was last retrieved with {@link read}. Your changes were rejected to prevent a lost update.
-     * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!ConcurrencyError}: The entity has changed since it was last retrieved with {@link read}. Your changes were rejected to prevent a lost update.
+     * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     async set(entity: TEntity, signal?: AbortSignal): Promise<(TEntity | undefined)> {
         const response = await this.putContent(entity, signal);
@@ -93,12 +93,12 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
      * @param entity The `TEntity` data to merge with the existing element.
      * @param signal Used to cancel the request.
      * @returns The `TEntity` as returned by the server, possibly with additional fields set. undefined if the server does not respond with a result entity.
-     * @throws {@link ConcurrencyError}: The entity has changed since it was last retrieved with {@link read}. Your changes were rejected to prevent a lost update.
-     * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!ConcurrencyError}: The entity has changed since it was last retrieved with {@link read}. Your changes were rejected to prevent a lost update.
+     * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     async merge(entity: TEntity, signal?: AbortSignal): Promise<(TEntity | undefined)> {
         this.responseCache = undefined;
@@ -118,12 +118,12 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
      * @param maxRetries The maximum number of retries to perform for optimistic concurrency before giving up.
      * @param signal Used to cancel the request.
      * @returns The `TEntity` as returned by the server, possibly with additional fields set. undefined if the server does not respond with a result entity.
-     * @throws {@link ConcurrencyError}: The maximum number of retries to perform for optimistic concurrency before giving up.
-     * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!ConcurrencyError}: The maximum number of retries to perform for optimistic concurrency before giving up.
+     * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     async update(updateAction: (entity: TEntity) => void, maxRetries: number = 3, signal?: AbortSignal): Promise<(TEntity | undefined)> {
         let retryCounter = 0;
@@ -149,11 +149,11 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
     /**
      * Deletes the element.
      * @param signal Used to cancel the request.
-     * @throws {@link ConcurrencyError}: The entity has changed since it was last retrieved with {@link read}. Your changes were rejected to prevent a lost update.
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!ConcurrencyError}: The entity has changed since it was last retrieved with {@link read}. Your changes were rejected to prevent a lost update.
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     async delete(signal?: AbortSignal) {
         await this.deleteContent(signal);

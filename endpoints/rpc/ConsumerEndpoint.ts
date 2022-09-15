@@ -20,10 +20,10 @@ export class ConsumerEndpoint<TEntity> extends RpcEndpointBase {
      * Sends the entity to the consumer.
      * @param entity The `TEntity` to post as input.
      * @param signal Used to cancel the request.
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     async invoke(entity: TEntity, signal?: AbortSignal) {
         await this.send(HttpMethod.Post, signal, {

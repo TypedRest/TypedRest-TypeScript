@@ -18,11 +18,11 @@ export class UploadEndpoint extends Endpoint {
      * @param blob The blob to read the upload data from.
      * @param fileName The name of the uploaded file.
      * @param signal Used to cancel the request.
-     * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     async upload(blob: Blob, fileName?: string, signal?: AbortSignal) {
         if (this.formField) {

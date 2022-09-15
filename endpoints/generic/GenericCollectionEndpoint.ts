@@ -51,10 +51,10 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Element
     /**
      * Returns all `TEntity`s in the collection.
      * @param signal Used to cancel the request.
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link ConflictError}: {@link HttpStatusCode.Conflict}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!ConflictError}: {@link http!HttpStatusCode.Conflict}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     async readAll(signal?: AbortSignal) {
         return this.serializer.deserialize<TEntity[]>(await this.getContent(signal));
@@ -72,11 +72,11 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Element
      * @param entity The new `TEntity`.
      * @param signal Used to cancel the request.
      * @returns An endpoint for the newly created entity; `undefined` if the server returned neither a "Location" header nor an entity with an ID in the response body.
-     * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link ConflictError}: {@link HttpStatusCode.Conflict}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!ConflictError}: {@link http!HttpStatusCode.Conflict}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     async create(entity: TEntity, signal?: AbortSignal): Promise<TElementEndpoint | undefined> {
         const response = await this.send(HttpMethod.Post, signal, {
@@ -113,11 +113,11 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Element
      * Adds (or updates) multiple `TEntity`s as elements in the collection.
      * @param entities The `TEntity`s to create or modify.
      * @param signal Used to cancel the request.
-     * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link ConflictError}: {@link HttpStatusCode.Conflict}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!ConflictError}: {@link http!HttpStatusCode.Conflict}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     async createAll(entities: TEntity[], signal?: AbortSignal) {
         await this.send(HttpMethod.Patch, signal, {
@@ -135,20 +135,20 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Element
     /**
      *  Replaces the entire content of the collection with new `TEntity`s.
      * @param entities The `TEntity`s to create or modify.
-     * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link ConflictError}: {@link HttpStatusCode.Conflict}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!ConflictError}: {@link http!HttpStatusCode.Conflict}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     async setAll(entities: TEntity[]) { await this.putContent(entities); }
 
     /**
      * Determines whether the collection contains a specific element.
      * @param element The ID identifying the entity or an entity to extract the ID from.
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     contains(element: (TEntity | string)) { return this.get(element).exists(); }
 
@@ -156,11 +156,11 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Element
      * Sets/replaces an existing element in the collection.
      * @param element The new state of the element.
      * @returns The `TEntity` as returned by the server, possibly with additional fields set. undefined if the server does not respond with a result entity.
-     * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     set(element: TEntity) { return this.get(element).set(element); }
 
@@ -168,21 +168,21 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Element
      * Modifies an existing element in the collection by merging changes on the server-side.
      * @param element The `TEntity` data to merge with the existing element.
      * @returns The `TEntity` as returned by the server, possibly with additional fields set. undefined if the server does not respond with a result entity.
-     * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     merge(element: TEntity) { return this.get(element).merge(element); }
 
     /**
      * Deletes an existing element from the collection.
      * @param element The ID identifying the entity or an entity to extract the ID from.
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     delete(element: (TEntity | string)) { return this.get(element).delete(); }
 }
