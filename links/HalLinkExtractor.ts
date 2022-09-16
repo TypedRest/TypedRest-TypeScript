@@ -7,7 +7,7 @@ import { HttpHeader } from "../http";
  */
 export class HalLinkExtractor implements LinkExtractor {
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     async getLinks(response: Response): Promise<Link[]> {
         const contentType = response.headers.get(HttpHeader.ContentType);

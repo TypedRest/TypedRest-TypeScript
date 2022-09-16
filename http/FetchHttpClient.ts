@@ -6,12 +6,12 @@ import { HttpClient } from "./HttpClient";
  */
 export class FetchHttpClient implements HttpClient {
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     defaultHeaders = new Headers();
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     send(uri: URL, method: HttpMethod, signal?: AbortSignal, headers?: HeadersInit, body?: BodyInit) {
         const mergedHeaders = new Headers(headers);

@@ -2,7 +2,7 @@ import { Endpoint } from "../Endpoint";
 
 /**
  * Endpoint that addresses child `TElementEndpoint`s by ID.
- * @typeParam The type of @{link Endpoint} to provide for individual elements.
+ * @typeParam TElementEndpoint The type of {@link Endpoint} to provide for individual elements.
  */
 export class IndexerEndpoint<TElementEndpoint extends Endpoint> extends Endpoint {
     /**

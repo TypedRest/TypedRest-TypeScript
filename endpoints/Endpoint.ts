@@ -104,7 +104,7 @@ export class Endpoint {
      * @param signal Used to cancel the request.
      * @param headers The HTTP headers to set.
      * @param body The body to send.
-     * @throws {@link HttpError}
+     * @throws {@link errors!HttpError}
      */
     protected async send(method: HttpMethod, signal?: AbortSignal, headers?: HeadersInit, body?: BodyInit): Promise<Response> {
         const response = await this.httpClient.send(this.uri, method, signal, headers, body);
@@ -115,7 +115,7 @@ export class Endpoint {
     /**
      * Handles various cross-cutting concerns regarding a response message such as discovering links and handling errors.
      * @param response The response to process.
-     * @throws {@link HttpError}
+     * @throws {@link errors!HttpError}
      */
     protected async handle(response: Response) {
         this.links = await this.linkExtractor.getLinks(response);
@@ -182,7 +182,7 @@ export class Endpoint {
     /**
      * Resolves a single link with a specific relation type. Uses cached data from last response.
      * @param rel The relation type of the link to look for.
-     * @throws {@link NotFoundError}: No link with the specified `rel` could be found.
+     * @throws {@link errors!NotFoundError}: No link with the specified `rel` could be found.
      */
     link(rel: string): URL {
         const links = this.getLinks(rel);
@@ -197,7 +197,7 @@ export class Endpoint {
      * Resolves a link template with a specific relation type. Uses cached data from last response.
      * @param rel The relation type of the link template to look for.
      * @param variables Variables for resolving the template.
-     * @throws {@link NotFoundError}: No link template with the specified `rel` could be found.
+     * @throws {@link errors!NotFoundError}: No link template with the specified `rel` could be found.
      */
     linkTemplate(rel: string, variables: { [key: string]: any; }): URL {
         const tmpl = template.parse(this.getLinkTemplate(rel))
@@ -207,7 +207,7 @@ export class Endpoint {
     /**
      * Retrieves a link template with a specific relation type. Uses cached data from last response. Prefer {@link linkTemplate} when possible.
      * @param rel The relation type of the link template to look for.
-     * @throws {@link NotFoundError}: No link template with the specified `rel` could be found.
+     * @throws {@link errors!NotFoundError}: No link template with the specified `rel` could be found.
      */
     getLinkTemplate(rel: string) {
         const template = this.links.find(x => x.templated && x.rel === rel)?.href

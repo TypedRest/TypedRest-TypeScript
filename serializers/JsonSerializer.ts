@@ -5,19 +5,19 @@ import { Serializer } from "./Serializer";
  */
 export class JsonSerializer implements Serializer {
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     readonly supportedMediaTypes = ["application/json"];
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     serialize<T>(entity: T) {
         return JSON.stringify(entity);
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     deserialize<T>(text: string) {
         return JSON.parse(text) as T;

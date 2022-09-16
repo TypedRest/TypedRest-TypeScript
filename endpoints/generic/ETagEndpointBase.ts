@@ -16,18 +16,18 @@ export class ETagEndpointBase extends Endpoint implements CachingEndpoint {
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public responseCache?: ResponseCache;
 
     /**
-     * Performs an {@link HttpMethod.Put} request on the {@link uri} and caches the response if the server sends an {@link HttpHeader.ETag}.
+     * Performs an {@link http!HttpMethod.Put} request on the {@link uri} and caches the response if the server sends an {@link http!HttpHeader.ETag}.
      * @param signal Used to cancel the request.
-     * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     protected async getContent(signal?: AbortSignal): Promise<string> {
         const headers = new Headers();
@@ -43,14 +43,14 @@ export class ETagEndpointBase extends Endpoint implements CachingEndpoint {
     }
 
     /**
-     * Performs an {@link HttpMethod.Put} request on the {@link uri}. Sets {@link HttpHeader.IfMatch} if there is a cached {@link HttpHeader.ETag} to detect lost updates.
+     * Performs an {@link http!HttpMethod.Put} request on the {@link uri}. Sets {@link http!HttpHeader.IfMatch} if there is a cached {@link http!HttpHeader.ETag} to detect lost updates.
      * @param signal Used to cancel the request.
-     * @throws {@link ConcurrencyError}: The entity has changed since it was last retrieved with {@link getContent}. Your changes were rejected to prevent a lost update.
-     * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!ConcurrencyError}: The entity has changed since it was last retrieved with {@link getContent}. Your changes were rejected to prevent a lost update.
+     * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     protected async putContent(content: any, signal?: AbortSignal): Promise<Response> {
         const headers = new Headers();
@@ -62,14 +62,14 @@ export class ETagEndpointBase extends Endpoint implements CachingEndpoint {
     }
 
     /**
-     * Performs an {@link HttpMethod.Delete} request on the {@link uri}. Sets {@link HttpHeader.IfMatch} if there is a cached {@link HttpHeader.ETag} to detect lost updates.
+     * Performs an {@link http!HttpMethod.Delete} request on the {@link uri}. Sets {@link http!HttpHeader.IfMatch} if there is a cached {@link http!HttpHeader.ETag} to detect lost updates.
      * @param signal Used to cancel the request.
-     * @throws {@link ConcurrencyError}: The entity has changed since it was last retrieved with {@link getContent}. Your changes were rejected to prevent a lost update.
-     * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!ConcurrencyError}: The entity has changed since it was last retrieved with {@link getContent}. Your changes were rejected to prevent a lost update.
+     * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     protected async deleteContent(signal?: AbortSignal): Promise<Response> {
         const headers = new Headers();

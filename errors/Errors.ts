@@ -16,36 +16,36 @@ export class HttpError extends Error {
 }
 
 /**
- * Thrown on HTTP response for a bad request (usually {@link HttpStatusCode.BadRequest}).
+ * Thrown on HTTP response for a bad request (usually {@link http!HttpStatusCode.BadRequest}).
  */
 export class BadRequestError extends HttpError {}
 
 /**
- * Thrown on HTTP response for an unauthenticated request, i.e. missing credentials (usually {@link HttpStatusCode.Unauthorized}).
+ * Thrown on HTTP response for an unauthenticated request, i.e. missing credentials (usually {@link http!HttpStatusCode.Unauthorized}).
  */
 export class AuthenticationError extends HttpError {}
 
 /**
- * Thrown on HTTP response for an unauthorized request, i.e. missing permissions (usually {@link HttpStatusCode.Forbidden}).
+ * Thrown on HTTP response for an unauthorized request, i.e. missing permissions (usually {@link http!HttpStatusCode.Forbidden}).
  */
 export class AuthorizationError extends HttpError {}
 
 /**
- * Thrown on HTTP response for a missing resource (usually {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}).
+ * Thrown on HTTP response for a missing resource (usually {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}).
  */
 export class NotFoundError extends HttpError {}
 
 /**
- * Thrown on HTTP response for a timed-out operation (usually {@link HttpStatusCode.RequestTimeout}).
+ * Thrown on HTTP response for a timed-out operation (usually {@link http!HttpStatusCode.RequestTimeout}).
  */
 export class TimeoutError extends HttpError {}
 
 /**
- * Thrown on HTTP response for a resource conflict (usually {@link HttpStatusCode.Conflict}).
+ * Thrown on HTTP response for a resource conflict (usually {@link http!HttpStatusCode.Conflict}).
  */
 export class ConflictError extends HttpError {}
 
 /**
- * Thrown on HTTP response for a failed precondition or mid-air collision (usually {@link HttpStatusCode.PreconditionFailed}).
+ * Thrown on HTTP response for a failed precondition or mid-air collision (usually {@link http!HttpStatusCode.PreconditionFailed}).
  */
 export class ConcurrencyError extends HttpError {}

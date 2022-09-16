@@ -9,14 +9,14 @@ export class DefaultErrorHandler implements ErrorHandler {
     /**
      * Throws appropriate `Error`s based on HTTP status codes and response bodies.
      *
-     * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
-     * @throws {@link TimeoutError}: {@link HttpStatusCode.RequestTimeout}
-     * @throws {@link ConflictError}: {@link HttpStatusCode.Conflict}
-     * @throws {@link ConcurrencyError}: {@link HttpStatusCode.PreconditionFailed}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
+     * @throws {@link errors!TimeoutError}: {@link http!HttpStatusCode.RequestTimeout}
+     * @throws {@link errors!ConflictError}: {@link http!HttpStatusCode.Conflict}
+     * @throws {@link errors!ConcurrencyError}: {@link http!HttpStatusCode.PreconditionFailed}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     async handle(response: Response) {
         if (response.ok) return;

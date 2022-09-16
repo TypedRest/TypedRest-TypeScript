@@ -14,10 +14,10 @@ export class BlobEndpoint extends Endpoint {
     /**
      * Queries the server about capabilities of the endpoint without performing any action.
      * @param signal Used to cancel the request.
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     async probe(signal?: AbortSignal) {
         await this.send(HttpMethod.Options, signal);
@@ -33,11 +33,11 @@ export class BlobEndpoint extends Endpoint {
     /**
      * Downloads the blob's content.
      * @param signal Used to cancel the request.
-     * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     async download(signal?: AbortSignal): Promise<Blob> {
         const response = await this.send(HttpMethod.Get, signal);
@@ -55,10 +55,10 @@ export class BlobEndpoint extends Endpoint {
      * Uploads data as the blob's content.
      * @param blob The blob to read the upload data from.
      * @param signal Used to cancel the request.
-     * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     async upload(blob: Blob, signal?: AbortSignal) {
         await this.send(HttpMethod.Put, signal, { [HttpHeader.ContentType]: blob.type }, blob);
@@ -74,11 +74,11 @@ export class BlobEndpoint extends Endpoint {
     /**
      * Deletes the blob from the server.
      * @param signal Used to cancel the request.
-     * @throws {@link BadRequestError}: {@link HttpStatusCode.BadRequest}
-     * @throws {@link AuthenticationError}: {@link HttpStatusCode.Unauthorized}
-     * @throws {@link AuthorizationError}: {@link HttpStatusCode.Forbidden}
-     * @throws {@link NotFoundError}: {@link HttpStatusCode.NotFound} or {@link HttpStatusCode.Gone}
-     * @throws {@link HttpError}: Other non-success status code
+     * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
+     * @throws {@link errors!HttpError}: Other non-success status code
      */
     async delete(signal?: AbortSignal) {
         await this.send(HttpMethod.Delete, signal);
