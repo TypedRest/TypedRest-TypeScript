@@ -1,6 +1,9 @@
 import { Endpoint } from "../Endpoint";
 import { HttpMethod, HttpHeader } from "../../http";
 
+/**
+ * Endpoint that accepts binary uploads using multi-part form encoding or raw bodies.
+ */
 export class UploadEndpoint extends Endpoint {
     /**
      * Creates a new upload endpoint.

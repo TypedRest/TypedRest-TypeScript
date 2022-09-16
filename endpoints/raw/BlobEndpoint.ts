@@ -1,6 +1,9 @@
 import { Endpoint } from "../Endpoint";
 import { HttpMethod, HttpHeader } from "../../http";
 
+/**
+ * Endpoint for a binary blob that can be downloaded or uploaded.
+ */
 export class BlobEndpoint extends Endpoint {
     /**
      * Creates a new blob endpoint.
