@@ -1,9 +1,8 @@
+import template from 'url-template';
 import { HttpMethod, HttpHeader, HttpClient } from "../http";
 import { Serializer } from "../serializers";
 import { ErrorHandler, NotFoundError } from "../errors";
 import { LinkExtractor, Link } from "../links";
-import URI from "urijs";
-import "urijs/src/URITemplate";
 
 export class Endpoint {
     /**
@@ -201,7 +200,8 @@ export class Endpoint {
      * @throws {@link errors!NotFoundError}: No link template with the specified `rel` could be found.
      */
     linkTemplate(rel: string, variables: { [key: string]: any; }): URL {
-        return this.join(URI.expand!(this.getLinkTemplate(rel), variables).toString());
+        const tmpl = template.parse(this.getLinkTemplate(rel))
+        return new URL(this.join(tmpl.expand(variables)))
     }
 
     /**

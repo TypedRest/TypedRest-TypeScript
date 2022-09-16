@@ -15,11 +15,6 @@
     {
       "matchPackagePatterns": ["typedoc"],
       "enabled": false
-    },
-    {
-      "matchPackagePatterns": ["urijs"],
-      "automerge": true,
-      "automergeType": "branch"
     }
   ]
 }

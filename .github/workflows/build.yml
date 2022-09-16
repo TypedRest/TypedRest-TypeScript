@@ -20,7 +20,7 @@ jobs:
         run: npm version --no-git-tag-version ${{steps.gitversion.outputs.nuGetVersion}}
 
       # Build
-      - run: npm install
+      - run: npm ci
       - run: npm run build
       - run: npm run test
       - run: npm run docs
