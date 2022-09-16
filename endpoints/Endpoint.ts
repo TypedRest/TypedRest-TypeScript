@@ -1,8 +1,8 @@
-import template from 'url-template';
 import { HttpMethod, HttpHeader, HttpClient } from "../http";
 import { Serializer } from "../serializers";
 import { ErrorHandler, NotFoundError } from "../errors";
 import { LinkExtractor, Link } from "../links";
+import template from 'url-template';
 
 export class Endpoint {
     /**
