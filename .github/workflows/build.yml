@@ -9,10 +9,10 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: gittools/actions/gitversion/setup@v0.9.13
+      - uses: gittools/actions/gitversion/setup@v0.9.15
         with:
-          versionSpec: '5.7.x'
-      - uses: gittools/actions/gitversion/execute@v0.9.13
+          versionSpec: '5.11.x'
+      - uses: gittools/actions/gitversion/execute@v0.9.15
         id: gitversion
       - if: steps.gitversion.outputs.preReleaseLabel != ''
         run: npm version --no-git-tag-version ${{steps.gitversion.outputs.nuGetVersion}}-${{steps.gitversion.outputs.shortSha}}
@@ -40,7 +40,6 @@ jobs:
         if: steps.gitversion.outputs.preReleaseLabel == ''
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{github.token}}
           force_orphan: true
           publish_dir: docs
           cname: typescript.typedrest.net
