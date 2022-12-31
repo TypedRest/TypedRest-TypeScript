@@ -7,14 +7,14 @@
   ],
   "packageRules": [
     {
-      "depTypeList": ["devDependencies"],
       "groupName": "Dev dependencies",
+      "matchDepTypes": ["devDependencies"],
       "automerge": true,
       "automergeType": "branch"
     },
     {
-      "matchPackagePatterns": ["typedoc"],
-      "enabled": false
+      "groupName": "TypeScript",
+      "matchPackageNames": ["typescript", "typedoc"]
     }
   ]
 }
