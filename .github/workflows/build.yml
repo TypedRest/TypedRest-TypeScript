@@ -40,6 +40,7 @@ jobs:
         if: steps.gitversion.outputs.preReleaseLabel == ''
         uses: peaceiris/actions-gh-pages@v3
         with:
+          github_token: ${{github.token}}
           force_orphan: true
           publish_dir: docs
           cname: typescript.typedrest.net
