@@ -1,4 +1,4 @@
-import { HttpMethod, HttpHeader, HttpClient } from "../http";
+import { HttpMethod, HttpHeader, HttpStatusCode, HttpClient } from "../http";
 import { Serializer } from "../serializers";
 import { ErrorHandler, NotFoundError } from "../errors";
 import { LinkExtractor, Link } from "../links";
@@ -188,7 +188,7 @@ export class Endpoint {
         const links = this.getLinks(rel);
 
         if (links.length === 0)
-            throw new NotFoundError(`No link with rel=${rel} provided by endpoint ${this.uri}.`, 0);
+            throw new NotFoundError(`No link with rel=${rel} provided by endpoint ${this.uri}.`, HttpStatusCode.NotFound);
 
         return links[0].uri;
     }
@@ -214,7 +214,7 @@ export class Endpoint {
             ?? this.defaultLinkTemplates.get(rel);
 
         if (!template)
-            throw new NotFoundError(`No link template with rel=${rel} provided by endpoint ${this.uri}.`, 0);
+            throw new NotFoundError(`No link template with rel=${rel} provided by endpoint ${this.uri}.`, HttpStatusCode.NotFound);
 
         return template;
     }
