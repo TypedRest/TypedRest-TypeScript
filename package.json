@@ -35,7 +35,7 @@
     "jest-fetch-mock": "3.0.3",
     "ts-jest": "29.1.0",
     "typedoc": "0.23.28",
-    "typescript": "5.0.3"
+    "typescript": "5.0.4"
   },
   "dependencies": {
     "url-template": "^2.0.8"
