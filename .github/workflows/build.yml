@@ -14,9 +14,9 @@ jobs:
           versionSpec: '5.12.x'
       - uses: gittools/actions/gitversion/execute@v0.10.2
         id: gitversion
-      - if: steps.gitversion.outputs.preReleaseLabel != ''
+      - if: github.ref_type != 'tag'
         run: npm version --no-git-tag-version ${{steps.gitversion.outputs.nuGetVersion}}-${{steps.gitversion.outputs.shortSha}}
-      - if: steps.gitversion.outputs.preReleaseLabel == ''
+      - if: github.ref_type == 'tag'
         run: npm version --no-git-tag-version ${{steps.gitversion.outputs.nuGetVersion}}
 
       # Build
@@ -27,7 +27,7 @@ jobs:
 
       # Release
       - name: Create GitHub Release
-        if: steps.gitversion.outputs.preReleaseLabel == ''
+        if: github.ref_type == 'tag'
         uses: actions/create-release@v1
         with:
           tag_name: ${{github.ref}}
@@ -37,7 +37,7 @@ jobs:
 
       # Publish (release only)
       - name: Publish documentation
-        if: steps.gitversion.outputs.preReleaseLabel == ''
+        if: github.ref_type == 'tag'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{github.token}}
@@ -45,12 +45,12 @@ jobs:
           publish_dir: docs
           cname: typescript.typedrest.net
       - name: Connect to registry (npmjs.com)
-        if: steps.gitversion.outputs.preReleaseLabel == ''
+        if: github.ref_type == 'tag'
         uses: actions/setup-node@v3
         with:
           registry-url: https://registry.npmjs.org
       - name: Publish packages (npmjs.com)
-        if: steps.gitversion.outputs.preReleaseLabel == ''
+        if: github.ref_type == 'tag'
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
@@ -63,7 +63,7 @@ jobs:
           registry-url: https://npm.pkg.github.com/
           scope: '@typedrest'
       - name: Publish packages (GitHub)
-        if: github.event_name == 'push' && !startsWith(github.ref, 'refs/heads/renovate/')
+        if: github.event_name == 'push' && !startsWith(github.ref_name, 'renovate/')
         run: |
           sed -i 's|"typedrest"|"@typedrest/typedrest"|g' package.json
           npm publish
