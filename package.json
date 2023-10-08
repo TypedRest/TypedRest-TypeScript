@@ -34,7 +34,7 @@
     "jest-environment-jsdom": "29.7.0",
     "jest-fetch-mock": "3.0.3",
     "ts-jest": "29.1.1",
-    "typedoc": "0.25.1",
+    "typedoc": "0.25.2",
     "typescript": "5.2.2"
   },
   "dependencies": {
