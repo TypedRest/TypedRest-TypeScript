@@ -29,12 +29,7 @@ jobs:
       # Release
       - name: Create GitHub Release
         if: github.ref_type == 'tag'
-        uses: actions/create-release@v1
-        with:
-          tag_name: ${{github.ref}}
-          release_name: ${{github.ref}}
-        env:
-          GITHUB_TOKEN: ${{github.token}}
+        uses: softprops/action-gh-release@v1
 
       # Publish (release only)
       - name: Publish documentation
@@ -47,7 +42,7 @@ jobs:
           cname: typescript.typedrest.net
       - name: Connect to registry (npmjs.com)
         if: github.ref_type == 'tag'
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           registry-url: https://registry.npmjs.org
       - name: Publish packages (npmjs.com)
@@ -59,7 +54,7 @@ jobs:
       # Publish
       - name: Connect to registry (GitHub)
         if: github.event_name == 'push'
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           registry-url: https://npm.pkg.github.com/
           scope: '@typedrest'
