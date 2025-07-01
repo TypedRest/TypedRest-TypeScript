@@ -7,6 +7,10 @@
   ],
   "packageRules": [
     {
+      "matchPackageNames": ["gittools"],
+      "allowedVersions": "<4"
+    },
+    {
       "groupName": "Dev dependencies",
       "matchDepTypes": ["devDependencies"],
       "automerge": true,
@@ -15,11 +19,6 @@
     {
       "groupName": "TypeDoc",
       "matchPackageNames": ["typedoc"]
-    },
-    {
-      "packagePatterns": ["gittools"],
-      "automerge": true,
-      "automergeType": "branch"
     }
   ]
 }
