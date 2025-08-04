@@ -2,7 +2,7 @@
 
 [![TypedRest](https://img.shields.io/npm/v/typedrest.svg)](https://www.npmjs.com/package/typedrest)
 [![API documentation](https://img.shields.io/badge/api-docs-orange.svg)](https://typescript.typedrest.net/)
-[![Build](https://github.com/TypedRest/TypedRest-TypeScript/workflows/Build/badge.svg?branch=master)](https://github.com/TypedRest/TypedRest-TypeScript/actions?query=workflow%3ABuild)  
+[![Build](https://github.com/TypedRest/TypedRest-TypeScript/actions/workflows/build.yml/badge.svg)](https://github.com/TypedRest/TypedRest-TypeScript/actions/workflows/build.yml)  
 TypedRest helps you build type-safe, fluent-style REST API clients. Common REST patterns such as collections are represented as classes, allowing you to write more idiomatic code.
 
 ```typescript
