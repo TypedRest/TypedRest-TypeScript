@@ -38,6 +38,6 @@
     "typescript": "5.5.4"
   },
   "dependencies": {
-    "url-template": "^2.0.8"
+    "url-template": "^3.0.0"
   }
 }
