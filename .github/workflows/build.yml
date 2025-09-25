@@ -57,7 +57,7 @@ jobs:
           cname: typescript.typedrest.net
       - name: Connect to registry (npmjs.com)
         if: github.ref_type == 'tag'
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           registry-url: https://registry.npmjs.org
       - name: Publish packages (npmjs.com)
@@ -69,7 +69,7 @@ jobs:
       # Publish
       - name: Connect to registry (GitHub)
         if: github.event_name == 'push'
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           registry-url: https://npm.pkg.github.com/
           scope: '@typedrest'
