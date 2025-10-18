@@ -11,6 +11,10 @@
       "allowedVersions": "<4"
     },
     {
+      "matchPackagePatterns": ["url-template$"],
+      "allowedVersions": "<3"
+    },
+    {
       "groupName": "Dev dependencies",
       "matchDepTypes": ["devDependencies"],
       "automerge": true,
