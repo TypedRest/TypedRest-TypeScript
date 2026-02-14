@@ -18,8 +18,7 @@ export class UploadEndpoint extends Endpoint {
 
     /**
      * Uploads data to the endpoint.
-     * @param blob The blob to read the upload data from.
-     * @param fileName The name of the uploaded file.
+     * @param blob The blob or file to read the upload data from.
      * @param signal Used to cancel the request.
      * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
      * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
@@ -27,7 +26,9 @@ export class UploadEndpoint extends Endpoint {
      * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
      * @throws {@link errors!HttpError}: Other non-success status code
      */
-    async upload(blob: Blob, fileName?: string, signal?: AbortSignal) {
+    async upload(blob: Blob | File, signal?: AbortSignal) {
+        const fileName = blob instanceof File ? blob.name : undefined;
+
         if (this.formField) {
             const formData = new FormData();
             formData.set(this.formField, blob, fileName);

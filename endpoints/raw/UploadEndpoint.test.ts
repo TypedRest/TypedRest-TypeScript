@@ -25,14 +25,21 @@ test('uploadRaw', async () => {
 
 test('uploadForm', async () => {
     const endpoint = new UploadEndpoint(new EntryEndpoint('http://localhost/'), 'endpoint', 'data');
-    const data = new Blob([new Uint8Array([1, 2, 3])], { type: 'mock/type' });
+    const file = new File([new Uint8Array([1, 2, 3])], 'file.dat', { type: 'mock/type' });
 
     fetchMock.mockOnceIf(
         req => req.method === HttpMethod.Post && req.url === 'http://localhost/endpoint',
         async req => {
             expect(req.headers.get(HttpHeader.ContentType)).toBe('multipart/form-data');
+
+            const form = req.body as FormData;
+            const entry = form.get('data');
+            const uploadedFile = entry as File;
+            expect(uploadedFile.name).toBe('file.dat');
+            expect(uploadedFile.type).toBe('mock/type');
+
             return {};
         }
     );
-    await endpoint.upload(data, 'file.dat');
+    await endpoint.upload(file);
 });
