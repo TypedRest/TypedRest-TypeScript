@@ -37,7 +37,7 @@ test('download', async () => {
     await endpoint.download();
 });
 
-test('upload', async () => {
+test('uploadFrom', async () => {
     const data = new Blob([new Uint8Array([1, 2, 3])], { type: 'mock/type' });
 
     fetchMock.mockOnceIf(
@@ -48,5 +48,5 @@ test('upload', async () => {
         }
     );
 
-    await endpoint.upload(data);
+    await endpoint.uploadFrom(data);
 });

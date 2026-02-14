@@ -26,7 +26,7 @@ export class UploadEndpoint extends Endpoint {
      * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
      * @throws {@link errors!HttpError}: Other non-success status code
      */
-    async upload(blob: Blob | File, signal?: AbortSignal) {
+    async uploadFrom(blob: Blob | File, signal?: AbortSignal) {
         const fileName = blob instanceof File ? blob.name : undefined;
 
         if (this.formField) {

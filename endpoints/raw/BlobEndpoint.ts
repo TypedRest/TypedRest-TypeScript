@@ -63,7 +63,7 @@ export class BlobEndpoint extends Endpoint {
      * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
      * @throws {@link errors!HttpError}: Other non-success status code
      */
-    async upload(blob: Blob, signal?: AbortSignal) {
+    async uploadFrom(blob: Blob, signal?: AbortSignal) {
         await this.send(HttpMethod.Put, signal, { [HttpHeader.ContentType]: blob.type }, blob);
     }
 

@@ -9,7 +9,7 @@ beforeEach(() => {
     fetchMock.resetMocks();
 });
 
-test('uploadRaw', async () => {
+test('uploadFromRaw', async () => {
     const endpoint = new UploadEndpoint(new EntryEndpoint('http://localhost/'), 'endpoint');
     const data = new Blob([new Uint8Array([1, 2, 3])], { type: 'mock/type' });
 
@@ -20,10 +20,10 @@ test('uploadRaw', async () => {
             return {};
         }
     );
-    await endpoint.upload(data);
+    await endpoint.uploadFrom(data);
 });
 
-test('uploadForm', async () => {
+test('uploadFromForm', async () => {
     const endpoint = new UploadEndpoint(new EntryEndpoint('http://localhost/'), 'endpoint', 'data');
     const file = new File([new Uint8Array([1, 2, 3])], 'file.dat', { type: 'mock/type' });
 
@@ -38,7 +38,7 @@ test('uploadForm', async () => {
         }
     );
 
-    await endpoint.upload(file);
+    await endpoint.uploadFrom(file);
 
     // Verify the FormData was populated correctly with file name and type
     expect(setSpy).toHaveBeenCalledWith('data', file, 'file.dat');
