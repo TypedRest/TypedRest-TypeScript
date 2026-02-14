@@ -28,4 +28,4 @@ const note: Note = await smith.note.read();
 await smith.delete();
 ```
 
-Read a more detailed **[Introduction](https://typedrest.net/introduction/)** to TypedRest or jump right in with the **[Getting started](https://typedrest.net/getting-started/typescript/)** guide.
+Read a more detailed **[Introduction](https://typedrest.net/introduction/)** to TypedRest or jump right in with the **[setup guide](https://typedrest.net/setup/typescript/)**.
