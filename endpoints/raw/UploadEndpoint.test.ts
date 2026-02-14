@@ -25,7 +25,10 @@ test('uploadRaw', async () => {
 
 test('uploadForm', async () => {
     const endpoint = new UploadEndpoint(new EntryEndpoint('http://localhost/'), 'endpoint', 'data');
-    const data = new Blob([new Uint8Array([1, 2, 3])], { type: 'mock/type' });
+    const file = new File([new Uint8Array([1, 2, 3])], 'file.dat', { type: 'mock/type' });
+
+    // Spy on FormData.prototype.set to verify what's being set
+    const setSpy = jest.spyOn(FormData.prototype, 'set');
 
     fetchMock.mockOnceIf(
         req => req.method === HttpMethod.Post && req.url === 'http://localhost/endpoint',
@@ -34,5 +37,14 @@ test('uploadForm', async () => {
             return {};
         }
     );
-    await endpoint.upload(data, 'file.dat');
+
+    await endpoint.upload(file);
+
+    // Verify the FormData was populated correctly with file name and type
+    expect(setSpy).toHaveBeenCalledWith('data', file, 'file.dat');
+    const capturedFile = setSpy.mock.calls[0][1] as File;
+    expect(capturedFile.name).toBe('file.dat');
+    expect(capturedFile.type).toBe('mock/type');
+
+    setSpy.mockRestore();
 });
