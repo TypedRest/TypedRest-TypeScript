@@ -42,7 +42,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           body: |
-            **[NPM package](https://www.npmjs.com/package/typedrest/v/ ${{steps.gitversion.outputs.nuGetVersion}})**
+            **[NPM package](https://www.npmjs.com/package/typedrest/v/${{steps.gitversion.outputs.nuGetVersion}})**
             ## Changes
             ${{steps.tag_message.outputs.message}}
 
