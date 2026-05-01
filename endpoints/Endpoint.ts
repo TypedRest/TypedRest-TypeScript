@@ -49,16 +49,16 @@ export class Endpoint {
         if (referrer) {
             this.uri = (typeof uri === "string") ? referrer.join(uri) : uri;
             if (serializer)
-                throw new Error("serializer must not be specified if referrer is not specified.");
+                throw new Error("serializer must not be specified if referrer is specified.");
             this.serializer = referrer.serializer;
             if (errorHandler)
-                throw new Error("errorHandler must not be specified if referrer is not specified.");
+                throw new Error("errorHandler must not be specified if referrer is specified.");
             this.errorHandler = referrer.errorHandler;
             if (linkExtractor)
-                throw new Error("linkExtractor must not be specified if referrer is not specified.");
+                throw new Error("linkExtractor must not be specified if referrer is specified.");
             this.linkExtractor = referrer.linkExtractor;
             if (httpClient)
-                throw new Error("httpClient must not be specified if referrer is not specified.");
+                throw new Error("httpClient must not be specified if referrer is specified.");
             this.httpClient = referrer.httpClient;
         } else {
             this.uri = (typeof uri === "string") ? new URL(uri) : uri;
