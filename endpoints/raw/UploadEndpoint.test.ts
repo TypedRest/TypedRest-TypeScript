@@ -32,10 +32,7 @@ test('uploadFromForm', async () => {
 
     fetchMock.mockOnceIf(
         req => req.method === HttpMethod.Post && req.url === 'http://localhost/endpoint',
-        async req => {
-            expect(req.headers.get(HttpHeader.ContentType)).toBe('multipart/form-data');
-            return {};
-        }
+        async () => ({})
     );
 
     await endpoint.uploadFrom(file);

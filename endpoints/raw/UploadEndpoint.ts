@@ -13,7 +13,6 @@ export class UploadEndpoint extends Endpoint {
      */
     constructor(referrer: Endpoint, relativeUri: URL | string, private readonly formField?: string) {
         super(referrer, relativeUri);
-        this.formField = formField;
     }
 
     /**
@@ -32,7 +31,7 @@ export class UploadEndpoint extends Endpoint {
         if (this.formField) {
             const formData = new FormData();
             formData.set(this.formField, blob, fileName);
-            await this.send(HttpMethod.Post, signal, { [HttpHeader.ContentType]: "multipart/form-data" }, formData);
+            await this.send(HttpMethod.Post, signal, undefined, formData);
         } else {
             await this.send(HttpMethod.Post, signal, { [HttpHeader.ContentType]: blob.type }, blob);
         }
