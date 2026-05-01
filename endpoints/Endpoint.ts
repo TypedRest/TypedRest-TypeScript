@@ -92,7 +92,7 @@ export class Endpoint {
      */
     protected static ensureTrailingSlash(uri: URL | string): URL {
         let uriString = (typeof uri === "string") ? uri : uri.href;
-        if (uriString.substr(uriString.length - 1, 1) !== "/")
+        if (!uriString.endsWith("/"))
             uriString += "/";
         return new URL(uriString);
     }

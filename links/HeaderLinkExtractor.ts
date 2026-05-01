@@ -46,7 +46,7 @@ export class HeaderLinkExtractor implements LinkExtractor {
         return (result.length === 2)
             ? {
                 left: result[0],
-                right: result[1] + str.substr(result.join(separator).length)
+                right: result[1] + str.slice(result.join(separator).length)
             }
             : {
                 left: result[0],
