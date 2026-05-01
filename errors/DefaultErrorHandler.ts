@@ -22,9 +22,14 @@ export class DefaultErrorHandler implements ErrorHandler {
         if (response.ok) return;
 
         const contentType = response.headers.get(HttpHeader.ContentType);
-        const jsonBody = (contentType?.startsWith("application/json") || contentType?.includes("+json"))
-            ? await response.json()
-            : undefined;
+        let jsonBody: any;
+        if (contentType?.startsWith("application/json") || contentType?.includes("+json")) {
+            try {
+                jsonBody = await response.json();
+            } catch {
+                jsonBody = undefined;
+            }
+        }
 
         const errorType = DefaultErrorHandler.errorType(response.status);
         throw new errorType(
