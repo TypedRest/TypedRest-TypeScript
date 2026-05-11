@@ -29,3 +29,5 @@ await smith.delete();
 ```
 
 Read a more detailed **[Introduction](https://typedrest.net/introduction/)** to TypedRest or jump right in with the **[setup guide](https://typedrest.net/setup/typescript/)**.
+
+You can also take a look at our [Sample project](https://github.com/TypedRest/Sample-TypeScript).
