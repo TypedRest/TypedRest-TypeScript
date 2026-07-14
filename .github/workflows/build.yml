@@ -25,7 +25,7 @@ jobs:
         run: npm version --no-git-tag-version ${{steps.gitversion.outputs.nuGetVersion}}-${{steps.gitversion.outputs.shortSha}}
       - if: github.ref_type == 'tag'
         run: npm version --no-git-tag-version ${{steps.gitversion.outputs.nuGetVersion}}
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: npm
@@ -67,7 +67,7 @@ jobs:
           cname: typescript.typedrest.net
       - name: Connect to registry (npmjs.com)
         if: github.ref_type == 'tag'
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: '24'
           registry-url: https://registry.npmjs.org
@@ -78,7 +78,7 @@ jobs:
       # Publish
       - name: Connect to registry (GitHub)
         if: github.event_name == 'push'
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           registry-url: https://npm.pkg.github.com/
           scope: '@typedrest'
