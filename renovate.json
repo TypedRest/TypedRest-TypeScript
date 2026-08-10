@@ -11,6 +11,12 @@
       "allowedVersions": "<4"
     },
     {
+      "description": "ts-jest does not yet support TypeScript 7.x",
+      "matchPackageNames": ["typescript"],
+      "allowedVersions": "<7"
+    },
+    {
+      "description": "url-template 3.x does not support CommonJS",
       "matchPackagePatterns": ["url-template$"],
       "allowedVersions": "<3"
     },
