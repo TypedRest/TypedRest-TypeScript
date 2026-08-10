@@ -30,7 +30,7 @@
   "devDependencies": {
     "@types/node": "26.2.0",
     "@types/jest": "30.0.0",
-    "@types/url-template": "2.0.31",
+    "@types/uri-templates": "0.1.34",
     "jest": "30.4.2",
     "jest-environment-jsdom": "30.4.1",
     "jest-fetch-mock": "4.2.0",
@@ -39,6 +39,6 @@
     "typescript": "6.0.3"
   },
   "dependencies": {
-    "url-template": "^2.0.8"
+    "uri-templates": "^0.2.0"
   }
 }

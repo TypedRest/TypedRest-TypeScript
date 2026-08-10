@@ -2,7 +2,7 @@ import { HttpMethod, HttpHeader, HttpStatusCode, HttpClient } from "../http";
 import { Serializer } from "../serializers";
 import { ErrorHandler, NotFoundError } from "../errors";
 import { LinkExtractor, Link } from "../links";
-import template from 'url-template';
+import uriTemplates from 'uri-templates';
 
 export class Endpoint {
     /**
@@ -200,8 +200,8 @@ export class Endpoint {
      * @throws {@link errors!NotFoundError}: No link template with the specified `rel` could be found.
      */
     linkTemplate(rel: string, variables: { [key: string]: any; }): URL {
-        const tmpl = template.parse(this.getLinkTemplate(rel))
-        return new URL(this.join(tmpl.expand(variables)))
+        const tmpl = uriTemplates(this.getLinkTemplate(rel))
+        return new URL(this.join(tmpl.fill(variables)))
     }
 
     /**
