@@ -6,3 +6,5 @@ export * from "./FetchHttpClient";
 export * from "./ResponseCache";
 export * from "./HttpContentRange";
 export * from "./RetryAfter";
+export * from "./EntityStream";
+export * from "./ServerSentEvents";

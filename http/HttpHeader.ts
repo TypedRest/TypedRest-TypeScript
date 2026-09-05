@@ -11,5 +11,6 @@ export enum HttpHeader {
     Range = "Range",
     ContentRange = "Content-Range",
     AcceptRanges = "Accept-Ranges",
-    RetryAfter = "Retry-After"
+    RetryAfter = "Retry-After",
+    LastEventId = "Last-Event-ID"
 }
