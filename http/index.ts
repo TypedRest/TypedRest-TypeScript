@@ -4,3 +4,5 @@ export * from "./HttpHeader";
 export * from "./HttpClient";
 export * from "./FetchHttpClient";
 export * from "./ResponseCache";
+export * from "./HttpContentRange";
+export * from "./RetryAfter";

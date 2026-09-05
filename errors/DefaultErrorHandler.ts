@@ -1,5 +1,5 @@
 import { ErrorHandler } from "./ErrorHandler";
-import { HttpError, BadRequestError, AuthenticationError, AuthorizationError, NotFoundError, TimeoutError, ConflictError, ConcurrencyError } from "./Errors";
+import { HttpError, BadRequestError, AuthenticationError, AuthorizationError, NotFoundError, TimeoutError, ConflictError, ConcurrencyError, RangeNotSatisfiableError } from "./Errors";
 import { HttpStatusCode, HttpHeader } from "../http";
 
 /**
@@ -16,6 +16,7 @@ export class DefaultErrorHandler implements ErrorHandler {
      * @throws {@link errors!TimeoutError}: {@link http!HttpStatusCode.RequestTimeout}
      * @throws {@link errors!ConflictError}: {@link http!HttpStatusCode.Conflict}
      * @throws {@link errors!ConcurrencyError}: {@link http!HttpStatusCode.PreconditionFailed}
+     * @throws {@link errors!RangeNotSatisfiableError}: {@link http!HttpStatusCode.RangeNotSatisfiable}
      * @throws {@link errors!HttpError}: Other non-success status code
      */
     async handle(response: Response) {
@@ -55,6 +56,8 @@ export class DefaultErrorHandler implements ErrorHandler {
                 return ConflictError;
             case HttpStatusCode.PreconditionFailed:
                 return ConcurrencyError;
+            case HttpStatusCode.RangeNotSatisfiable:
+                return RangeNotSatisfiableError;
             default:
                 return HttpError;
         }

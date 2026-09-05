@@ -1,8 +1,9 @@
 import { ETagEndpointBase } from "./ETagEndpointBase";
 import { ElementEndpoint } from "./ElementEndpoint";
+import { PartialResponse } from "./PartialResponse";
 import { Endpoint } from "../Endpoint";
 import { CachingEndpoint } from "../CachingEndpoint";
-import { HttpMethod, HttpHeader, ResponseCache } from "../../http";
+import { HttpMethod, HttpHeader, HttpContentRange, ResponseCache } from "../../http";
 
 /**
  * Endpoint for a collection of `TEntity`s addressable as `TElementEndpoint`s.<br>
@@ -58,6 +59,58 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Element
      */
     async readAll(signal?: AbortSignal) {
         return this.serializer.deserialize<TEntity[]>(await this.getContent(signal));
+    }
+
+    /**
+     * The unit used when requesting ranges of elements. Sent in the {@link http!HttpHeader.Range} header.
+     */
+    rangeUnit = "elements";
+
+    // NOTE: Only modified when the server reports its capabilities.
+    private acceptedRangeUnits: string[] = [];
+
+    /**
+     * @inheritDoc
+     */
+    protected handleCapabilities(response: Response) {
+        super.handleCapabilities(response);
+
+        const header = response.headers.get(HttpHeader.AcceptRanges);
+        if (header) {
+            this.acceptedRangeUnits = header.split(",").map(x => x.trim());
+        }
+    }
+
+    /**
+     * Shows whether the server has indicated that {@link readRange} is currently allowed.
+     * Uses cached data from last response.
+     * @returns `true` if the method is allowed, `false` if the method is not allowed, `undefined` if no request has been sent yet or the server did not specify accepted range units.
+     */
+    get readRangeAllowed(): boolean | undefined {
+        if (this.acceptedRangeUnits.length === 0)
+            return undefined;
+
+        return this.acceptedRangeUnits.indexOf(this.rangeUnit) !== -1;
+    }
+
+    /**
+     * Returns a subset of the `TEntity`s in the collection.
+     * @param from The index of the first element to return. Leave unspecified to return the last `to` elements ("tail").
+     * @param to The index of the last element to return. Leave unspecified to return all elements starting at `from`.
+     * @param signal Used to cancel the request.
+     * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
+     * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
+     * @throws {@link errors!RangeNotSatisfiableError}: {@link http!HttpStatusCode.RangeNotSatisfiable}, i.e. the requested range lies outside of the elements currently available
+     * @throws {@link errors!HttpError}: Other non-success status code
+     */
+    async readRange(from?: number, to?: number, signal?: AbortSignal): Promise<PartialResponse<TEntity>> {
+        const response = await this.send(HttpMethod.Get, signal, {
+            [HttpHeader.Range]: `${this.rangeUnit}=${from ?? ""}-${to ?? ""}`
+        });
+
+        return new PartialResponse<TEntity>(
+            this.serializer.deserialize<TEntity[]>(await response.text()),
+            HttpContentRange.from(response));
     }
 
     /**

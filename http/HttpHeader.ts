@@ -7,5 +7,9 @@ export enum HttpHeader {
     Link = "Link",
     ETag = "ETag",
     IfMatch = "If-Match",
-    IfNoneMatch = "If-None-Match"
+    IfNoneMatch = "If-None-Match",
+    Range = "Range",
+    ContentRange = "Content-Range",
+    AcceptRanges = "Accept-Ranges",
+    RetryAfter = "Retry-After"
 }

@@ -49,3 +49,8 @@ export class ConflictError extends HttpError {}
  * Thrown on HTTP response for a failed precondition or mid-air collision (usually {@link http!HttpStatusCode.PreconditionFailed}).
  */
 export class ConcurrencyError extends HttpError {}
+
+/**
+ * Thrown on HTTP response for a requested range that the server can not provide (usually {@link http!HttpStatusCode.RangeNotSatisfiable}).
+ */
+export class RangeNotSatisfiableError extends HttpError {}

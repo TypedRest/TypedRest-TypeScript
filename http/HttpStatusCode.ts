@@ -2,6 +2,7 @@ export enum HttpStatusCode {
     OK = 200,
     Created = 201,
     Accepted = 202,
+    PartialContent = 206,
     NotModified = 304,
     BadRequest = 400,
     Unauthorized = 401,
@@ -10,5 +11,6 @@ export enum HttpStatusCode {
     RequestTimeout = 408,
     Conflict = 409,
     Gone = 410,
-    PreconditionFailed = 412
+    PreconditionFailed = 412,
+    RangeNotSatisfiable = 416
 }
