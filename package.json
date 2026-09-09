@@ -28,7 +28,7 @@
     "docs": "typedoc"
   },
   "devDependencies": {
-    "@types/node": "26.5.0",
+    "@types/node": "26.5.1",
     "@types/jest": "30.0.0",
     "@types/url-template": "2.0.31",
     "jest": "30.5.1",
