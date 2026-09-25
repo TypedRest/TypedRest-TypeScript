@@ -34,7 +34,7 @@
     "jest": "30.5.2",
     "jest-environment-jsdom": "30.5.2",
     "jest-fetch-mock": "4.2.0",
-    "ts-jest": "29.4.13",
+    "ts-jest": "29.4.14",
     "typedoc": "0.28.20",
     "typescript": "6.0.3"
   },
