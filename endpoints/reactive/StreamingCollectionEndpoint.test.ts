@@ -1,9 +1,3 @@
-/**
- * NOTE: The jsdom environment strips the "Range" request header, so these tests need the node environment.
- * @jest-environment node
- */
-
-import fetchMock from 'jest-fetch-mock';
 import { StreamingCollectionEndpoint } from '.';
 import { EntryEndpoint } from '..';
 import { HttpHeader, HttpStatusCode } from '../../http';
@@ -12,7 +6,6 @@ class MockEntity {
     constructor(public id: number, public name: string) { }
 }
 
-fetchMock.enableMocks();
 let endpoint: StreamingCollectionEndpoint<MockEntity>;
 
 beforeEach(() => {

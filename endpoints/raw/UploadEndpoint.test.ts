@@ -1,9 +1,7 @@
-import fetchMock from 'jest-fetch-mock';
 import { UploadEndpoint } from '.';
 import { EntryEndpoint } from '..';
 import { HttpMethod, HttpHeader } from '../../http';
 
-fetchMock.enableMocks();
 
 beforeEach(() => {
     fetchMock.resetMocks();
@@ -28,7 +26,7 @@ test('uploadFromForm', async () => {
     const file = new File([new Uint8Array([1, 2, 3])], 'file.dat', { type: 'mock/type' });
 
     // Spy on FormData.prototype.set to verify what's being set
-    const setSpy = jest.spyOn(FormData.prototype, 'set');
+    const setSpy = vi.spyOn(FormData.prototype, 'set');
 
     fetchMock.mockOnceIf(
         req => req.method === HttpMethod.Post && req.url === 'http://localhost/endpoint',

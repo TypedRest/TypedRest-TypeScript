@@ -1,4 +1,3 @@
-import fetchMock from 'jest-fetch-mock';
 import { Endpoint, EntryEndpoint } from '.';
 import { HttpMethod, HttpHeader, HttpStatusCode } from '../http';
 import { ActionEndpoint } from './rpc';
@@ -10,7 +9,6 @@ class CustomEndpoint extends Endpoint {
     isMethodAllowedPublic(method: HttpMethod) { return this.isMethodAllowed(method); }
 }
 
-fetchMock.enableMocks();
 let endpoint: CustomEndpoint;
 
 beforeEach(() => {

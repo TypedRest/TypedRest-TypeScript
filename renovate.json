@@ -11,7 +11,7 @@
       "allowedVersions": "<4"
     },
     {
-      "description": "ts-jest does not yet support TypeScript 7.x",
+      "description": "TypeDoc does not yet support TypeScript 7.x",
       "matchPackageNames": ["typescript"],
       "allowedVersions": "<7"
     },

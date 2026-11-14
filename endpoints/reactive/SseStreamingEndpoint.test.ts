@@ -1,9 +1,3 @@
-/**
- * NOTE: The jsdom environment does not expose response bodies as streams, so these tests need the node environment.
- * @jest-environment node
- */
-
-import fetchMock from 'jest-fetch-mock';
 import { SseStreamingEndpoint } from '.';
 import { EntryEndpoint } from '..';
 import { ConflictError } from '../../errors';
@@ -13,7 +7,6 @@ class MockEntity {
     constructor(public id: number, public name: string) { }
 }
 
-fetchMock.enableMocks();
 let entryEndpoint: EntryEndpoint;
 let endpoint: SseStreamingEndpoint<MockEntity>;
 
@@ -111,7 +104,7 @@ test('streamError', async () => {
         headers: { [HttpHeader.ContentType]: 'application/json' }
     });
 
-    await expect(collect(endpoint.stream())).rejects.toThrow(new ConflictError('my message', HttpStatusCode.Conflict));
+    await expect(collect(endpoint.stream())).rejects.toThrow(new ConflictError('my message', HttpStatusCode.Conflict, { message: 'my message' }));
 });
 
 test('streamNoContentCompletes', async () => {

@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "types": ["jest", "node"]
+    "types": ["vitest/globals", "vitest-fetch-mock", "node"]
   },
   "include": [
     "**/*.test.ts"

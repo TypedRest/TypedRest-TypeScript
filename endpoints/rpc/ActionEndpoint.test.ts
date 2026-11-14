@@ -1,9 +1,7 @@
-import fetchMock from 'jest-fetch-mock';
 import { ActionEndpoint } from '.';
 import { EntryEndpoint } from '..';
 import { HttpMethod, HttpHeader } from '../../http';
 
-fetchMock.enableMocks();
 let endpoint: ActionEndpoint;
 
 beforeEach(() => {

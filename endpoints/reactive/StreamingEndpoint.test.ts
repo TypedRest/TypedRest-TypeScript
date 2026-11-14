@@ -1,9 +1,3 @@
-/**
- * NOTE: The jsdom environment does not expose response bodies as streams, so these tests need the node environment.
- * @jest-environment node
- */
-
-import fetchMock from 'jest-fetch-mock';
 import { StreamingEndpoint } from '.';
 import { EntryEndpoint } from '..';
 import { NotFoundError } from '../../errors';
@@ -13,7 +7,6 @@ class MockEntity {
     constructor(public id: number, public name: string) { }
 }
 
-fetchMock.enableMocks();
 let entryEndpoint: EntryEndpoint;
 
 beforeEach(() => {

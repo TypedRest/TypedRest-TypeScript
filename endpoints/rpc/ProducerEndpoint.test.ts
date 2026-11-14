@@ -1,4 +1,3 @@
-import fetchMock from 'jest-fetch-mock';
 import { ProducerEndpoint } from '.';
 import { EntryEndpoint } from '..';
 import { HttpMethod, HttpHeader } from '../../http';
@@ -7,7 +6,6 @@ class MockEntity {
     constructor(public id: number, public name: string) { }
 }
 
-fetchMock.enableMocks();
 let endpoint: ProducerEndpoint<MockEntity>;
 
 beforeEach(() => {

@@ -1,4 +1,3 @@
-import fetchMock from 'jest-fetch-mock';
 import { PollingEndpoint } from '.';
 import { EntryEndpoint } from '..';
 import { HttpHeader } from '../../http';
@@ -7,7 +6,6 @@ class MockEntity {
     constructor(public id: number, public name: string) { }
 }
 
-fetchMock.enableMocks();
 let endpoint: PollingEndpoint<MockEntity>;
 
 beforeEach(() => {
