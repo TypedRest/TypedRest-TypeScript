@@ -15,12 +15,65 @@
   },
   "homepage": "https://typedrest.net",
   "main": "index.js",
-  "types": "index.ts",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    },
+    "./endpoints": {
+      "types": "./endpoints/index.d.ts",
+      "default": "./endpoints/index.js"
+    },
+    "./endpoints/generic": {
+      "types": "./endpoints/generic/index.d.ts",
+      "default": "./endpoints/generic/index.js"
+    },
+    "./endpoints/rpc": {
+      "types": "./endpoints/rpc/index.d.ts",
+      "default": "./endpoints/rpc/index.js"
+    },
+    "./endpoints/raw": {
+      "types": "./endpoints/raw/index.d.ts",
+      "default": "./endpoints/raw/index.js"
+    },
+    "./endpoints/reactive": {
+      "types": "./endpoints/reactive/index.d.ts",
+      "default": "./endpoints/reactive/index.js"
+    },
+    "./http": {
+      "types": "./http/index.d.ts",
+      "default": "./http/index.js"
+    },
+    "./errors": {
+      "types": "./errors/index.d.ts",
+      "default": "./errors/index.js"
+    },
+    "./serializers": {
+      "types": "./serializers/index.d.ts",
+      "default": "./serializers/index.js"
+    },
+    "./links": {
+      "types": "./links/index.d.ts",
+      "default": "./links/index.js"
+    },
+    "./package.json": "./package.json"
+  },
   "files": [
-    "**/*.js",
-    "**/*.ts",
-    "!_doc.*",
-    "!docs/"
+    "index.js",
+    "index.d.ts",
+    "endpoints/**/*.js",
+    "endpoints/**/*.d.ts",
+    "errors/**/*.js",
+    "errors/**/*.d.ts",
+    "http/**/*.js",
+    "http/**/*.d.ts",
+    "links/**/*.js",
+    "links/**/*.d.ts",
+    "serializers/**/*.js",
+    "serializers/**/*.d.ts",
+    "!**/_doc.*",
+    "!**/*.test.*"
   ],
   "scripts": {
     "build": "tsc",

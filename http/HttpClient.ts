@@ -17,5 +17,5 @@ export interface HttpClient {
      * @param headers The HTTP headers to set.
      * @param body The body to send.
      */
-    send(uri: URL, method: HttpMethod, signal?: AbortSignal, headers?: HeadersInit, body?: BodyInit): Promise<Response>;
+    send(uri: URL, method: HttpMethod, signal?: AbortSignal, headers?: RequestInit["headers"], body?: RequestInit["body"]): Promise<Response>;
 }

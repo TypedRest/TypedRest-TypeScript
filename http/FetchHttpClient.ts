@@ -13,7 +13,7 @@ export class FetchHttpClient implements HttpClient {
     /**
      * @inheritDoc
      */
-    send(uri: URL, method: HttpMethod, signal?: AbortSignal, headers?: HeadersInit, body?: BodyInit) {
+    send(uri: URL, method: HttpMethod, signal?: AbortSignal, headers?: RequestInit["headers"], body?: RequestInit["body"]) {
         const mergedHeaders = new Headers(headers);
         this.defaultHeaders.forEach((value, key) => {
             if (!mergedHeaders.has(key)) {

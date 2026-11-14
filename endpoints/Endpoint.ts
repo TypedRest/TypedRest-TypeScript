@@ -106,7 +106,7 @@ export class Endpoint {
      * @param body The body to send.
      * @throws {@link errors!HttpError}
      */
-    protected async send(method: HttpMethod, signal?: AbortSignal, headers?: HeadersInit, body?: BodyInit): Promise<Response> {
+    protected async send(method: HttpMethod, signal?: AbortSignal, headers?: RequestInit["headers"], body?: RequestInit["body"]): Promise<Response> {
         const response = await this.httpClient.send(this.uri, method, signal, headers, body);
         await this.handle(response);
         return response;
