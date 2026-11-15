@@ -53,6 +53,74 @@ test('readCache', async () => {
     expect(result2).not.toBe(result1); // Should cache response, not deserialized object
 });
 
+test('setCacheETag', async () => {
+    fetchMock.mockOnceIf(
+        req => req.method === HttpMethod.Put && req.url === 'http://localhost/endpoint',
+        async req => {
+            expect(await req.text()).toBe('{"id":5,"name":"test"}');
+            return { status: HttpStatusCode.NoContent, headers: { [HttpHeader.ETag]: '"456def"' } };
+        }
+    );
+    await endpoint.set(new MockEntity(5, 'test'));
+
+    expect(endpoint.response).toEqual(new MockEntity(5, 'test'));
+
+    fetchMock.mockOnceIf(
+        req => req.method === HttpMethod.Get && req.url === 'http://localhost/endpoint',
+        async req => {
+            expect(req.headers.get(HttpHeader.IfNoneMatch)).toBe('"456def"');
+            return { status: HttpStatusCode.NotModified };
+        }
+    );
+    const result = await endpoint.read();
+    expect(result).toEqual(new MockEntity(5, 'test'));
+
+    fetchMock.mockOnceIf(
+        req => req.method === HttpMethod.Put && req.url === 'http://localhost/endpoint',
+        async req => {
+            expect(req.headers.get(HttpHeader.IfMatch)).toBe('"456def"');
+            return { status: HttpStatusCode.NoContent };
+        }
+    );
+    await endpoint.set(result);
+});
+
+test('setCacheETagWithResult', async () => {
+    fetchMock.mockOnceIf(
+        req => req.method === HttpMethod.Put && req.url === 'http://localhost/endpoint',
+        '{"id":5,"name":"testXXX"}',
+        {
+            headers: {
+                [HttpHeader.ContentType]: 'application/json',
+                [HttpHeader.ETag]: '"456def"'
+            }
+        }
+    );
+    const result = await endpoint.set(new MockEntity(5, 'test'));
+    expect(result).toEqual(new MockEntity(5, 'testXXX'));
+
+    expect(endpoint.response).toEqual(new MockEntity(5, 'testXXX'));
+
+    fetchMock.mockOnceIf(
+        req => req.method === HttpMethod.Delete && req.url === 'http://localhost/endpoint',
+        async req => {
+            expect(req.headers.get(HttpHeader.IfMatch)).toBe('"456def"');
+            return { status: HttpStatusCode.NoContent };
+        }
+    );
+    await endpoint.delete();
+});
+
+test('setNoETag', async () => {
+    fetchMock.mockOnceIf(
+        req => req.method === HttpMethod.Put && req.url === 'http://localhost/endpoint',
+        async () => ({ status: HttpStatusCode.NoContent })
+    );
+    await endpoint.set(new MockEntity(5, 'test'));
+
+    expect(endpoint.response).toBeUndefined();
+});
+
 test('existsTrue', async () => {
     fetchMock.mockOnceIf(req => req.method === HttpMethod.Head && req.url === 'http://localhost/endpoint');
 
