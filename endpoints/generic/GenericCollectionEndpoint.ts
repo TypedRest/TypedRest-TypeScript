@@ -186,8 +186,9 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Element
     get setAllAllowed() { return this.isMethodAllowed(HttpMethod.Put); }
 
     /**
-     *  Replaces the entire content of the collection with new `TEntity`s.
+     * Replaces the entire content of the collection with new `TEntity`s.
      * @param entities The `TEntity`s to create or modify.
+     * @throws {@link errors!ConcurrencyError}: The collection has changed since it was last retrieved with {@link readAll}. Your changes were rejected to prevent a lost update.
      * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
      * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
      * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}

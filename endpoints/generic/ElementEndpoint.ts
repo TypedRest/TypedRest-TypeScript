@@ -93,7 +93,6 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
      * @param entity The `TEntity` data to merge with the existing element.
      * @param signal Used to cancel the request.
      * @returns The `TEntity` as returned by the server, possibly with additional fields set. undefined if the server does not respond with a result entity.
-     * @throws {@link errors!ConcurrencyError}: The entity has changed since it was last retrieved with {@link read}. Your changes were rejected to prevent a lost update.
      * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
      * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
      * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
