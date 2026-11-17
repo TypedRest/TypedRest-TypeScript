@@ -254,12 +254,24 @@ test('setElementAbort', async () => {
     await expect(endpoint.set(new MockEntity(5, 'test'), controller.signal)).rejects.toThrow(/abort/i);
 });
 
+test('mergeElementPartial', async () => {
+    fetchMock.mockOnceIf(
+        req => req.method === HttpMethod.Patch && req.url === 'http://localhost/endpoint/5',
+        async req => {
+            expect(await req.text()).toBe('{"id":5,"name":"test"}');
+            return {};
+        }
+    );
+
+    await endpoint.merge({ id: 5, name: 'test' });
+});
+
 test('mergeElementAbort', async () => {
     fetchMock.mockOnceIf(req => req.method === HttpMethod.Patch && req.url === 'http://localhost/endpoint/5', '');
     const controller = new AbortController();
     controller.abort();
 
-    await expect(endpoint.merge(new MockEntity(5, 'test'), controller.signal)).rejects.toThrow(/abort/i);
+    await expect(endpoint.merge({ id: 5 }, controller.signal)).rejects.toThrow(/abort/i);
 });
 
 test('deleteElement', async () => {

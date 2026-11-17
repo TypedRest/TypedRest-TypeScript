@@ -299,6 +299,18 @@ test('mergeNoResult', async () => {
     expect(result).toBeUndefined();
 });
 
+test('mergePartial', async () => {
+    fetchMock.mockOnceIf(
+        req => req.method === HttpMethod.Patch && req.url === 'http://localhost/endpoint',
+        async req => {
+            expect(await req.text()).toBe('{"name":"test"}');
+            return {};
+        }
+    );
+
+    await endpoint.merge({ name: 'test' });
+});
+
 test('delete', async () => {
     fetchMock.mockOnceIf(req => req.method === HttpMethod.Delete && req.url === 'http://localhost/endpoint');
     await endpoint.delete();

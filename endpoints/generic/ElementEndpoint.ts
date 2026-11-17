@@ -90,7 +90,7 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
 
     /**
      * Modifies an existing `TEntity` by merging changes on the server-side.
-     * @param entity The `TEntity` data to merge with the existing element.
+     * @param entity The `TEntity` data to merge with the existing element. Fields that are left out remain unchanged.
      * @param signal Used to cancel the request.
      * @returns The `TEntity` as returned by the server, possibly with additional fields set. undefined if the server does not respond with a result entity.
      * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
@@ -99,7 +99,7 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
      * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
      * @throws {@link errors!HttpError}: Other non-success status code
      */
-    async merge(entity: TEntity, signal?: AbortSignal): Promise<(TEntity | undefined)> {
+    async merge(entity: Partial<TEntity>, signal?: AbortSignal): Promise<(TEntity | undefined)> {
         this.responseCache = undefined;
         const response = await this.send(HttpMethod.Patch, signal, {
             [HttpHeader.ContentType]: this.serializer.supportedMediaTypes[0]

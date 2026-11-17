@@ -223,7 +223,7 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Element
 
     /**
      * Modifies an existing element in the collection by merging changes on the server-side.
-     * @param element The `TEntity` data to merge with the existing element.
+     * @param element The `TEntity` data to merge with the existing element. Must include the `id` property.
      * @param signal Used to cancel the request.
      * @returns The `TEntity` as returned by the server, possibly with additional fields set. undefined if the server does not respond with a result entity.
      * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
@@ -232,7 +232,7 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Element
      * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
      * @throws {@link errors!HttpError}: Other non-success status code
      */
-    merge(element: TEntity, signal?: AbortSignal) { return this.get(element).merge(element, signal); }
+    merge(element: Partial<TEntity>, signal?: AbortSignal) { return this.get(element as TEntity).merge(element, signal); }
 
     /**
      * Deletes an existing element from the collection.
