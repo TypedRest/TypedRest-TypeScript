@@ -211,3 +211,67 @@ test('setAllETag', async () => {
     );
     await endpoint.setAll(result);
 });
+
+test('setAllAbort', async () => {
+    fetchMock.mockOnceIf(req => req.method === HttpMethod.Put && req.url === 'http://localhost/endpoint', '');
+    const controller = new AbortController();
+    controller.abort();
+
+    await expect(endpoint.setAll([new MockEntity(5, 'test1')], controller.signal)).rejects.toThrow(/abort/i);
+});
+
+test('containsElement', async () => {
+    fetchMock.mockOnceIf(req => req.method === HttpMethod.Head && req.url === 'http://localhost/endpoint/5', '');
+
+    expect(await endpoint.contains(new MockEntity(5, 'test'))).toBe(true);
+});
+
+test('containsElementAbort', async () => {
+    fetchMock.mockOnceIf(req => req.method === HttpMethod.Head && req.url === 'http://localhost/endpoint/5', '');
+    const controller = new AbortController();
+    controller.abort();
+
+    await expect(endpoint.contains('5', controller.signal)).rejects.toThrow(/abort/i);
+});
+
+test('setElement', async () => {
+    fetchMock.mockOnceIf(
+        req => req.method === HttpMethod.Put && req.url === 'http://localhost/endpoint/5',
+        async req => {
+            expect(await req.text()).toBe('{"id":5,"name":"test"}');
+            return {};
+        }
+    );
+
+    await endpoint.set(new MockEntity(5, 'test'));
+});
+
+test('setElementAbort', async () => {
+    fetchMock.mockOnceIf(req => req.method === HttpMethod.Put && req.url === 'http://localhost/endpoint/5', '');
+    const controller = new AbortController();
+    controller.abort();
+
+    await expect(endpoint.set(new MockEntity(5, 'test'), controller.signal)).rejects.toThrow(/abort/i);
+});
+
+test('mergeElementAbort', async () => {
+    fetchMock.mockOnceIf(req => req.method === HttpMethod.Patch && req.url === 'http://localhost/endpoint/5', '');
+    const controller = new AbortController();
+    controller.abort();
+
+    await expect(endpoint.merge(new MockEntity(5, 'test'), controller.signal)).rejects.toThrow(/abort/i);
+});
+
+test('deleteElement', async () => {
+    fetchMock.mockOnceIf(req => req.method === HttpMethod.Delete && req.url === 'http://localhost/endpoint/5', '');
+
+    await endpoint.delete('5');
+});
+
+test('deleteElementAbort', async () => {
+    fetchMock.mockOnceIf(req => req.method === HttpMethod.Delete && req.url === 'http://localhost/endpoint/5', '');
+    const controller = new AbortController();
+    controller.abort();
+
+    await expect(endpoint.delete(new MockEntity(5, 'test'), controller.signal)).rejects.toThrow(/abort/i);
+});
