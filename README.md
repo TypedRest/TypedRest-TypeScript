@@ -61,6 +61,20 @@ const note: Note = await smith.note.read();
 await smith.delete();
 ```
 
+## Use it with TanStack Query
+
+The companion package [`typedrest-tanstack-query`](query/) turns endpoints into [TanStack Query](https://tanstack.com/query) options for React, Solid, Vue, Svelte and Angular. Query keys follow the endpoint tree, so changing a contact refreshes the contact list too:
+
+```typescript
+const client = useClient();
+const contact = client.contacts.get(id);
+
+const query = useQuery(readQuery(contact));  // data: Contact
+const save = useMutation(setMutation(contact, {basedOn: versionOf(query.data)}));  // mutate(contact: Contact)
+```
+
+Edit forms save against the version they started from, so a `ConcurrencyError` tells the user when someone else changed the data in the meantime. See the [package README](query/README.md) for details.
+
 ## Learn more
 
 Read a more detailed **[Introduction](https://typedrest.net/introduction/)** to TypedRest or jump right in with the **[setup guide](https://typedrest.net/setup/typescript/)**.  

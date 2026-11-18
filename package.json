@@ -90,5 +90,8 @@
   },
   "dependencies": {
     "url-template": "^2.0.8"
-  }
+  },
+  "workspaces": [
+    "query"
+  ]
 }
