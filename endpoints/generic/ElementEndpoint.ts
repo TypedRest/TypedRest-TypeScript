@@ -2,6 +2,7 @@ import { ETagEndpointBase } from "./ETagEndpointBase";
 import { Endpoint } from "../Endpoint";
 import { HttpMethod, HttpHeader, HttpStatusCode } from "../../http";
 import { ConcurrencyError } from "../../errors";
+import { delay } from "../reactive/Delay";
 
 /**
  * Endpoint for an individual resource.
@@ -134,6 +135,8 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
             } catch (err) {
                 if (retryCounter++ >= maxRetries || !(err instanceof ConcurrencyError))
                     throw err;
+                if (err.retryAfter) await delay(err.retryAfter, signal);
+                signal?.throwIfAborted();
             }
         }
     }

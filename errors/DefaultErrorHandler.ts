@@ -1,6 +1,6 @@
 import { ErrorHandler } from "./ErrorHandler";
 import { HttpError, BadRequestError, AuthenticationError, AuthorizationError, NotFoundError, TimeoutError, ConflictError, ConcurrencyError, RangeNotSatisfiableError } from "./Errors";
-import { HttpStatusCode, HttpHeader } from "../http";
+import { HttpStatusCode, HttpHeader, retryAfter } from "../http";
 
 /**
  * Handles errors in HTTP responses by mapping status codes to common error types.
@@ -36,10 +36,11 @@ export class DefaultErrorHandler implements ErrorHandler {
         throw new errorType(
             jsonBody?.message ?? jsonBody?.details ?? `HTTP ${response.status} ${response.statusText}`,
             response.status,
-            jsonBody);
+            jsonBody,
+            retryAfter(response));
     }
 
-    private static errorType(status: HttpStatusCode): new (message: string, status: HttpStatusCode, data?: any) => Error {
+    private static errorType(status: HttpStatusCode): new (message: string, status: HttpStatusCode, data?: any, retryAfter?: number) => Error {
         switch (status) {
             case HttpStatusCode.BadRequest:
                 return BadRequestError;

@@ -9,8 +9,9 @@ export class HttpError extends Error {
      * @param message The error message.
      * @param status The HTTP status code.
      * @param data Additional error data.
+     * @param retryAfter The time in milliseconds the server asked clients to wait before retrying, as specified by the {@link http!HttpHeader.RetryAfter} header.
      */
-    constructor(message: string, public status: HttpStatusCode, public data?: any) {
+    constructor(message: string, public status: HttpStatusCode, public data?: any, public retryAfter?: number) {
         super(message);
     }
 }

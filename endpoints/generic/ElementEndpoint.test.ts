@@ -241,6 +241,38 @@ test('updateRetry', async () => {
     await endpoint.update(x => x.name = 'testX');
 });
 
+test('updateRetryAfter', async () => {
+    vi.useFakeTimers();
+    try {
+        const entityResponse = (etag: string) => ({
+            headers: { [HttpHeader.ContentType]: 'application/json', [HttpHeader.ETag]: etag },
+            body: '{"id":5,"name":"test"}'
+        });
+        fetchMock.mockOnceIf(
+            req => req.method === HttpMethod.Get,
+            async () => entityResponse('"1"')
+        ).mockOnceIf(
+            req => req.method === HttpMethod.Put,
+            async () => ({ status: HttpStatusCode.PreconditionFailed, headers: { [HttpHeader.RetryAfter]: '42' } })
+        ).mockOnceIf(
+            req => req.method === HttpMethod.Get,
+            async () => entityResponse('"2"')
+        ).mockOnceIf(
+            req => req.method === HttpMethod.Put,
+            async () => ({})
+        );
+
+        const update = endpoint.update(x => x.name = 'testX');
+        await vi.advanceTimersByTimeAsync(41_000);
+        expect(fetchMock.mock.calls.length).toBe(2);
+        await vi.advanceTimersByTimeAsync(1_000);
+        await update;
+        expect(fetchMock.mock.calls.length).toBe(4);
+    } finally {
+        vi.useRealTimers();
+    }
+});
+
 test('updateFail', async () => {
     fetchMock.mockOnceIf(
         req => req.method === HttpMethod.Get && req.url === 'http://localhost/endpoint',
