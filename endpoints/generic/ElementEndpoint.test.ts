@@ -1,6 +1,6 @@
 import { ElementEndpoint } from '.';
 import { EntryEndpoint } from '..';
-import { HttpStatusCode, HttpMethod, HttpHeader } from '../../http';
+import { HttpStatusCode, HttpMethod, HttpHeader, ResponseCache } from '../../http';
 import { ConcurrencyError } from '../../errors';
 
 class MockEntity {
@@ -194,6 +194,65 @@ test('setETag', async () => {
         }
     );
     await endpoint.set(result);
+});
+
+async function readTwice() {
+    fetchMock.mockOnceIf(
+        'http://localhost/endpoint',
+        '{"id":5,"name":"test"}',
+        { headers: { [HttpHeader.ContentType]: 'application/json', [HttpHeader.ETag]: '"v1"' } }
+    );
+    const entity = await endpoint.read();
+    const basedOn = endpoint.responseCache;
+
+    // Someone else changed the entity and it was read again in the background
+    fetchMock.mockOnceIf(
+        'http://localhost/endpoint',
+        '{"id":5,"name":"changed"}',
+        { headers: { [HttpHeader.ContentType]: 'application/json', [HttpHeader.ETag]: '"v2"' } }
+    );
+    await endpoint.read();
+
+    return { entity, basedOn };
+}
+
+test('setBasedOn', async () => {
+    const { entity, basedOn } = await readTwice();
+
+    fetchMock.mockOnceIf(
+        req => req.method === HttpMethod.Put && req.url === 'http://localhost/endpoint',
+        async req => {
+            expect(req.headers.get(HttpHeader.IfMatch)).toBe('"v1"');
+            return { status: HttpStatusCode.PreconditionFailed };
+        }
+    );
+    await expect(endpoint.set(entity, undefined, basedOn)).rejects.toBeInstanceOf(ConcurrencyError);
+});
+
+test('setBasedOnWithoutETag', async () => {
+    await readTwice();
+
+    fetchMock.mockOnceIf(
+        req => req.method === HttpMethod.Put && req.url === 'http://localhost/endpoint',
+        async req => {
+            expect(req.headers.has(HttpHeader.IfMatch)).toBe(false);
+            return {};
+        }
+    );
+    await endpoint.set(new MockEntity(5, 'test'), undefined, new ResponseCache('{"id":5,"name":"test"}'));
+});
+
+test('deleteBasedOn', async () => {
+    const { basedOn } = await readTwice();
+
+    fetchMock.mockOnceIf(
+        req => req.method === HttpMethod.Delete && req.url === 'http://localhost/endpoint',
+        async req => {
+            expect(req.headers.get(HttpHeader.IfMatch)).toBe('"v1"');
+            return {};
+        }
+    );
+    await endpoint.delete(undefined, basedOn);
 });
 
 test('updateRetry', async () => {

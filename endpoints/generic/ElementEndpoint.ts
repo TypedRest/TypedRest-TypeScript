@@ -1,6 +1,6 @@
 import { ETagEndpointBase } from "./ETagEndpointBase";
 import { Endpoint } from "../Endpoint";
-import { HttpMethod, HttpHeader, HttpStatusCode } from "../../http";
+import { HttpMethod, HttpHeader, HttpStatusCode, ResponseCache } from "../../http";
 import { ConcurrencyError } from "../../errors";
 import { delay } from "../reactive/Delay";
 
@@ -66,16 +66,17 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
      * Sets/replaces the `TEntity`.
      * @param entity The new `TEntity`.
      * @param signal Used to cancel the request.
+     * @param basedOn The version the change is based on, captured from {@link responseCache} when editing started. Prevents lost updates even if the entity was read again in the meantime. Leave unspecified to use the version from the most recent request.
      * @returns The `TEntity` as returned by the server, possibly with additional fields set. undefined if the server does not respond with a result entity.
-     * @throws {@link errors!ConcurrencyError}: The entity has changed since it was last retrieved with {@link read}. Your changes were rejected to prevent a lost update.
+     * @throws {@link errors!ConcurrencyError}: The entity has changed since it was last retrieved with {@link read} (or since `basedOn`). Your changes were rejected to prevent a lost update.
      * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
      * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
      * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
      * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
      * @throws {@link errors!HttpError}: Other non-success status code
      */
-    async set(entity: TEntity, signal?: AbortSignal): Promise<(TEntity | undefined)> {
-        const response = await this.putContent(entity, signal);
+    async set(entity: TEntity, signal?: AbortSignal, basedOn?: ResponseCache): Promise<(TEntity | undefined)> {
+        const response = await this.putContent(entity, signal, basedOn);
         const text = await response.text();
         if (text) {
             return this.serializer.deserialize<TEntity>(text);
@@ -151,13 +152,14 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
     /**
      * Deletes the element.
      * @param signal Used to cancel the request.
-     * @throws {@link errors!ConcurrencyError}: The entity has changed since it was last retrieved with {@link read}. Your changes were rejected to prevent a lost update.
+     * @param basedOn The version the deletion is based on, captured from {@link responseCache} when the user decided to delete. Leave unspecified to use the version from the most recent request.
+     * @throws {@link errors!ConcurrencyError}: The entity has changed since it was last retrieved with {@link read} (or since `basedOn`). Your changes were rejected to prevent a lost update.
      * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
      * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
      * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
      * @throws {@link errors!HttpError}: Other non-success status code
      */
-    async delete(signal?: AbortSignal) {
-        await this.deleteContent(signal);
+    async delete(signal?: AbortSignal, basedOn?: ResponseCache) {
+        await this.deleteContent(signal, basedOn);
     }
 }

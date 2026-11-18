@@ -1,6 +1,6 @@
 import { CollectionEndpoint } from '.';
 import { EntryEndpoint } from '..';
-import { HttpHeader, HttpStatusCode, HttpMethod } from '../../http';
+import { HttpHeader, HttpStatusCode, HttpMethod, ResponseCache } from '../../http';
 
 class MockEntity {
     constructor(public id: number, public name: string) { }
@@ -210,6 +210,42 @@ test('setAllETag', async () => {
         }
     );
     await endpoint.setAll(result);
+});
+
+test('setAllBasedOn', async () => {
+    fetchMock.mockOnceIf(
+        req => req.method === HttpMethod.Put && req.url === 'http://localhost/endpoint',
+        async req => {
+            expect(req.headers.get(HttpHeader.IfMatch)).toBe('"v1"');
+            return {};
+        }
+    );
+
+    await endpoint.setAll([new MockEntity(5, 'test1')], undefined, new ResponseCache('[]', 'application/json', '"v1"'));
+});
+
+test('setElementBasedOn', async () => {
+    fetchMock.mockOnceIf(
+        req => req.method === HttpMethod.Put && req.url === 'http://localhost/endpoint/5',
+        async req => {
+            expect(req.headers.get(HttpHeader.IfMatch)).toBe('"v1"');
+            return {};
+        }
+    );
+
+    await endpoint.set(new MockEntity(5, 'test'), undefined, new ResponseCache('{}', 'application/json', '"v1"'));
+});
+
+test('deleteElementBasedOn', async () => {
+    fetchMock.mockOnceIf(
+        req => req.method === HttpMethod.Delete && req.url === 'http://localhost/endpoint/5',
+        async req => {
+            expect(req.headers.get(HttpHeader.IfMatch)).toBe('"v1"');
+            return {};
+        }
+    );
+
+    await endpoint.delete('5', undefined, new ResponseCache('{}', 'application/json', '"v1"'));
 });
 
 test('setAllAbort', async () => {

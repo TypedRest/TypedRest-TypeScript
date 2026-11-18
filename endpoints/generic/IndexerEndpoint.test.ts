@@ -1,6 +1,6 @@
 import { IndexerEndpoint, ElementEndpoint } from '.';
 import { EntryEndpoint } from '..';
-import { HttpMethod, HttpStatusCode } from '../../http';
+import { HttpHeader, HttpMethod, HttpStatusCode, ResponseCache } from '../../http';
 import { StreamingEndpoint } from '../reactive';
 
 let endpoint: IndexerEndpoint<ElementEndpoint<{}>>;
@@ -41,6 +41,18 @@ test('delete', async () => {
 
     await endpoint.delete('5');
     expect(fetchMock.requests()).toHaveLength(1);
+});
+
+test('deleteBasedOn', async () => {
+    fetchMock.mockOnceIf(
+        req => req.method === HttpMethod.Delete && req.url === 'http://localhost/endpoint/5',
+        async req => {
+            expect(req.headers.get(HttpHeader.IfMatch)).toBe('"v1"');
+            return {};
+        }
+    );
+
+    await endpoint.delete('5', undefined, new ResponseCache('{}', 'application/json', '"v1"'));
 });
 
 test('deleteAbort', async () => {

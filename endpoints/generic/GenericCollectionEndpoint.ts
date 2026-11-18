@@ -189,14 +189,15 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Element
      * Replaces the entire content of the collection with new `TEntity`s.
      * @param entities The `TEntity`s to create or modify.
      * @param signal Used to cancel the request.
-     * @throws {@link errors!ConcurrencyError}: The collection has changed since it was last retrieved with {@link readAll}. Your changes were rejected to prevent a lost update.
+     * @param basedOn The version the change is based on, captured from {@link responseCache} when editing started. Leave unspecified to use the version from the most recent request.
+     * @throws {@link errors!ConcurrencyError}: The collection has changed since it was last retrieved with {@link readAll} (or since `basedOn`). Your changes were rejected to prevent a lost update.
      * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
      * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
      * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
      * @throws {@link errors!ConflictError}: {@link http!HttpStatusCode.Conflict}
      * @throws {@link errors!HttpError}: Other non-success status code
      */
-    async setAll(entities: TEntity[], signal?: AbortSignal) { await this.putContent(entities, signal); }
+    async setAll(entities: TEntity[], signal?: AbortSignal, basedOn?: ResponseCache) { await this.putContent(entities, signal, basedOn); }
 
     /**
      * Determines whether the collection contains a specific element.
@@ -212,14 +213,16 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Element
      * Sets/replaces an existing element in the collection.
      * @param element The new state of the element.
      * @param signal Used to cancel the request.
+     * @param basedOn The version the change is based on, e.g., the element endpoint's `responseCache` captured when editing started. Leave unspecified to send no precondition.
      * @returns The `TEntity` as returned by the server, possibly with additional fields set. undefined if the server does not respond with a result entity.
+     * @throws {@link errors!ConcurrencyError}: The element has changed since `basedOn`. Your changes were rejected to prevent a lost update.
      * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
      * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
      * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
      * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
      * @throws {@link errors!HttpError}: Other non-success status code
      */
-    set(element: TEntity, signal?: AbortSignal) { return this.get(element).set(element, signal); }
+    set(element: TEntity, signal?: AbortSignal, basedOn?: ResponseCache) { return this.get(element).set(element, signal, basedOn); }
 
     /**
      * Modifies an existing element in the collection by merging changes on the server-side.
@@ -238,10 +241,12 @@ export class GenericCollectionEndpoint<TEntity, TElementEndpoint extends Element
      * Deletes an existing element from the collection.
      * @param element The ID identifying the entity or an entity to extract the ID from.
      * @param signal Used to cancel the request.
+     * @param basedOn The version the deletion is based on, e.g., the element endpoint's `responseCache` captured when the user decided to delete. Leave unspecified to send no precondition.
+     * @throws {@link errors!ConcurrencyError}: The element has changed since `basedOn`. The deletion was rejected to prevent a lost update.
      * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
      * @throws {@link errors!AuthorizationError}: {@link http!HttpStatusCode.Forbidden}
      * @throws {@link errors!NotFoundError}: {@link http!HttpStatusCode.NotFound} or {@link http!HttpStatusCode.Gone}
      * @throws {@link errors!HttpError}: Other non-success status code
      */
-    delete(element: (TEntity | string), signal?: AbortSignal) { return this.get(element).delete(signal); }
+    delete(element: (TEntity | string), signal?: AbortSignal, basedOn?: ResponseCache) { return this.get(element).delete(signal, basedOn); }
 }
