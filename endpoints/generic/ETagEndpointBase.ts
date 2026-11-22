@@ -39,15 +39,17 @@ export class ETagEndpointBase extends Endpoint implements CachingEndpoint {
      * @throws {@link errors!HttpError}: Other non-success status code
      */
     protected async getContent(signal?: AbortSignal): Promise<string> {
+        // Keep the cache entry the request was based on, since a concurrent write may replace or discard it
+        const cached = this.responseCache;
+
         const headers = new Headers();
-        if (this.responseCache?.eTag) headers.append(HttpHeader.IfNoneMatch, this.responseCache.eTag);
+        if (cached?.eTag) headers.append(HttpHeader.IfNoneMatch, cached.eTag);
 
         const response = await this.httpClient.send(this.uri, HttpMethod.Get, signal, new Headers(headers));
-        if (response.status !== HttpStatusCode.NotModified || !this.responseCache?.content) {
-            await this.handle(response);
-            this.responseCache = await ResponseCache.from(response);
-        }
+        if (response.status === HttpStatusCode.NotModified && cached?.content) return cached.content;
 
+        await this.handle(response);
+        this.responseCache = await ResponseCache.from(response);
         return this.responseCache.content;
     }
 

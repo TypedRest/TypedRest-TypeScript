@@ -171,6 +171,42 @@ test('setNoResult', async () => {
     expect(result).toBeUndefined();
 });
 
+/**
+ * Reads the entity with ETag `"v1"`, then starts another read whose response is held back until the returned function is called.
+ */
+async function startDelayedRead(response: { body?: string; status?: number; headers?: Record<string, string>; }) {
+    fetchMock.mockOnceIf(
+        'http://localhost/endpoint',
+        '{"id":5,"name":"test"}',
+        { headers: { [HttpHeader.ContentType]: 'application/json', [HttpHeader.ETag]: '"v1"' } }
+    );
+    await endpoint.read();
+
+    let release: (() => void) | undefined;
+    fetchMock.mockOnceIf(
+        req => req.method === HttpMethod.Get && req.url === 'http://localhost/endpoint',
+        () => new Promise(resolve => { release = () => resolve(response); })
+    );
+    const read = endpoint.read();
+    await vi.waitFor(() => expect(release).toBeDefined());
+    return { read, release: release! };
+}
+
+test('readNotModifiedDuringSet', async () => {
+    const { read, release } = await startDelayedRead({ status: HttpStatusCode.NotModified });
+
+    fetchMock.mockOnceIf(
+        req => req.method === HttpMethod.Put && req.url === 'http://localhost/endpoint',
+        { body: '', headers: { [HttpHeader.ETag]: '"v2"' } }
+    );
+    await endpoint.set(new MockEntity(5, 'changed'));
+    release();
+
+    // The server confirmed the version the read was based on, even though the cache has moved on since
+    expect(await read).toEqual(new MockEntity(5, 'test'));
+    expect(endpoint.responseCache?.eTag).toBe('"v2"');
+});
+
 test('setWeakETag', async () => {
     fetchMock.mockOnceIf(
         'http://localhost/endpoint',
