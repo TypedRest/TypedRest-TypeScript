@@ -171,6 +171,25 @@ test('setNoResult', async () => {
     expect(result).toBeUndefined();
 });
 
+test('setWeakETag', async () => {
+    fetchMock.mockOnceIf(
+        'http://localhost/endpoint',
+        '{"id":5,"name":"test"}',
+        { headers: { [HttpHeader.ContentType]: 'application/json', [HttpHeader.ETag]: 'W/"v1"' } }
+    );
+    await endpoint.read();
+
+    fetchMock.mockOnceIf(
+        req => req.method === HttpMethod.Put && req.url === 'http://localhost/endpoint',
+        async req => {
+            // If-Match uses strong comparison, so a weak ETag would never match
+            expect(req.headers.has(HttpHeader.IfMatch)).toBe(false);
+            return {};
+        }
+    );
+    await endpoint.set(new MockEntity(5, 'changed'));
+});
+
 test('setETag', async () => {
     fetchMock.mockOnceIf(
         'http://localhost/endpoint',

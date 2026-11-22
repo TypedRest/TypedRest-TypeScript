@@ -21,6 +21,15 @@ export class ETagEndpointBase extends Endpoint implements CachingEndpoint {
     public responseCache?: ResponseCache;
 
     /**
+     * Returns the {@link http!HttpHeader.ETag} of {@link responseCache} for use in {@link http!HttpHeader.IfMatch}.
+     * @returns `undefined` if there is no cached ETag or if it is weak, since {@link http!HttpHeader.IfMatch} requires strong comparison (RFC 9110, section 13.1.1).
+     */
+    private get eTagToMatch() {
+        const eTag = this.responseCache?.eTag;
+        return (eTag && !eTag.startsWith("W/")) ? eTag : undefined;
+    }
+
+    /**
      * Performs an {@link http!HttpMethod.Put} request on the {@link uri} and caches the response if the server sends an {@link http!HttpHeader.ETag}.
      * @param signal Used to cancel the request.
      * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
@@ -43,7 +52,7 @@ export class ETagEndpointBase extends Endpoint implements CachingEndpoint {
     }
 
     /**
-     * Performs an {@link http!HttpMethod.Put} request on the {@link uri}. Sets {@link http!HttpHeader.IfMatch} if there is a cached {@link http!HttpHeader.ETag} to detect lost updates.
+     * Performs an {@link http!HttpMethod.Put} request on the {@link uri}. Sets {@link http!HttpHeader.IfMatch} if there is a cached strong {@link http!HttpHeader.ETag} to detect lost updates.
      * Caches the response if the server sends an {@link http!HttpHeader.ETag}, so later requests can be conditional without reading the resource again.
      * @param signal Used to cancel the request.
      * @throws {@link errors!ConcurrencyError}: The entity has changed since it was last retrieved with {@link getContent}. Your changes were rejected to prevent a lost update.
@@ -57,7 +66,8 @@ export class ETagEndpointBase extends Endpoint implements CachingEndpoint {
         const contentType = this.serializer.supportedMediaTypes[0];
         const headers = new Headers();
         headers.append(HttpHeader.ContentType, contentType)
-        if (this.responseCache?.eTag) headers.append(HttpHeader.IfMatch, this.responseCache.eTag);
+        const eTagToMatch = this.eTagToMatch;
+        if (eTagToMatch) headers.append(HttpHeader.IfMatch, eTagToMatch);
 
         this.responseCache = undefined;
         const body = this.serializer.serialize(content);
@@ -76,7 +86,7 @@ export class ETagEndpointBase extends Endpoint implements CachingEndpoint {
     }
 
     /**
-     * Performs an {@link http!HttpMethod.Delete} request on the {@link uri}. Sets {@link http!HttpHeader.IfMatch} if there is a cached {@link http!HttpHeader.ETag} to detect lost updates.
+     * Performs an {@link http!HttpMethod.Delete} request on the {@link uri}. Sets {@link http!HttpHeader.IfMatch} if there is a cached strong {@link http!HttpHeader.ETag} to detect lost updates.
      * @param signal Used to cancel the request.
      * @throws {@link errors!ConcurrencyError}: The entity has changed since it was last retrieved with {@link getContent}. Your changes were rejected to prevent a lost update.
      * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
@@ -87,7 +97,8 @@ export class ETagEndpointBase extends Endpoint implements CachingEndpoint {
      */
     protected async deleteContent(signal?: AbortSignal): Promise<Response> {
         const headers = new Headers();
-        if (this.responseCache?.eTag) headers.append(HttpHeader.IfMatch, this.responseCache.eTag);
+        const eTagToMatch = this.eTagToMatch;
+        if (eTagToMatch) headers.append(HttpHeader.IfMatch, eTagToMatch);
 
         this.responseCache = undefined;
         return this.send(HttpMethod.Delete, signal, headers);
