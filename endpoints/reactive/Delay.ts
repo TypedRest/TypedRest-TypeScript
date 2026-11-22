@@ -2,7 +2,7 @@
  * Waits for a specific amount of time.
  * @param ms The time to wait in milliseconds.
  * @param signal Used to cancel the wait.
- * @returns `true` if the time has elapsed; `false` if the wait was cancelled via the `signal`.
+ * @returns `true` if the time has elapsed; `false` if the wait was canceled via the `signal`.
  */
 export function delay(ms: number, signal?: AbortSignal): Promise<boolean> {
     return new Promise(resolve => {

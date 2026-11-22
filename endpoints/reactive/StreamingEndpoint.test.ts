@@ -18,10 +18,10 @@ beforeEach(() => {
  * Mocks a response whose body is streamed in multiple chunks.
  * @param chunks The chunks to send, in order.
  * @param close Whether to close the connection after the last chunk.
- * @returns A callback reporting whether the client has cancelled the connection.
+ * @returns A callback reporting whether the client has canceled the connection.
  */
 function mockStream(chunks: string[], close: boolean = true) {
-    let cancelled = false;
+    let canceled = false;
 
     fetchMock.mockImplementation(async (_input, init) => {
         let streamController: ReadableStreamDefaultController<Uint8Array> | undefined;
@@ -32,7 +32,7 @@ function mockStream(chunks: string[], close: boolean = true) {
                 for (const chunk of chunks) controller.enqueue(encoder.encode(chunk));
                 if (close) controller.close();
             },
-            cancel() { cancelled = true; }
+            cancel() { canceled = true; }
         });
 
         // Emulate how aborting a real request fails the response body
@@ -43,7 +43,7 @@ function mockStream(chunks: string[], close: boolean = true) {
         return new Response(body);
     });
 
-    return () => cancelled;
+    return () => canceled;
 }
 
 async function collect<T>(stream: AsyncIterable<T>) {
@@ -88,7 +88,7 @@ test('streamAsyncIterator', async () => {
 });
 
 test('streamBreak', async () => {
-    const cancelled = mockStream(['{"id":5,"name":"test1"}\n', '{"id":6,"name":"test2"}\n'], false);
+    const canceled = mockStream(['{"id":5,"name":"test1"}\n', '{"id":6,"name":"test2"}\n'], false);
     const endpoint = new StreamingEndpoint<MockEntity>(entryEndpoint, 'endpoint');
 
     const result: MockEntity[] = [];
@@ -98,7 +98,7 @@ test('streamBreak', async () => {
     }
 
     expect(result).toEqual([new MockEntity(5, 'test1')]);
-    expect(cancelled()).toBe(true);
+    expect(canceled()).toBe(true);
 });
 
 test('streamAbort', async () => {
