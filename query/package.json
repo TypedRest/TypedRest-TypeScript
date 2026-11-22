@@ -1,0 +1,73 @@
+{
+  "name": "typedrest-tanstack-query",
+  "version": "0.0.1",
+  "author": "Bastian Eicher",
+  "license": "MIT",
+  "description": "Use TypedRest endpoints with TanStack Query in React, Solid, Vue, Svelte and Angular.",
+  "keywords": [
+    "REST",
+    "client",
+    "type-safe",
+    "tanstack",
+    "react-query"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TypedRest/TypedRest-TypeScript.git",
+    "directory": "query"
+  },
+  "homepage": "https://typedrest.net",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    },
+    "./react": {
+      "types": "./react/index.d.ts",
+      "default": "./react/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "*.js",
+    "*.d.ts",
+    "react/*.js",
+    "react/*.d.ts",
+    "!*.test.*",
+    "!**/*.test.*"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.test.json --noEmit"
+  },
+  "devDependencies": {
+    "@tanstack/query-core": "5.107.2",
+    "@tanstack/react-query": "5.107.2",
+    "@tanstack/solid-query": "5.107.2",
+    "@testing-library/react": "16.3.3",
+    "@types/node": "26.6.6",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "jsdom": "31.0.1",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "solid-js": "1.9.19",
+    "typedrest": "file:..",
+    "typescript": "6.0.3",
+    "vitest": "5.1.0",
+    "vitest-fetch-mock": "0.4.5"
+  },
+  "peerDependencies": {
+    "@tanstack/query-core": "^5.89.0",
+    "react": "^18 || ^19",
+    "typedrest": "*"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  }
+}

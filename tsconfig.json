@@ -13,6 +13,7 @@
   ],
   "exclude": [
     "node_modules",
+    "query",
     "**/*.test.ts",
     "**/*.d.ts",
     "vitest.config.mts",

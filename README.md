@@ -61,6 +61,15 @@ const note: Note = await smith.note.read();
 await smith.delete();
 ```
 
+## Use it with TanStack Query
+
+The companion package [`typedrest-tanstack-query`](query/) turns endpoints into [TanStack Query](https://tanstack.com/query) options for React, Solid, Vue, Svelte and Angular. Query keys follow the endpoint tree, so changing a contact refreshes the contact list too:
+
+```typescript
+const contact = useClient().contacts.get(id);
+const query = useQuery(readQuery(contact));  // data: Contact
+```
+
 ## Learn more
 
 Read a more detailed **[Introduction](https://typedrest.net/introduction/)** to TypedRest or jump right in with the **[setup guide](https://typedrest.net/setup/typescript/)**.  

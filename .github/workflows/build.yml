@@ -32,6 +32,12 @@ jobs:
       - run: npm run build
       - run: npm run test
       - run: npm run docs
+      - name: Build TanStack Query package
+        working-directory: query
+        run: |
+          npm run build
+          npm run typecheck
+          npm run test
 
       # Release
       - name: Get tag message

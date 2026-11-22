@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["vitest/globals", "vitest-fetch-mock", "node"],
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "**/*.test.ts",
+    "typecheck/**/*.ts",
+    "test/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

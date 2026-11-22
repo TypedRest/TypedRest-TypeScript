@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "module": "commonjs",
+    "inlineSourceMap": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "noUnusedLocals": true,
+    "strict": true,
+    "types": []
+  },
+  "include": [
+    "**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "typecheck",
+    "test",
+    "**/*.test.ts",
+    "**/*.d.ts",
+    "vitest.config.mts",
+    "vitest.setup.ts"
+  ],
+  "typedocOptions": {
+    "name": "TypedRest for TanStack Query",
+    "entryPoints": ["index.ts", "react/index.ts"],
+    "out": "docs",
+    "includeVersion": true,
+    "excludePrivate": true,
+    "excludeExternals": true
+  }
+}
