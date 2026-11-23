@@ -30,7 +30,8 @@ export class ETagEndpointBase extends Endpoint implements CachingEndpoint {
     }
 
     /**
-     * Performs an {@link http!HttpMethod.Put} request on the {@link uri} and caches the response if the server sends an {@link http!HttpHeader.ETag}.
+     * Performs an {@link http!HttpMethod.Get} request on the {@link uri} and caches the response if the server sends an {@link http!HttpHeader.ETag}.
+     * Sends {@link http!HttpHeader.IfNoneMatch} if there is already a cached ETag.
      * @param signal Used to cancel the request.
      * @throws {@link errors!BadRequestError}: {@link http!HttpStatusCode.BadRequest}
      * @throws {@link errors!AuthenticationError}: {@link http!HttpStatusCode.Unauthorized}
