@@ -101,10 +101,9 @@ export class ElementEndpoint<TEntity> extends ETagEndpointBase {
      * @throws {@link errors!HttpError}: Other non-success status code
      */
     async merge(entity: Partial<TEntity>, signal?: AbortSignal): Promise<(TEntity | undefined)> {
-        this.responseCache = undefined;
-        const response = await this.send(HttpMethod.Patch, signal, {
+        const response = await this.trackWrite(() => this.send(HttpMethod.Patch, signal, {
             [HttpHeader.ContentType]: this.serializer.supportedMediaTypes[0]
-        }, this.serializer.serialize(entity));
+        }, this.serializer.serialize(entity)));
 
         const text = await response.text();
         if (text) {

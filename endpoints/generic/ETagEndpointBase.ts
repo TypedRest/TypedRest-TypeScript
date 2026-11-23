@@ -20,6 +20,42 @@ export class ETagEndpointBase extends Endpoint implements CachingEndpoint {
      */
     public responseCache?: ResponseCache;
 
+    // Track writes, so responses to requests that overlap a write do not cache outdated content.
+    private writesInProgress = 0;
+    private finishedWrites = 0;
+
+    private startWrite() {
+        this.responseCache = undefined;
+        this.writesInProgress++;
+        return this.finishedWrites;
+    }
+
+    private endWrite(finishedWrites: number, cache?: ResponseCache) {
+        this.writesInProgress--;
+        if (cache && this.writesInProgress === 0 && this.finishedWrites === finishedWrites)
+            this.responseCache = cache;
+        this.finishedWrites++;
+    }
+
+    private storeResponseCache(cache: ResponseCache, finishedWrites: number) {
+        if (this.writesInProgress === 0 && this.finishedWrites === finishedWrites)
+            this.responseCache = cache;
+    }
+
+    /**
+     * Sends a request that modifies the resource and discards {@link responseCache}.
+     * @param request Sends the request.
+     * @returns The result of `request`.
+     */
+    protected async trackWrite<T>(request: () => Promise<T>): Promise<T> {
+        const finishedWrites = this.startWrite();
+        try {
+            return await request();
+        } finally {
+            this.endWrite(finishedWrites);
+        }
+    }
+
     /**
      * Returns the {@link http!HttpHeader.ETag} of {@link responseCache} for use in {@link http!HttpHeader.IfMatch}.
      * @returns `undefined` if there is no cached ETag or if it is weak, since {@link http!HttpHeader.IfMatch} requires strong comparison (RFC 9110, section 13.1.1).
@@ -42,6 +78,7 @@ export class ETagEndpointBase extends Endpoint implements CachingEndpoint {
     protected async getContent(signal?: AbortSignal): Promise<string> {
         // Keep the cache entry the request was based on, since a concurrent write may replace or discard it
         const cached = this.responseCache;
+        const finishedWrites = this.finishedWrites;
 
         const headers = new Headers();
         if (cached?.eTag) headers.append(HttpHeader.IfNoneMatch, cached.eTag);
@@ -50,8 +87,9 @@ export class ETagEndpointBase extends Endpoint implements CachingEndpoint {
         if (response.status === HttpStatusCode.NotModified && cached?.content) return cached.content;
 
         await this.handle(response);
-        this.responseCache = await ResponseCache.from(response);
-        return this.responseCache.content;
+        const cache = await ResponseCache.from(response);
+        this.storeResponseCache(cache, finishedWrites);
+        return cache.content;
     }
 
     /**
@@ -72,20 +110,25 @@ export class ETagEndpointBase extends Endpoint implements CachingEndpoint {
         const eTagToMatch = this.eTagToMatch;
         if (eTagToMatch) headers.append(HttpHeader.IfMatch, eTagToMatch);
 
-        this.responseCache = undefined;
-        const body = this.serializer.serialize(content);
-        const response = await this.send(HttpMethod.Put, signal, headers, body);
+        const finishedWrites = this.startWrite();
+        let cache: ResponseCache | undefined;
+        try {
+            const body = this.serializer.serialize(content);
+            const response = await this.send(HttpMethod.Put, signal, headers, body);
 
-        const eTag = response.headers.get(HttpHeader.ETag);
-        if (eTag) {
-            // Cache the response body if there is one. Otherwise cache the request body, since the ETag in a PUT response describes the representation that was sent (RFC 9110, section 9.3.4).
-            const responseBody = await response.clone().text();
-            this.responseCache = responseBody
-                ? new ResponseCache(responseBody, response.headers.get(HttpHeader.ContentType) ?? undefined, eTag)
-                : new ResponseCache(body, contentType, eTag);
+            const eTag = response.headers.get(HttpHeader.ETag);
+            if (eTag) {
+                // Cache the response body if there is one. Otherwise cache the request body, since the ETag in a PUT response describes the representation that was sent (RFC 9110, section 9.3.4).
+                const responseBody = await response.clone().text();
+                cache = responseBody
+                    ? new ResponseCache(responseBody, response.headers.get(HttpHeader.ContentType) ?? undefined, eTag)
+                    : new ResponseCache(body, contentType, eTag);
+            }
+
+            return response;
+        } finally {
+            this.endWrite(finishedWrites, cache);
         }
-
-        return response;
     }
 
     /**
@@ -103,7 +146,6 @@ export class ETagEndpointBase extends Endpoint implements CachingEndpoint {
         const eTagToMatch = this.eTagToMatch;
         if (eTagToMatch) headers.append(HttpHeader.IfMatch, eTagToMatch);
 
-        this.responseCache = undefined;
-        return this.send(HttpMethod.Delete, signal, headers);
+        return this.trackWrite(() => this.send(HttpMethod.Delete, signal, headers));
     }
 }

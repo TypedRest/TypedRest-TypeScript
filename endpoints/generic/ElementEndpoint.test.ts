@@ -192,6 +192,20 @@ async function startDelayedRead(response: { body?: string; status?: number; head
     return { read, release: release! };
 }
 
+/**
+ * Checks which ETag the next write sends to detect lost updates.
+ */
+async function expectNextSetIfMatch(eTag: string) {
+    fetchMock.mockOnceIf(
+        req => req.method === HttpMethod.Put && req.url === 'http://localhost/endpoint',
+        async req => {
+            expect(req.headers.get(HttpHeader.IfMatch)).toBe(eTag);
+            return { status: HttpStatusCode.NoContent };
+        }
+    );
+    await endpoint.set(new MockEntity(5, 'next'));
+}
+
 test('readNotModifiedDuringSet', async () => {
     const { read, release } = await startDelayedRead({ status: HttpStatusCode.NotModified });
 
@@ -204,7 +218,25 @@ test('readNotModifiedDuringSet', async () => {
 
     // The server confirmed the version the read was based on, even though the cache has moved on since
     expect(await read).toEqual(new MockEntity(5, 'test'));
-    expect(endpoint.responseCache?.eTag).toBe('"v2"');
+    await expectNextSetIfMatch('"v2"');
+});
+
+test('readOutdatedDuringSet', async () => {
+    const { read, release } = await startDelayedRead({
+        body: '{"id":5,"name":"outdated"}',
+        headers: { [HttpHeader.ContentType]: 'application/json', [HttpHeader.ETag]: '"v1b"' }
+    });
+
+    fetchMock.mockOnceIf(
+        req => req.method === HttpMethod.Put && req.url === 'http://localhost/endpoint',
+        { body: '', headers: { [HttpHeader.ETag]: '"v2"' } }
+    );
+    await endpoint.set(new MockEntity(5, 'changed'));
+    release();
+
+    // The response is returned, but does not replace the version from the newer write
+    expect(await read).toEqual(new MockEntity(5, 'outdated'));
+    await expectNextSetIfMatch('"v2"');
 });
 
 test('setWeakETag', async () => {
