@@ -81,11 +81,11 @@
     "docs": "typedoc"
   },
   "devDependencies": {
-    "@types/node": "26.6.7",
+    "@types/node": "26.6.11",
     "@types/url-template": "2.0.31",
     "typedoc": "0.28.20",
     "typescript": "6.0.3",
-    "vitest": "5.1.1",
+    "vitest": "5.1.2",
     "vitest-fetch-mock": "0.4.5"
   },
   "dependencies": {
